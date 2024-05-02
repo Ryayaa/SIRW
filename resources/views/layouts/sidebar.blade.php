@@ -26,7 +26,13 @@
                 <i class="nav-icon far fa-address-card"></i>
                 <p>Kelola Warga</p>
             </a>
-        </li>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/penerima') }}" class="nav-link {{ $activeMenu == 'penerima' ? 'active' : '' }} ">
+                <i class="nav-icon far fa fa-file-medical"></i>
+                <p>Penerima Bansos</p>
+            </a>
+          </li>
           {{-- <li class="nav-header">Data Pengguna</li>
           <li class="nav-item">
               <a href="{{ url('/level') }}" class="nav-link {{ $activeMenu == 'level' ? 'active' : '' }} ">

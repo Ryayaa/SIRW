@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PenerimaBansosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\WelcomeController;
@@ -17,7 +18,16 @@ Route::group(['prefix' => 'warga'], function () {
     Route::delete('/{id}', [WargaController::class, 'destroy']); // Menghapus data warga
 });
 
-
+Route::group(['prefix' => 'penerima'], function () {
+    Route::get('/', [PenerimaBansosController::class, 'index'])->name('penerima.index'); // Menampilkan data warga
+    Route::post('/list', [PenerimaBansosController::class, 'list'])->name('penerima.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
+    Route::get('/create', [PenerimaBansosController::class, 'create'])->name('penerima.create'); // Menampilkan form tambah warga
+    Route::post('/', [PenerimaBansosController::class, 'store'])->name('penerima.store'); // Menyimpan data warga
+    Route::get('/{id}', [PenerimaBansosController::class, 'show']); // Menampilkan detail warga
+    Route::get('/{id}/edit', [PenerimaBansosController::class, 'edit']); // Menampilkan form edit warga
+    Route::put('/{id}', [PenerimaBansosController::class, 'update']); // Mengupdate data warga
+    Route::delete('/{id}', [PenerimaBansosController::class, 'destroy']); // Menghapus data warga
+});
 
 
 // Route::get('/', function () {
