@@ -1,18 +1,25 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WargaController;
+use App\Http\Controllers\WelcomeController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+Route::get('/',[WelcomeController::class,'index']);
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => 'warga'], function () {
+    Route::get('/', [WargaController::class, 'index'])->name('warga.index'); // Menampilkan data warga
+    Route::post('/list', [WargaController::class, 'list'])->name('warga.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
+    Route::get('/create', [WargaController::class, 'create'])->name('warga.store'); // Menampilkan form tambah warga
+    Route::post('/', [WargaController::class, 'store']); // Menyimpan data warga
+    Route::get('/{id}', [WargaController::class, 'show']); // Menampilkan detail warga
+    Route::get('/{id}/edit', [WargaController::class, 'edit']); // Menampilkan form edit warga
+    Route::put('/{id}', [WargaController::class, 'update']); // Mengupdate data warga
+    Route::delete('/{id}', [WargaController::class, 'destroy']); // Menghapus data warga
 });
+
+
+
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
