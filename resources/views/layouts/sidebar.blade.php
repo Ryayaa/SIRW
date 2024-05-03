@@ -27,6 +27,12 @@
                 <p>Kelola Warga</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ url('/bansos') }}" class="nav-link {{ $activeMenu == 'bansos' ? 'active' : '' }}">
+                <i class="nav-icon fas fa-hand-holding-usd"></i>
+                <p>Kelola Bansos</p>
+            </a>
+        </li>
           {{-- <li class="nav-header">Data Pengguna</li>
           <li class="nav-item">
               <a href="{{ url('/level') }}" class="nav-link {{ $activeMenu == 'level' ? 'active' : '' }} ">

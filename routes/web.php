@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BansosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\WelcomeController;
@@ -17,6 +18,20 @@ Route::group(['prefix' => 'warga'], function () {
     Route::delete('/{id}', [WargaController::class, 'destroy']); // Menghapus data warga
 });
 
+// Bansos Routes
+Route::group(['prefix' => 'bansos'], function () {
+    Route::get('/', [BansosController::class, 'index'])->name('bansos.index');
+    Route::get('/list', [BansosController::class, 'list'])->name('bansos.list'); 
+    Route::get('/create', [BansosController::class, 'create'])->name('bansos.create');
+    Route::post('/', [BansosController::class, 'store'])->name('bansos.store');
+    Route::get('/{id}', [BansosController::class, 'show'])->name('bansos.show');
+    Route::get('/{id}/edit', [BansosController::class, 'edit'])->name('bansos.edit'); 
+    Route::put('/{id}', [BansosController::class, 'update'])->name('bansos.update'); 
+    Route::delete('/{id}', [BansosController::class, 'destroy'])->name('bansos.destroy');
+});
+
+// Add this if you haven't already defined it in your ServiceProvider
+Route::pattern('id', '[0-9]+');
 
 
 
