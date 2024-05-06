@@ -1,10 +1,7 @@
 <?php
 
-<<<<<<< HEAD
 use App\Http\Controllers\BansosController;
-=======
 use App\Http\Controllers\PenerimaBansosController;
->>>>>>> c6088fc3718eb3214c96976a7b6f74c510d19462
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\WelcomeController;
@@ -22,7 +19,6 @@ Route::group(['prefix' => 'warga'], function () {
     Route::delete('/{id}', [WargaController::class, 'destroy']); // Menghapus data warga
 });
 
-<<<<<<< HEAD
 // Bansos Routes
 Route::group(['prefix' => 'bansos'], function () {
     Route::get('/', [BansosController::class, 'index'])->name('bansos.index');
@@ -35,10 +31,6 @@ Route::group(['prefix' => 'bansos'], function () {
     Route::delete('/{id}', [BansosController::class, 'destroy'])->name('bansos.destroy');
 });
 
-// Add this if you haven't already defined it in your ServiceProvider
-Route::pattern('id', '[0-9]+');
-
-=======
 Route::group(['prefix' => 'penerima'], function () {
     Route::get('/', [PenerimaBansosController::class, 'index'])->name('penerima.index'); // Menampilkan data warga
     Route::post('/list', [PenerimaBansosController::class, 'list'])->name('penerima.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
@@ -49,7 +41,6 @@ Route::group(['prefix' => 'penerima'], function () {
     Route::put('/{id}', [PenerimaBansosController::class, 'update']); // Mengupdate data warga
     Route::delete('/{id}', [PenerimaBansosController::class, 'destroy']); // Menghapus data warga
 });
->>>>>>> c6088fc3718eb3214c96976a7b6f74c510d19462
 
 
 // Route::get('/', function () {
