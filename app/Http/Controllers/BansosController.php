@@ -99,11 +99,13 @@ class BansosController extends Controller
     }
 
     public function destroy($id)
-    {
-        $bansos = Bansos::findOrFail($id);
-        
-        $bansos->delete();
+{
+    $bansos = Bansos::findOrFail($id);
 
+    if ($bansos->delete()) {
         return redirect()->route('bansos.index')->with('success', 'Bansos successfully deleted.');
+    } else {
+        return redirect()->route('bansos.index')->with('error', 'Failed to delete Bansos.');
     }
+}
 }
