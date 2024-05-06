@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BansosController;
 use App\Http\Controllers\PenerimaBansosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WargaController;
@@ -28,6 +29,18 @@ Route::group(['prefix' => 'warga'], function () {
     Route::get('/{id}/edit', [WargaController::class, 'edit']); // Menampilkan form edit warga
     Route::put('/{id}', [WargaController::class, 'update']); // Mengupdate data warga
     Route::delete('/{id}', [WargaController::class, 'destroy']); // Menghapus data warga
+});
+
+// Bansos Routes
+Route::group(['prefix' => 'bansos'], function () {
+    Route::get('/', [BansosController::class, 'index'])->name('bansos.index');
+    Route::post('/list', [BansosController::class, 'list'])->name('bansos.list'); 
+    Route::get('/create', [BansosController::class, 'create'])->name('bansos.create');
+    Route::post('/', [BansosController::class, 'store'])->name('bansos.store');
+    Route::get('/{id}', [BansosController::class, 'show'])->name('bansos.show');
+    Route::get('/{id}/edit', [BansosController::class, 'edit'])->name('bansos.edit'); 
+    Route::put('/{id}', [BansosController::class, 'update'])->name('bansos.update'); 
+    Route::delete('/{id}', [BansosController::class, 'destroy'])->name('bansos.destroy');
 });
 
 Route::group(['prefix' => 'penerima'], function () {
