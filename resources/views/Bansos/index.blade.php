@@ -37,7 +37,7 @@
 <script>
     $(document).ready(function() {
         // Set a base URL variable using Blade to output the base path
-        var baseUrl = "{{ url('storage') }}/";
+        var baseUrl = "{{ url('images') }}/";
 
         var dataTable = $('#table_bansos').DataTable({
             serverSide: true,

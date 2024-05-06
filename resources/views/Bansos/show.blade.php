@@ -27,7 +27,7 @@
                     </tr>
                     <tr>
                         <th>Gambar</th>
-                        <td><img src="{{ asset('storage/'.$bansos->gambar) }}" alt="{{ $bansos->nama_bansos }}" width="100"></td>
+                        <td><img src="{{ asset('images/'.$bansos->gambar) }}" alt="{{ $bansos->nama_bansos }}" width="100"></td>
                     </tr>
                 </table>
             @endempty
