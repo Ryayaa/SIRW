@@ -11,6 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Main CSS -->
     <link href="{{asset('assets/css/main.css')}}" rel="stylesheet">
+    @stack('css')
 </head>
 
 <body>
@@ -66,7 +67,7 @@
     <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <!-- Main JS -->
     <script src="{{asset('assets/js/login.js')}}"></script>
-
+@stack('js')
 </body>
 
 </html>

@@ -38,6 +38,7 @@
 
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
+    @stack('css')
 </head>
 
 
@@ -61,7 +62,7 @@
 
     <!-- ======= Hero Section ======= -->
     <main id="main">
-        @include("main")
+        @include('main')
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->
@@ -84,7 +85,7 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
-
+@stack('js')
 </body>
 
 </html>
