@@ -23,23 +23,30 @@
                     <div class="card">
                         <div class="card-body">
                             <h2 class="text-center mb-5">Sign in</h2>
-                            <form>
+                            <form action="#">
+                                @csrf
                                 <div class="mb-4">
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                        <input type="text" class="form-control form-control-lg" placeholder="Username" />
+                                        <input type="text" class="form-control form-control-lg @error('nik') is-invalid @enderror" name="nik" value="{{ old('nik') }}" placeholder="NIK" autofocus required/>
                                     </div>
+                                    @error('nik')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
-
                                 <div class="mb-4">
+
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="bi bi-three-dots"></i></span>
-                                        <input id="passwordInput" type="password" class="form-control form-control-lg"
-                                            placeholder="Password" />
+                                        <input id="passwordInput" type="password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password"
+                                            placeholder="Password" required autofocus/>
                                         <button id="togglePassword" class="btn" type="button">
                                             <i class="bi bi-eye"></i>
                                         </button>
                                     </div>
+
                                 </div>
 
                                 <div class="form-check d-flex justify-content-end mb-4">
