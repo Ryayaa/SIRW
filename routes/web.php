@@ -7,6 +7,18 @@ use App\Http\Controllers\WelcomeController;
 
 Route::get('/',[WelcomeController::class,'index']);
 
+Andreagazy/Landing
+Route::get('/index', function () {
+    return view('index');
+});
+Route::get('/', function () {
+    return view('welcome');
+});
+Route::get('/login', function () {
+    return view('login');
+});
+
+=======
 Route::group(['prefix' => 'warga'], function () {
     Route::get('/', [WargaController::class, 'index'])->name('warga.index'); // Menampilkan data warga
     Route::post('/list', [WargaController::class, 'list'])->name('warga.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
@@ -33,3 +45,4 @@ Route::group(['prefix' => 'penerima'], function () {
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+main
