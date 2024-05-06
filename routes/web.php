@@ -22,7 +22,7 @@ Route::group(['prefix' => 'warga'], function () {
 // Bansos Routes
 Route::group(['prefix' => 'bansos'], function () {
     Route::get('/', [BansosController::class, 'index'])->name('bansos.index');
-    Route::get('/list', [BansosController::class, 'list'])->name('bansos.list'); 
+    Route::post('/list', [BansosController::class, 'list'])->name('bansos.list'); 
     Route::get('/create', [BansosController::class, 'create'])->name('bansos.create');
     Route::post('/', [BansosController::class, 'store'])->name('bansos.store');
     Route::get('/{id}', [BansosController::class, 'show'])->name('bansos.show');

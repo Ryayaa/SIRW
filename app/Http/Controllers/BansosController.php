@@ -97,4 +97,13 @@ class BansosController extends Controller
 
         return view('bansos.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'bansos' => $bansos, 'activeMenu' => $activeMenu]);
     }
+
+    public function destroy($id)
+    {
+        $bansos = Bansos::findOrFail($id);
+        
+        $bansos->delete();
+
+        return redirect()->route('bansos.index')->with('success', 'Bansos successfully deleted.');
+    }
 }
