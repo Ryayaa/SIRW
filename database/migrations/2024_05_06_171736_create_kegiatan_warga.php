@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->string('lokasi');
             $table->date('tanggal');
+            $table->time('waktu');
             $table->unsignedBigInteger('id_rt');
             $table->timestamps();
 
