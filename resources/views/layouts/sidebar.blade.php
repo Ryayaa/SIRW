@@ -45,6 +45,12 @@
                 <p>Ketua RW</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ url('/rt') }}" class="nav-link {{ ($activeMenu == 'rt') ? 'active' : '' }} ">
+                <i class="nav-icon far fa fa-user-tie"></i>
+                <p>Ketua RT</p>
+            </a>
+          </li>
       </ul>
   </nav>
 </div>

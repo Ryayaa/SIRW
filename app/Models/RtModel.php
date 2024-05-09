@@ -19,7 +19,9 @@ class RtModel extends Model
         'jenis_kelamin',
         'alamat',
         'no_telepon',
-        'id_rw',
+        'status',
+        'mulai_jabatan',
+        'akhir_jabatan'
     ];
 
     // Relationship dengan tabel rw

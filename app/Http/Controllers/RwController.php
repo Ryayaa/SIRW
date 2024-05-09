@@ -140,4 +140,44 @@ class RwController extends Controller
             'activeMenu' => $activeMenu
         ]);
     }
+
+    public function update(Request $request, string $id){
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required|min:5',
+            'nama_lengkap' => 'required|string|max:100',
+            'jenis_kelamin' => 'required|in:L,P',
+            'alamat' => 'required|string|max:255',
+            'no_telepon' => 'required',
+        ]);
+
+        RwModel::find($id)->update([
+            'username' => $request->username,
+            'nama_lengkap' => $request->nama_lengkap,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'alamat' => $request->alamat,
+            'no_telepon' => $request->no_telepon,
+            'password' => bcrypt($request->password),
+        ]);
+
+        return redirect('/rw')->with('success', 'Data RW berhasil diubah');
+    }
+
+    public function destroy(string $id){
+        $check = RwModel::find($id);
+        if (!$check){
+            return redirect('/rw')->with('error', 'Data rw tidak ditemukan');
+        }
+
+        try{
+            RwModel::destroy($id);
+
+            return redirect('/rw')->with('success', 'Data RW berhasil dihapus');
+        }catch(\Illuminate\Database\QueryException $e){
+
+            // jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
+            return redirect('/rw')->with('error', 'Data RW gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+        }
+
+    }
 }
