@@ -50,9 +50,9 @@
                                 </div>
 
                                 <div class="form-check d-flex justify-content-end mb-4">
-                                    <input class="form-check-input" type="checkbox" value="" id="rememberPassword" />
+                                    {{-- <input class="form-check-input" type="checkbox" value="" id="rememberPassword" />
                                     <label class="form-check-label ms-2" for="rememberPassword"> Remember password
-                                    </label>
+                                    </label> --}}
                                 </div>
 
                                 <div class="d-flex justify-content-between">
