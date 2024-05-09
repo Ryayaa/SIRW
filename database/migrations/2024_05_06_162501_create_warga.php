@@ -13,21 +13,21 @@ return new class extends Migration
     {
         Schema::create('warga', function (Blueprint $table) {
             $table->id('id_warga');
-            $table->string('NKK', 20);
-            $table->string('NIK', 20)->unique();
+            $table->string('nik', 16)->unique();
             $table->string('nama_lengkap', 100);
-            $table->enum('jenis_kelamin', ['L', 'P']);
-            $table->string('alamat', 255);
+            $table->date('tanggal_lahir');
+            $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan']);
+            $table->string('alamat_domisili', 255);
             $table->string('pekerjaan', 50);
-            $table->enum('status_perkawinan', ['Kawin', 'Belum Kawin'])->default('Belum Kawin');
+            $table->enum('status_perkawinan', ['Kawin', 'Belum Kawin','Cerai Mati','Cerai Hidup'])->default('Belum Kawin');
+            $table->enum('roles', ['rt', 'rw','warga','warga sementara'])->default('warga');
             $table->string('password');
+
             $table->timestamps();
 
-            $table->unsignedBigInteger('id_rt');
-            $table->unsignedBigInteger('id_kategori_warga');
-            $table->foreign('id_rt')->references('id_rt')->on('rt');
-            $table->foreign('id_kategori_warga')->references('id_kategori_warga')->on('kategori_warga');
 
+            $table->unsignedBigInteger('id_keluarga');
+            $table->foreign('id_keluarga')->references('id_keluarga')->on('keluarga');
         });
     }
 

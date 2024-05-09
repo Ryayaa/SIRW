@@ -13,15 +13,17 @@ return new class extends Migration
     {
         Schema::create('detail_penerima_bansos', function (Blueprint $table) {
             $table->id('id_detail_penerima_bansos');
-            $table->date('tanggal_diterima');
+            $table->date('periode_mulai');
+            $table->date('periode_selesai');
             $table->unsignedBigInteger('id_bansos');
             $table->unsignedBigInteger('id_penerima_bansos');
             $table->timestamps();
-            
+
             $table->foreign('id_bansos')->references('id_bansos')->on('bansos');
             $table->foreign('id_penerima_bansos')->references('id_penerima_bansos')->on('penerima_bansos');
 
         });
+
     }
 
     /**

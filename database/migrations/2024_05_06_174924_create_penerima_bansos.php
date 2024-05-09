@@ -11,28 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pengajuan_bansos', function (Blueprint $table) {
-            $table->id('id_pengajuan_bansos');
-            $table->unsignedBigInteger('id_warga_diajukan');
+        Schema::create('penerima_bansos', function (Blueprint $table) {
+            $table->id('id_penerima_bansos');
+            $table->unsignedBigInteger('id_warga');
             $table->integer('pendapatan');
             $table->integer('listrik_rumah');
             $table->string('sktm');
-            $table->string('keterangan');
-            $table->enum('status_pengajuan',['Terkonfirmasi','Belum Dikonfirmasi'])->default('Belum Dikonfirmasi');
-            $table->unsignedBigInteger('id_warga');
             $table->timestamps();
 
             $table->foreign('id_warga')->references('id_warga')->on('warga');
-            $table->foreign('id_warga_diajukan')->references('id_warga')->on('warga');
 
         });
     }
-
-    /**
+    /**}
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('pengajuan_bansos');
+        Schema::dropIfExists('penerima_bansos');
     }
 };

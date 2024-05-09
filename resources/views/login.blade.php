@@ -23,12 +23,12 @@
                     <div class="card">
                         <div class="card-body">
                             <h2 class="text-center mb-5">Sign in</h2>
-                            <form action="#">
+                            <form action="{{url('proses_login')}}" method="POST">
                                 @csrf
                                 <div class="mb-4">
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                        <input type="text" class="form-control form-control-lg @error('nik') is-invalid @enderror" name="nik" value="{{ old('nik') }}" placeholder="NIK" autofocus required/>
+                                        <input type="text"  class="form-control form-control-lg @error('nik') is-invalid @enderror" name="nik" value="{{ old('nik') }}" placeholder="NIK" autofocus required/>
                                     </div>
                                     @error('nik')
                                     <span class="invalid-feedback" role="alert">

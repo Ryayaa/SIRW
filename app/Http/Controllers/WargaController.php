@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\WargaModel;
 use App\Http\Requests\StorePostRequest;
+use App\Models\Warga;
 use Illuminate\Http\RedirectResponse;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Hash;
@@ -32,7 +33,7 @@ class WargaController extends Controller
     public function show($id)
 {
     // Mengambil data warga berdasarkan ID
-    $warga = WargaModel::findOrFail($id);
+    $warga = Warga::findOrFail($id);
 
     // Membuat objek breadcrumb
     $breadcrumb = (object) [
@@ -60,7 +61,7 @@ class WargaController extends Controller
 
     public function list(Request $request)
     {
-        $warga = WargaModel::select('id_warga', 'NKK', 'NIK', 'nama_lengkap', 'jenis_kelamin', 'alamat', 'pekerjaan', 'status_perkawinan')
+        $warga = Warga::select('id_warga', 'NKK', 'NIK', 'nama_lengkap', 'jenis_kelamin', 'alamat', 'pekerjaan', 'status_perkawinan')
             ->with('rt')
             ->with('kategoriWarga');
 
@@ -69,8 +70,8 @@ class WargaController extends Controller
         }
 
         return DataTables::of($warga)
-            ->addIndexColumn() 
-            ->addColumn('aksi', function ($warga) { 
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($warga) {
                 $btn = '<a href="' . url('/warga/' . $warga->id_warga) . '" class="btn btn-info btn-sm">Detail</a> ';
                 $btn .= '<a href="' . url('/warga/' . $warga->id_warga . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 $btn .= '<form class="d-inline-block" method="POST" action="' . url('/warga/' . $warga->id_warga) . '">'
@@ -117,7 +118,7 @@ class WargaController extends Controller
             'id_kategori_warga' => 'required|integer',
         ]);
 
-        WargaModel::create([
+        Warga::create([
             'NKK' => $request->NKK,
             'NIK' => $request->NIK,
             'nama_lengkap' => $request->nama_lengkap,
@@ -135,7 +136,7 @@ class WargaController extends Controller
 
     public function edit(string $id)
 {
-    $warga = WargaModel::find($id);
+    $warga = Warga::find($id);
 
     $breadcrumb = (object) [
         'title' => 'Edit Warga',
