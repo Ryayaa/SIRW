@@ -33,3 +33,11 @@ Route::group(['prefix' => 'penerima'], function () {
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+
+Route::get('/index', function () {
+    return view('guest.index');
+});
+Route::get('/login', function () {
+    return view('login');
+});

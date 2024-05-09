@@ -42,7 +42,7 @@
                 <li><a class="nav-link scrollto" href="#">Tamu</a></li>
                 <!-- <li><a class="nav-link scrollto" href="#"></a></li> -->
                 <li class="nav-link">
-                    <a class="btn-getstarted scrollto " href="index.html">Masuk</a>
+                    <a class="btn-getstarted scrollto " href="/login">Masuk</a>
                 </li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle d-none"></i>

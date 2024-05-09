@@ -54,7 +54,7 @@
 <body>
 
     <!-- ======= Header ======= -->
-    @include('header')
+    @include('guest.header')
     <!-- End Header -->
     {{-- @extends('hero') --}}
 
@@ -62,11 +62,11 @@
 
     <!-- ======= Hero Section ======= -->
     <main id="main">
-        @include('main')
+        @include('guest.main')
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->
-    @include('footer')
+    @include('guest.footer')
     <!-- ======= End Footer ======= -->
 
 
