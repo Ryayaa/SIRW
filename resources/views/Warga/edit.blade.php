@@ -19,9 +19,13 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Nomor Kartu Keluarga (NKK)</label>
                     <div class="col-11">
-                        <input type="text" class="form-control" id="NKK" name="NKK"
-                            value="{{ old('NKK', $warga->NKK) }}" required>
-                        @error('NKK')
+                        <select class="form-control" id="id_keluarga" name="id_keluarga" required>
+                            <option value="">- Pilih Keluarga -</option>
+                            @foreach($keluarga as $item)
+                                <option value="{{ $item->id_keluarga }}" @if($item->id_keluarga == $warga->id_keluarga) selected @endif>{{ $item->nomor_kk }}</option>
+                            @endforeach
+                        </select>
+                        @error('id_keluarga')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
                     </div>
@@ -30,7 +34,7 @@
                     <label class="col-1 control-label col-form-label">Nomor Induk Kependudukan (NIK)</label>
                     <div class="col-11">
                         <input type="text" class="form-control" id="NIK" name="NIK"
-                            value="{{ old('NIK', $warga->NIK) }}" required>
+                            value="{{ old('NIK', $warga->nik) }}" required>
                         @error('NIK')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
@@ -47,13 +51,65 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Tanggal Lahir</label>
+                    <div class="col-11">
+                        <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir"
+                            value="{{ old('tanggal_lahir', $warga->tanggal_lahir) }}" required>
+                        @error('tanggal_lahir')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Jenis Kelamin</label>
                     <div class="col-11">
                         <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
-                            <option value="L" {{ $warga->jenis_kelamin == 'L' ? 'selected' : '' }}>Laki-laki</option>
-                            <option value="P" {{ $warga->jenis_kelamin == 'P' ? 'selected' : '' }}>Perempuan</option>
+                            <option value="Laki-Laki" {{ $warga->jenis_kelamin == 'Laki-Laki' ? 'selected' : '' }}>Laki-laki</option>
+                            <option value="Perempuan" {{ $warga->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                         </select>
                         @error('jenis_kelamin')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Alamat Domisili</label>
+                    <div class="col-11">
+                        <input type="text" class="form-control" id="alamat_domisili" name="alamat_domisili"
+                            value="{{ old('alamat_domisili', $warga->alamat_domisili) }}" required>
+                        @error('alamat_domisili')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Pekerjaan</label>
+                    <div class="col-11">
+                        <input type="text" class="form-control" id="pekerjaan" name="pekerjaan"
+                            value="{{ old('pekerjaan', $warga->pekerjaan) }}" required>
+                        @error('pekerjaan')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Status Perkawinan</label>
+                    <div class="col-11">
+                        <select class="form-control" id="status_perkawinan" name="status_perkawinan" required>
+                            <option value="Kawin" {{ $warga->status_perkawinan == 'Kawin' ? 'selected' : '' }}>Kawin</option>
+                            <option value="Belum Kawin" {{ $warga->status_perkawinan == 'Belum Kawin' ? 'selected' : '' }}>Belum Kawin</option>
+                        </select>
+                        @error('status_perkawinan')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Password</label>
+                    <div class="col-11">
+                        <input type="password" class="form-control" id="password" name="password"
+                            value="{{ old('password', $warga->password) }}" required>
+                        @error('password')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
                     </div>

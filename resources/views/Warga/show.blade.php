@@ -19,23 +19,27 @@
                     </tr>
                     <tr>
                         <th>NKK</th>
-                        <td>{{ $warga->NKK }}</td>
+                        <td>{{ $warga->keluarga->nomor_kk }}</td>
                     </tr>
                     <tr>
                         <th>NIK</th>
-                        <td>{{ $warga->NIK }}</td>
+                        <td>{{ $warga->nik }}</td>
                     </tr>
                     <tr>
                         <th>Nama Lengkap</th>
                         <td>{{ $warga->nama_lengkap }}</td>
                     </tr>
                     <tr>
+                        <th>Tanggal Lahir</th>
+                        <td>{{ $warga->tanggal_lahir }}</td>
+                    </tr>
+                    <tr>
                         <th>Jenis Kelamin</th>
                         <td>{{ $warga->jenis_kelamin }}</td>
                     </tr>
                     <tr>
-                        <th>Alamat</th>
-                        <td>{{ $warga->alamat }}</td>
+                        <th>Alamat Domisili</th>
+                        <td>{{ $warga->alamat_domisili }}</td>
                     </tr>
                     <tr>
                         <th>Pekerjaan</th>

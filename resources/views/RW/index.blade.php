@@ -30,13 +30,8 @@
                     <tr>
                         <th>ID</th>
                         <th>Nama Lengkap</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Alamat</th>
-                        <th>No Telepon</th>
                         <th>Username</th>
                         <th>Status</th>
-                        <th>Awal Jabatan</th>
-                        <th>Akhir Jabatan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -60,13 +55,8 @@
                 columns: [
                     { data: 'id_rw', name: 'id_rw' },
                     { data: 'nama_lengkap', name: 'nama_lengkap' },
-                    { data: 'jenis_kelamin', name: 'jenis_kelamin' },
-                    { data: 'alamat', name: 'alamat' },
-                    { data: 'no_telepon', name: 'no_telepon' },
                     { data: 'username', name: 'username' },
                     { data: 'status', name: 'status' },
-                    { data: 'mulai_jabatan', name: 'mulai_jabatan' },
-                    { data: 'akhir_jabatan', name: 'akhir_jabatan' },
                     { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
                 ]
             });

@@ -7,7 +7,7 @@
             <div class="card-tools"></div>
         </div>
         <div class="card-body">
-            @empty($rw)
+            @empty($warga)
                 <div class="alert alert-danger alert-dismissible">
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!</h5> Data yang Anda cari tidak ditemukan.
                 </div>
@@ -15,43 +15,39 @@
                 <table class="table table-bordered table-striped table-hover table-sm">
                     <tr>
                         <th>ID</th>
-                        <td>{{ $rw->id_rw }}</td>
+                        <td>{{ $warga->id_warga }}</td>
+                    </tr>
+                    <tr>
+                        <th>NKK</th>
+                        <td>{{ $warga->NKK }}</td>
+                    </tr>
+                    <tr>
+                        <th>NIK</th>
+                        <td>{{ $warga->NIK }}</td>
                     </tr>
                     <tr>
                         <th>Nama Lengkap</th>
-                        <td>{{ $rw->nama_lengkap }}</td>
+                        <td>{{ $warga->nama_lengkap }}</td>
                     </tr>
                     <tr>
                         <th>Jenis Kelamin</th>
-                        <td>{{ $rw->jenis_kelamin }}</td>
+                        <td>{{ $warga->jenis_kelamin }}</td>
                     </tr>
                     <tr>
                         <th>Alamat</th>
-                        <td>{{ $rw->alamat }}</td>
+                        <td>{{ $warga->alamat }}</td>
                     </tr>
                     <tr>
-                        <th>Nomor Telepon</th>
-                        <td>{{ $rw->no_telepon }}</td>
+                        <th>Pekerjaan</th>
+                        <td>{{ $warga->pekerjaan }}</td>
                     </tr>
                     <tr>
-                        <th>Username</th>
-                        <td>{{ $rw->username }}</td>
-                    </tr>
-                    <tr>
-                        <th>Status</th>
-                        <td>{{ $rw->status }}</td>
-                    </tr>
-                    <tr>
-                        <th>Awal Jabatan</th>
-                        <td>{{ $rw->mulai_jabatan }}</td>
-                    </tr>
-                    <tr>
-                        <th>Akhir Jabatan</th>
-                        <td>{{ $rw->akhir_jabatan }}</td>
+                        <th>Status Perkawinan</th>
+                        <td>{{ $warga->status_perkawinan }}</td>
                     </tr>
                 </table>
             @endempty
-            <a href="{{ route('rw.index') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
+            <a href="{{ route('warga.index') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
         </div>
     </div>
 @endsection

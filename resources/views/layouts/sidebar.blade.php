@@ -51,6 +51,12 @@
                 <p>Ketua RT</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ url('/keluarga') }}" class="nav-link {{ ($activeMenu == 'keluarga') ? 'active' : '' }} ">
+                <i class="nav-icon far fa fa-house-user"></i>
+                <p>Keluarga</p>
+            </a>
+          </li>
       </ul>
   </nav>
 </div>

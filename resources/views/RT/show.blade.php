@@ -7,7 +7,7 @@
             <div class="card-tools"></div>
         </div>
         <div class="card-body">
-            @empty($rw)
+            @empty($rt)
                 <div class="alert alert-danger alert-dismissible">
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!</h5> Data yang Anda cari tidak ditemukan.
                 </div>
@@ -15,35 +15,47 @@
                 <table class="table table-bordered table-striped table-hover table-sm">
                     <tr>
                         <th>ID</th>
-                        <td>{{ $rw->id_rw }}</td>
+                        <td>{{ $rt->id_rt }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nomor RT</th>
+                        <td>{{ $rt->no_rt }}</td>
                     </tr>
                     <tr>
                         <th>Nama Lengkap</th>
-                        <td>{{ $rw->nama_lengkap }}</td>
+                        <td>{{ $rt->nama_lengkap }}</td>
                     </tr>
                     <tr>
                         <th>Jenis Kelamin</th>
-                        <td>{{ $rw->jenis_kelamin }}</td>
+                        <td>{{ $rt->jenis_kelamin }}</td>
                     </tr>
                     <tr>
                         <th>Alamat</th>
-                        <td>{{ $rw->alamat }}</td>
+                        <td>{{ $rt->alamat }}</td>
+                    </tr>
+                    <tr>
+                        <th>No Telepon</th>
+                        <td>{{ $rt->no_telepon }}</td>
+                    </tr>
+                    <tr>
+                        <th>Username</th>
+                        <td>{{ $rt->username }}</td>
                     </tr>
                     <tr>
                         <th>Status</th>
-                        <td>{{ $rw->status }}</td>
+                        <td>{{ $rt->status }}</td>
                     </tr>
                     <tr>
                         <th>Awal Jabatan</th>
-                        <td>{{ $rw->mulai_jabatan }}</td>
+                        <td>{{ $rt->mulai_jabatan }}</td>
                     </tr>
                     <tr>
                         <th>Akhir Jabatan</th>
-                        <td>{{ $rw->akhir_jabatan }}</td>
+                        <td>{{ $rt->akhir_jabatan }}</td>
                     </tr>
                 </table>
             @endempty
-            <a href="{{ route('rw.index') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
+            <a href="{{ route('rt.index') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
         </div>
     </div>
 @endsection

@@ -19,10 +19,6 @@
             <form action="{{ route('warga.store') }}" method="POST">
                 @csrf
                 <div class="form-group">
-                    <label for="NKK">Nomor Kartu Keluarga (NKK)</label>
-                    <input type="text" name="NKK" id="NKK" class="form-control" value="{{ old('NKK') }}" required>
-                </div>
-                <div class="form-group">
                     <label for="NIK">Nomor Induk Kependudukan (NIK)</label>
                     <input type="text" name="NIK" id="NIK" class="form-control" value="{{ old('NIK') }}" required>
                 </div>
@@ -31,15 +27,19 @@
                     <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control" value="{{ old('nama_lengkap') }}" required>
                 </div>
                 <div class="form-group">
+                    <label for="tanggal_lahir">Tanggal Lahir</label>
+                    <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" required>
+                </div>                
+                <div class="form-group">
                     <label for="jenis_kelamin">Jenis Kelamin</label>
                     <select name="jenis_kelamin" id="jenis_kelamin" class="form-control" required>
-                        <option value="L">Laki-laki</option>
-                        <option value="P">Perempuan</option>
+                        <option value="Laki-Laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="alamat">Alamat</label>
-                    <input type="text" name="alamat" id="alamat" class="form-control" value="{{ old('alamat') }}" required>
+                    <label for="alamat">Alamat Domisili</label>
+                    <input type="text" name="alamat_domisili" id="alamat_domisili" class="form-control" value="{{ old('alamat_domisili') }}" required>
                 </div>
                 <div class="form-group">
                     <label for="pekerjaan">Pekerjaan</label>
@@ -51,6 +51,20 @@
                         <option value="Kawin">Kawin</option>
                         <option value="Belum Kawin">Belum Kawin</option>
                     </select>
+                </div>
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Keluarga</label>
+                    <div class="col-11">
+                        <select class="form-control" id="id_keluarga" name="id_keluarga" required>
+                            <option value="">- Pilih Keluarga -</option>
+                            @foreach($keluarga as $item)
+                                <option value="{{ $item->id_keluarga }}">{{ $item->nomor_kk }}</option>
+                            @endforeach
+                            </select>
+                        @error('id_keluarga')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>

@@ -13,28 +13,22 @@ class WargaModel extends Model
     protected $table = 'warga';
     protected $primaryKey = 'id_warga';
     protected $fillable = [
-        'NKK',
         'NIK',
         'nama_lengkap',
+        'tanggal_lahir',
         'jenis_kelamin',
-        'alamat',
+        'alamat_domisili',
         'pekerjaan',
         'status_perkawinan',
         'password',
         'id_rt',
-        'id_kategori_warga',
+        'id_keluarga',
     ];
 
-    // Relationship dengan tabel rt
-    public function rt()
-    {
-        return $this->belongsTo(RtModel::class, 'id_rt', 'id_rt');
-    }
-
     // Relationship dengan tabel kategori_warga
-    public function kategoriWarga()
+    public function keluarga()
     {
-        return $this->belongsTo(KategoriWargaModel::class, 'id_kategori_warga', 'id_kategori_warga');
+        return $this->belongsTo(KeluargaModel::class, 'id_keluarga', 'id_keluarga');
     }
 
     public function penerimas(): HasMany
