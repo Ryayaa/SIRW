@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('no_telepon',45);
             $table->string('username',45);
             $table->string('password');
+            $table->enum('status', ['Aktif', 'Pensiun']);
+            $table->dateTime('mulai_jabatan')->nullable();
+            $table->dateTime('akhir_jabatan')->nullable();
             $table->timestamps();
         });
     }

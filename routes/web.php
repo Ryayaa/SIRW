@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BansosController;
 use App\Http\Controllers\PenerimaBansosController;
+use App\Http\Controllers\RtController;
+use App\Http\Controllers\RwController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\WelcomeController;
@@ -10,9 +12,6 @@ Route::get('/',[WelcomeController::class,'index']);
 
 Route::get('/index', function () {
     return view('index');
-});
-Route::get('/', function () {
-    return view('welcome');
 });
 Route::get('/login', function () {
     return view('login');
@@ -52,7 +51,27 @@ Route::group(['prefix' => 'penerima'], function () {
     Route::delete('/{id}', [PenerimaBansosController::class, 'destroy']); // Menghapus data warga
 });
 
+Route::group(['prefix' => 'rw'], function () {
+    Route::get('/', [RwController::class, 'index'])->name('rw.index'); // Menampilkan data warga
+    Route::post('/list', [RwController::class, 'list'])->name('rw.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
+    Route::get('/create', [RwController::class, 'create'])->name('rw.create'); // Menampilkan form tambah warga
+    Route::post('/', [RwController::class, 'store'])->name('rw.store'); // Menyimpan data warga
+    Route::get('/{id}', [RwController::class, 'show']); // Menampilkan detail warga
+    Route::get('/{id}/edit', [RwController::class, 'edit']); // Menampilkan form edit warga
+    Route::put('/{id}', [RwController::class, 'update']); // Mengupdate data warga
+    Route::delete('/{id}', [RwController::class, 'destroy']); // Menghapus data warga
+});
 
+Route::group(['prefix' => 'rt'], function () {
+    Route::get('/', [RtController::class, 'index'])->name('rt.index'); // Menampilkan data warga
+    Route::post('/list', [RtController::class, 'list'])->name('rt.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
+    Route::get('/create', [RtController::class, 'create'])->name('rt.create'); // Menampilkan form tambah warga
+    Route::post('/', [RtController::class, 'store'])->name('rt.store'); // Menyimpan data warga
+    Route::get('/{id}', [RtController::class, 'show']); // Menampilkan detail warga
+    Route::get('/{id}/edit', [RtController::class, 'edit']); // Menampilkan form edit warga
+    Route::put('/{id}', [RtController::class, 'update']); // Mengupdate data warga
+    Route::delete('/{id}', [RtController::class, 'destroy']); // Menghapus data warga
+});
 // Route::get('/', function () {
 //     return view('welcome');
 // });
