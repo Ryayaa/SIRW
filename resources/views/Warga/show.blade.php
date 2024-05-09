@@ -49,6 +49,10 @@
                         <th>Status Perkawinan</th>
                         <td>{{ $warga->status_perkawinan }}</td>
                     </tr>
+                    <tr>
+                        <th>Level</th>
+                        <td>{{ $warga->level }}</td>
+                    </tr>
                 </table>
             @endempty
             <a href="{{ route('warga.index') }}" class="btn btn-sm btn-default mt-2">Kembali</a>

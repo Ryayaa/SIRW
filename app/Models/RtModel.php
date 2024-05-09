@@ -14,8 +14,6 @@ class RtModel extends Model
     protected $primaryKey = 'id_rt';
     protected $fillable = [
         'no_rt',
-        'username',
-        'password',
         'nama_lengkap',
         'jenis_kelamin',
         'alamat',

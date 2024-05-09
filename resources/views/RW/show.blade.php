@@ -34,10 +34,6 @@
                         <td>{{ $rw->no_telepon }}</td>
                     </tr>
                     <tr>
-                        <th>Username</th>
-                        <td>{{ $rw->username }}</td>
-                    </tr>
-                    <tr>
                         <th>Status</th>
                         <td>{{ $rw->status }}</td>
                     </tr>

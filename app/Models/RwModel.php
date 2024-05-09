@@ -19,16 +19,14 @@ class RwModel extends Model
         'jenis_kelamin',
         'alamat',
         'no_telepon',
-        'username',
-        'password',
         'status',
         'mulai_jabatan',
         'akhir_jabatan'
     ];
 
-    public function rws(): HasMany
-    {
-        return $this->hasMany(RtModel::class, 'id_rw', 'id_rw');
-    }
+    // public function rts(): HasMany
+    // {
+    //     return $this->hasMany(RtModel::class, 'id_rw', 'id_rw');
+    // }
 
 }

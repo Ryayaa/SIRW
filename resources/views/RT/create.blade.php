@@ -41,14 +41,6 @@
                     <label for="no_telepon">Nomor Telepon</label>
                     <input type="text" name="no_telepon" id="no_telepon" class="form-control" value="{{ old('no_telepon') }}" required>
                 </div>
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" name="username" id="username" class="form-control" value="{{ old('username') }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" class="form-control" required>
-                </div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <a href="{{ url('rt') }}" class="btn btn-default">Kembali</a>
             </form>

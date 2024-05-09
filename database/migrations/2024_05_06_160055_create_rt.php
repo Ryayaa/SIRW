@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('rt', function (Blueprint $table) {
             $table->id('id_rt');
             $table->string('no_rt')->unique();
-            $table->string('username',45);
-            $table->string('password');
             $table->string('nama_lengkap', 100);
             $table->enum('jenis_kelamin', ['L', 'P']);
             $table->string('alamat', 255);

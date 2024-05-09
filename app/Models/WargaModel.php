@@ -20,8 +20,8 @@ class WargaModel extends Model
         'alamat_domisili',
         'pekerjaan',
         'status_perkawinan',
+        'level',
         'password',
-        'id_rt',
         'id_keluarga',
     ];
 

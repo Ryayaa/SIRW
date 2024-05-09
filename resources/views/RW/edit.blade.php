@@ -59,25 +59,6 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Username</label>
-                    <div class="col-11">
-                        <input type="text" class="form-control" id="username" name="username"
-                            value="{{ old('username', $rw->username) }}" required>
-                        @error('username')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Password</label>
-                    <div class="col-11">
-                        <input type="password" class="form-control" id="password" name="password" value="{{ old('password', $rw->password) }}" required>
-                        @error('password')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                </div>
-                <div class="form-group row">
                     <label class="col-1 control-label col-form-label"></label>
                     <div class="col-11">
                         <button type="submit" class="btn btn-primary btn-sm">Simpan</button>

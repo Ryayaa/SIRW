@@ -105,6 +105,20 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Level</label>
+                    <div class="col-11">
+                        <select class="form-control" id="level" name="level" required>
+                            <option value="RT" {{ $warga->level == 'RT' ? 'selected' : '' }}>RT</option>
+                            <option value="RW" {{ $warga->level == 'RW' ? 'selected' : '' }}>RW</option>
+                            <option value="Warga" {{ $warga->level == 'Warga' ? 'selected' : '' }}>Warga</option>
+                            <option value="Warga Sementara" {{ $warga->level == 'Warga Sementara' ? 'selected' : '' }}>Warga Sementara</option>
+                        </select>
+                        @error('status_perkawinan')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Password</label>
                     <div class="col-11">
                         <input type="password" class="form-control" id="password" name="password"

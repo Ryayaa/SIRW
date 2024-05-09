@@ -56,7 +56,7 @@ class RtController extends Controller
 
     public function list(Request $request)
     {
-        $rt = RtModel::select('id_rt','no_rt','username', 'nama_lengkap', 'jenis_kelamin', 'alamat', 'no_telepon', 'status', 'mulai_jabatan', 'akhir_jabatan');
+        $rt = RtModel::select('id_rt','no_rt', 'nama_lengkap', 'jenis_kelamin', 'alamat', 'no_telepon', 'status', 'mulai_jabatan', 'akhir_jabatan');
 
         return DataTables::of($rt)
             ->addIndexColumn() 
@@ -96,8 +96,6 @@ class RtController extends Controller
     {
         $request->validate([
             'no_rt' => 'required',
-            'username' => 'required',
-            'password' => 'required|min:5',
             'nama_lengkap' => 'required|string|max:100',
             'jenis_kelamin' => 'required|in:L,P',
             'alamat' => 'required|string|max:255',
@@ -110,14 +108,12 @@ class RtController extends Controller
 
         RtModel::create([
             'no_rt' => $request->no_rt,
-            'username' => $request->username,
             'nama_lengkap' => $request->nama_lengkap,
             'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
             'no_telepon' => $request->no_telepon,
             'status' => 'Aktif',
             'mulai_jabatan' => now(),
-            'password' => bcrypt($request->password),
         ]);
 
         return redirect('/rt')->with('success', 'Data ketua RT baru telah ditambahkan');
@@ -148,8 +144,6 @@ class RtController extends Controller
     public function update(Request $request, string $id){
         $request->validate([
             'no_rt' => 'required',
-            'username' => 'required',
-            'password' => 'required|min:5',
             'nama_lengkap' => 'required|string|max:100',
             'jenis_kelamin' => 'required|in:L,P',
             'alamat' => 'required|string|max:255',
@@ -158,12 +152,10 @@ class RtController extends Controller
 
         RtModel::find($id)->update([
             'no_rt' => $request->no_rt,
-            'username' => $request->username,
             'nama_lengkap' => $request->nama_lengkap,
             'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
             'no_telepon' => $request->no_telepon,
-            'password' => bcrypt($request->password),
         ]);
 
         return redirect('/rt')->with('success', 'Data RT berhasil diubah');

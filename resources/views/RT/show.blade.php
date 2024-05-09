@@ -38,10 +38,6 @@
                         <td>{{ $rt->no_telepon }}</td>
                     </tr>
                     <tr>
-                        <th>Username</th>
-                        <td>{{ $rt->username }}</td>
-                    </tr>
-                    <tr>
                         <th>Status</th>
                         <td>{{ $rt->status }}</td>
                     </tr>

@@ -22,7 +22,6 @@
                         <th>ID</th>
                         <th>Nomor RT</th>
                         <th>Nama Lengkap</th>
-                        <th>Username</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -48,7 +47,6 @@
                     { data: 'id_rt', name: 'id_rt' },
                     { data: 'no_rt', name: 'no_rt' },
                     { data: 'nama_lengkap', name: 'nama_lengkap' },
-                    { data: 'username', name: 'username' },
                     { data: 'status', name: 'status' },
                     { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
                 ]

@@ -30,7 +30,6 @@
                     <tr>
                         <th>ID</th>
                         <th>Nama Lengkap</th>
-                        <th>Username</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -55,7 +54,6 @@
                 columns: [
                     { data: 'id_rw', name: 'id_rw' },
                     { data: 'nama_lengkap', name: 'nama_lengkap' },
-                    { data: 'username', name: 'username' },
                     { data: 'status', name: 'status' },
                     { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
                 ]

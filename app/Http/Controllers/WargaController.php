@@ -62,7 +62,7 @@ class WargaController extends Controller
 
     public function list(Request $request)
     {
-        $warga = WargaModel::select('id_warga', 'NIK', 'nama_lengkap', 'tanggal_lahir', 'jenis_kelamin', 'alamat_domisili', 'pekerjaan', 'status_perkawinan')
+        $warga = WargaModel::select('id_warga', 'NIK', 'nama_lengkap', 'tanggal_lahir', 'jenis_kelamin', 'alamat_domisili', 'pekerjaan', 'status_perkawinan','level', 'id_keluarga')
             ->with('keluarga');
 
         return DataTables::of($warga)
@@ -107,10 +107,11 @@ class WargaController extends Controller
             'NIK' => 'required|string|max:20',
             'nama_lengkap' => 'required|string|max:100',
             'tanggal_lahir' => 'required',
-            'jenis_kelamin' => 'required',
+            'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
             'alamat_domisili' => 'required|string|max:255',
             'pekerjaan' => 'required|string|max:50',
             'status_perkawinan' => 'required|in:Kawin,Belum Kawin',
+            'level' => 'required|in:RT,RW,Warga,Warga Sementara',
             'password' => 'required|min:5',
             'id_keluarga' => 'required|integer',
         ]);
@@ -123,6 +124,7 @@ class WargaController extends Controller
             'alamat_domisili' => $request->alamat_domisili,
             'pekerjaan' => $request->pekerjaan,
             'status_perkawinan' => $request->status_perkawinan,
+            'level' => $request->level,
             'password' => bcrypt($request->password),
             'id_keluarga' => $request->id_keluarga,
         ]);
@@ -159,10 +161,11 @@ class WargaController extends Controller
             'NIK' => 'required|string|max:20',
             'nama_lengkap' => 'required|string|max:100',
             'tanggal_lahir' => 'required',
-            'jenis_kelamin' => 'required',
+            'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
             'alamat_domisili' => 'required|string|max:255',
             'pekerjaan' => 'required|string|max:50',
             'status_perkawinan' => 'required|in:Kawin,Belum Kawin',
+            'level' => 'required|in:RT,RW,Warga,Warga Sementara',
             'password' => 'required|min:5',
             'id_keluarga' => 'required|integer',
         ]);
@@ -175,6 +178,7 @@ class WargaController extends Controller
             'alamat_domisili' => $request->alamat_domisili,
             'pekerjaan' => $request->pekerjaan,
             'status_perkawinan' => $request->status_perkawinan,
+            'level' => $request->level,
             'password' => bcrypt($request->password),
             'id_keluarga' => $request->id_keluarga,
         ]);

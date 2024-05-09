@@ -56,7 +56,7 @@ class RwController extends Controller
 
     public function list(Request $request)
     {
-        $rw = RwModel::select('id_rw', 'nama_lengkap', 'jenis_kelamin', 'alamat', 'no_telepon', 'username', 'status', 'mulai_jabatan', 'akhir_jabatan');
+        $rw = RwModel::select('id_rw', 'nama_lengkap', 'jenis_kelamin', 'alamat', 'no_telepon', 'status', 'mulai_jabatan', 'akhir_jabatan');
 
         return DataTables::of($rw)
             ->addIndexColumn() 
@@ -99,8 +99,6 @@ class RwController extends Controller
             'jenis_kelamin' => 'required|in:L,P',
             'alamat' => 'required|string|max:255',
             'no_telepon' => 'required',
-            'username' => 'required',
-            'password' => 'required|min:5',
         ]);
 
         RwModel::where('status', 'Aktif')->update(['status' => 'Pensiun', 'akhir_jabatan' => now()]);
@@ -110,10 +108,8 @@ class RwController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
             'no_telepon' => $request->no_telepon,
-            'username' => $request->username,
             'status' => 'Aktif',
             'mulai_jabatan' => now(),
-            'password' => bcrypt($request->password),
         ]);
 
         return redirect('/rw')->with('success', 'Data ketua RW baru telah ditambahkan');
@@ -143,8 +139,6 @@ class RwController extends Controller
 
     public function update(Request $request, string $id){
         $request->validate([
-            'username' => 'required',
-            'password' => 'required|min:5',
             'nama_lengkap' => 'required|string|max:100',
             'jenis_kelamin' => 'required|in:L,P',
             'alamat' => 'required|string|max:255',
@@ -152,12 +146,10 @@ class RwController extends Controller
         ]);
 
         RwModel::find($id)->update([
-            'username' => $request->username,
             'nama_lengkap' => $request->nama_lengkap,
             'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
             'no_telepon' => $request->no_telepon,
-            'password' => bcrypt($request->password),
         ]);
 
         return redirect('/rw')->with('success', 'Data RW berhasil diubah');
