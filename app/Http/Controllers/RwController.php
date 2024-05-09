@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RwModel;
 use Illuminate\Http\Request;
-use App\Models\RtModel;
 use Yajra\DataTables\Facades\DataTables;
 
-class RtController extends Controller
+class RwController extends Controller
 {
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'Ketua RT',
-            'list' => ['Home', 'RT']
+            'title' => 'Ketua RW',
+            'list' => ['Home', 'RW']
         ];
         $page = (object) [
-            'title' => 'Ketua RT yang terdaftar pada sistem',
+            'title' => 'Ketua RW yang terdaftar pada sistem',
         ];
-        $activeMenu = 'rt';
+        $activeMenu = 'rw';
 
-        return view('rt.index', [
+        return view('rw.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
@@ -28,27 +28,27 @@ class RtController extends Controller
 
     public function show($id){
         // Mengambil data warga berdasarkan ID
-        $rt = RtModel::findOrFail($id);
+        $rw = RwModel::findOrFail($id);
 
         // Membuat objek breadcrumb
         $breadcrumb = (object) [
-            'title' => 'Detail Ketua RT',
-            'list' => ['Home', 'RT', 'Detail']
+            'title' => 'Detail Ketua RW',
+            'list' => ['Home', 'RW', 'Detail']
         ];
 
         // Membuat objek page
         $page = (object) [
-            'title' => 'Detail Ketua RT'
+            'title' => 'Detail Ketua RW'
         ];
 
         // Menentukan active menu
-        $activeMenu = 'rt';
+        $activeMenu = 'rw';
 
         // Mengirim data ke view
-        return view('rt.show', [
+        return view('rw.show', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
-            'rt' => $rt,
+            'rw' => $rw,
             'activeMenu' => $activeMenu
         ]);
     }
@@ -56,14 +56,14 @@ class RtController extends Controller
 
     public function list(Request $request)
     {
-        $rt = RtModel::select('id_rt','no_rt', 'nama_lengkap', 'jenis_kelamin', 'alamat', 'no_telepon', 'status', 'mulai_jabatan', 'akhir_jabatan');
+        $rw = RwModel::select('id_rw', 'nama_lengkap', 'jenis_kelamin', 'alamat', 'no_telepon', 'status', 'mulai_jabatan', 'akhir_jabatan');
 
-        return DataTables::of($rt)
+        return DataTables::of($rw)
             ->addIndexColumn() 
-            ->addColumn('aksi', function ($rt) { 
-                $btn = '<a href="' . url('/rt/' . $rt->id_rt) . '" class="btn btn-info btn-sm">Detail</a> ';
-                $btn .= '<a href="' . url('/rt/' . $rt->id_rt . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/rt/' . $rt->id_rt) . '">'
+            ->addColumn('aksi', function ($rw) { 
+                $btn = '<a href="' . url('/rw/' . $rw->id_rw) . '" class="btn btn-info btn-sm">Detail</a> ';
+                $btn .= '<a href="' . url('/rw/' . $rw->id_rw . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/rw/' . $rw->id_rw) . '">'
                     . csrf_field() . method_field('DELETE') .
                     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
                 return $btn;
@@ -75,17 +75,17 @@ class RtController extends Controller
     public function create()
     {
         $breadcrumb = (object) [
-            'title' => 'Tambah Ketua RT',
-            'list' => ['Home', 'RT', 'Tambah']
+            'title' => 'Tambah Ketua RW',
+            'list' => ['Home', 'RW', 'Tambah']
         ];
 
         $page = (object) [
-            'title' => 'Tambah Ketua RT Baru',
+            'title' => 'Tambah Ketua RW Baru',
         ];
 
-        $activeMenu = 'rt';
+        $activeMenu = 'rw';
 
-        return view('rt.create', [
+        return view('rw.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
@@ -95,19 +95,15 @@ class RtController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'no_rt' => 'required',
             'nama_lengkap' => 'required|string|max:100',
             'jenis_kelamin' => 'required|in:L,P',
             'alamat' => 'required|string|max:255',
             'no_telepon' => 'required',
         ]);
 
-        RtModel::where('status', 'Aktif')
-        ->where('no_rt', $request->no_rt)
-        ->update(['status' => 'Pensiun', 'akhir_jabatan' => now()]);
+        RwModel::where('status', 'Aktif')->update(['status' => 'Pensiun', 'akhir_jabatan' => now()]);
 
-        RtModel::create([
-            'no_rt' => $request->no_rt,
+        RwModel::create([
             'nama_lengkap' => $request->nama_lengkap,
             'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
@@ -116,65 +112,63 @@ class RtController extends Controller
             'mulai_jabatan' => now(),
         ]);
 
-        return redirect('/rt')->with('success', 'Data ketua RT baru telah ditambahkan');
+        return redirect('/rw')->with('success', 'Data ketua RW baru telah ditambahkan');
     }
 
     public function edit(string $id){
-        $rt = RtModel::find($id);
+        $rw = RwModel::find($id);
 
         $breadcrumb = (object) [
-            'title' => 'Edit Ketua RT',
-            'list' => ['Home', 'RT', 'Edit']
+            'title' => 'Edit Ketua RW',
+            'list' => ['Home', 'RW', 'Edit']
         ];
 
         $page = (object) [
-            'title' => 'Edit Ketua RT'
+            'title' => 'Edit Ketua RW'
         ];
 
-        $activeMenu = 'rt';
+        $activeMenu = 'rw';
 
-        return view('rt.edit', [
+        return view('rw.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
-            'rt' => $rt,
+            'rw' => $rw,
             'activeMenu' => $activeMenu
         ]);
     }
 
     public function update(Request $request, string $id){
         $request->validate([
-            'no_rt' => 'required',
             'nama_lengkap' => 'required|string|max:100',
             'jenis_kelamin' => 'required|in:L,P',
             'alamat' => 'required|string|max:255',
             'no_telepon' => 'required',
         ]);
 
-        RtModel::find($id)->update([
-            'no_rt' => $request->no_rt,
+        RwModel::find($id)->update([
             'nama_lengkap' => $request->nama_lengkap,
             'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
             'no_telepon' => $request->no_telepon,
         ]);
 
-        return redirect('/rt')->with('success', 'Data RT berhasil diubah');
+        return redirect('/rw')->with('success', 'Data RW berhasil diubah');
     }
 
     public function destroy(string $id){
-        $check = RtModel::find($id);
+        $check = RwModel::find($id);
         if (!$check){
-            return redirect('/rt')->with('error', 'Data rt tidak ditemukan');
+            return redirect('/rw')->with('error', 'Data rw tidak ditemukan');
         }
 
         try{
-            RtModel::destroy($id);
+            RwModel::destroy($id);
 
-            return redirect('/rt')->with('success', 'Data RT berhasil dihapus');
+            return redirect('/rw')->with('success', 'Data RW berhasil dihapus');
         }catch(\Illuminate\Database\QueryException $e){
 
             // jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
-            return redirect('/rt')->with('error', 'Data RT gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            return redirect('/rw')->with('error', 'Data RW gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
 
     }

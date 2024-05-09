@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('jumlah_masuk');
             $table->integer('jumlah_keluar');
             $table->date('tanggal');
-            $table->string('id_rt');
+            $table->unsignedBigInteger('id_rt');
             $table->timestamps();
             $table->foreign('id_rt')->references('id_rt')->on('rt');
         });

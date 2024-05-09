@@ -20,8 +20,11 @@ return new class extends Migration
             $table->string('alamat_domisili', 255);
             $table->string('pekerjaan', 50);
             $table->enum('status_perkawinan', ['Kawin', 'Belum Kawin','Cerai Mati','Cerai Hidup'])->default('Belum Kawin');
+            $table->enum('level', ['RT', 'RW','Warga','Warga Sementara'])->default('Warga');
             $table->string('password');
+
             $table->timestamps();
+
 
             $table->unsignedBigInteger('id_keluarga');
             $table->foreign('id_keluarga')->references('id_keluarga')->on('keluarga');

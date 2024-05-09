@@ -6,14 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class RtModel extends Model
+class RwModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'rt';
-    protected $primaryKey = 'id_rt';
+    use HasFactory;
+
+    protected $table = 'rw';
+    protected $primaryKey = 'id_rw';
     protected $fillable = [
-        'no_rt',
         'nama_lengkap',
         'jenis_kelamin',
         'alamat',
@@ -23,13 +24,9 @@ class RtModel extends Model
         'akhir_jabatan'
     ];
 
-    public function keluargas(): HasMany{
-        return $this->hasMany(KeluargaModel::class, 'id_keluarga', 'id_keluarga');
-    }
-
-    // Relationship dengan tabel rw
-    // public function rw()
+    // public function rts(): HasMany
     // {
-    //     return $this->belongsTo(RwModel::class, 'id_rw', 'id_rw');
+    //     return $this->hasMany(RtModel::class, 'id_rw', 'id_rw');
     // }
+
 }

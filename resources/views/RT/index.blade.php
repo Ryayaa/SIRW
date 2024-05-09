@@ -5,7 +5,7 @@
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
             <div class="card-tools">
-                <a class="btn btn-sm btn-primary mt-1" href="{{ url('warga/create') }}">Tambah</a>
+                <a class="btn btn-sm btn-primary mt-1" href="{{ url('rt/create') }}">Tambah</a>
             </div>
         </div>
         <div class="card-body">
@@ -16,13 +16,13 @@
                 <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
             {{-- Filter --}}
-            <table class="table table-bordered table-striped table-hover table-sm" id="table_warga">
+            <table class="table table-bordered table-striped table-hover table-sm" id="table_rt">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>NIK</th>
+                        <th>Nomor RT</th>
                         <th>Nama Lengkap</th>
-                        <th>Level</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -37,17 +37,17 @@
 @push('js')
     <script>
         $(document).ready(function() {
-            var dataTable = $('#table_warga').DataTable({
+            var dataTable = $('#table_rt').DataTable({
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('warga.list') }}",
+                    url: "{{ route('rt.list') }}",
                     type: 'POST',
                 },
                 columns: [
-                    { data: 'id_warga', name: 'id_warga' },
-                    { data: 'NIK', name: 'NIK' },
+                    { data: 'id_rt', name: 'id_rt' },
+                    { data: 'no_rt', name: 'no_rt' },
                     { data: 'nama_lengkap', name: 'nama_lengkap' },
-                    { data: 'level', name: 'level' },
+                    { data: 'status', name: 'status' },
                     { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
                 ]
             });

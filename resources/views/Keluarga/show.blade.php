@@ -19,27 +19,23 @@
                     </tr>
                     <tr>
                         <th>NKK</th>
-                        <td>{{ $warga->keluarga->nomor_kk }}</td>
+                        <td>{{ $warga->NKK }}</td>
                     </tr>
                     <tr>
                         <th>NIK</th>
-                        <td>{{ $warga->nik }}</td>
+                        <td>{{ $warga->NIK }}</td>
                     </tr>
                     <tr>
                         <th>Nama Lengkap</th>
                         <td>{{ $warga->nama_lengkap }}</td>
                     </tr>
                     <tr>
-                        <th>Tanggal Lahir</th>
-                        <td>{{ $warga->tanggal_lahir }}</td>
-                    </tr>
-                    <tr>
                         <th>Jenis Kelamin</th>
                         <td>{{ $warga->jenis_kelamin }}</td>
                     </tr>
                     <tr>
-                        <th>Alamat Domisili</th>
-                        <td>{{ $warga->alamat_domisili }}</td>
+                        <th>Alamat</th>
+                        <td>{{ $warga->alamat }}</td>
                     </tr>
                     <tr>
                         <th>Pekerjaan</th>
@@ -48,10 +44,6 @@
                     <tr>
                         <th>Status Perkawinan</th>
                         <td>{{ $warga->status_perkawinan }}</td>
-                    </tr>
-                    <tr>
-                        <th>Level</th>
-                        <td>{{ $warga->level }}</td>
                     </tr>
                 </table>
             @endempty

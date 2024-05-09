@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kepala_keluarga', function (Blueprint $table) {
-            $table->id('id_kepkel');
-            $table->timestamps();
-
+        Schema::create('detail_keluarga', function (Blueprint $table) {
+            $table->id('id_detail_keluarga');
             $table->unsignedBigInteger('id_keluarga');
             $table->unsignedBigInteger('id_warga');
+            $table->enum('status_hubungan',['Kepala Keluarga','Suami','Isteri','Anak','Orang Tua'])->default('Kepala Keluarga');
             $table->foreign('id_keluarga')->references('id_keluarga')->on('keluarga');
             $table->foreign('id_warga')->references('id_warga')->on('warga');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kepala_keluarga');
+        Schema::dropIfExists('detail_keluarga');
     }
 };
