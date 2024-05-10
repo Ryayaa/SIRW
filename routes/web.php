@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BansosController;
 use App\Http\Controllers\PenerimaBansosController;
+use App\Http\Controllers\TamuController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\WelcomeController;
@@ -52,6 +53,16 @@ Route::group(['prefix' => 'penerima'], function () {
     Route::delete('/{id}', [PenerimaBansosController::class, 'destroy']); // Menghapus data warga
 });
 
+Route::group(['prefix' => 'tamu'], function () {
+    Route::get('/', [TamuController::class, 'index'])->name('tamu.index');
+    Route::post('/list', [TamuController::class, 'list'])->name('tamu.list'); 
+    Route::get('/create', [TamuController::class, 'create'])->name('tamu.create');
+    Route::post('/', [TamuController::class, 'store'])->name('tamu.store');
+    Route::get('/{id}', [TamuController::class, 'show'])->name('tamu.show');
+    Route::get('/{id}/edit', [TamuController::class, 'edit'])->name('tamu.edit'); 
+    Route::put('/{id}', [TamuController::class, 'update'])->name('tamu.update'); 
+    Route::delete('/{id}', [TamuController::class, 'destroy'])->name('tamu.destroy');
+});
 
 // Route::get('/', function () {
 //     return view('welcome');
