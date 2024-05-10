@@ -18,10 +18,14 @@ return new class extends Migration
             $table->enum('jenis_kelamin', ['L', 'P']);
             $table->string('alamat', 255);
             $table->string('no_telepon',45);
+            $table->unsignedBigInteger('id_rw');
             $table->enum('status', ['Aktif', 'Pensiun']);
             $table->dateTime('mulai_jabatan')->nullable();
             $table->dateTime('akhir_jabatan')->nullable();
-            
+            $table->timestamps();
+            $table->foreign('id_rw')->references('id_rw')->on('rw');
+
+
             $table->timestamps();
         });
     }

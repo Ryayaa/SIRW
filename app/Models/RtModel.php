@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class RtModel extends Model
+class RTModel extends Model
 {
     use HasFactory;
 
@@ -28,8 +28,8 @@ class RtModel extends Model
     }
 
     // Relationship dengan tabel rw
-    // public function rw()
-    // {
-    //     return $this->belongsTo(RwModel::class, 'id_rw', 'id_rw');
-    // }
+    public function rw()
+    {
+        return $this->belongsTo(RWModel::class, 'id_rw', 'id_rw');
+    }
 }

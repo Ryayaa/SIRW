@@ -15,43 +15,44 @@ class WargaSeeder extends Seeder
      */
     public function run(): void
     {
-        $data=[[
-                'nik' => '111111',
-                'nama_lengkap' => 'Test-User 1',
-                'tanggal_lahir' => '1990-01-01',
-                'jenis_kelamin' => 'Laki-Laki',
-                'alamat_domisili' => 'Jl. Raya No. 123',
-                'roles' => 'rw',
-                'pekerjaan' => 'Pegawai',
-                'status_perkawinan' => 'Kawin',
-                'password' => Hash::make('testuser1'), // Sesuaikan dengan metode hash yang digunakan di aplikasi Anda
-                'id_keluarga' => 1,
 
-        ],[
-            'nik' => '222222',
-            'nama_lengkap' => 'John Doe',
+        $data = [[
+            'nik' => '111111',
+            'nama_lengkap' => 'Test-User 1',
             'tanggal_lahir' => '1990-01-01',
             'jenis_kelamin' => 'Laki-Laki',
             'alamat_domisili' => 'Jl. Raya No. 123',
-            'roles' => 'RT',
+            'roles' => 'rw',
             'pekerjaan' => 'Pegawai',
             'status_perkawinan' => 'Kawin',
-            'password' => Hash::make('testuser'), // Sesuaikan dengan metode hash yang digunakan di aplikasi Anda
+            'password' => Hash::make('testuser1'), // Sesuaikan dengan metode hash yang digunakan di aplikasi Anda
             'id_keluarga' => 1,
 
-    ],[
-        'nik' => '222222',
-        'nama_lengkap' => 'John Doe',
-        'tanggal_lahir' => '1990-01-01',
-        'jenis_kelamin' => 'Laki-Laki',
-        'alamat_domisili' => 'Jl. Raya No. 123',
-        'pekerjaan' => 'Pegawai',
-        'roles' => 'warga',
-        'status_perkawinan' => 'Kawin',
-        'password' => Hash::make('testuser'), // Sesuaikan dengan metode hash yang digunakan di aplikasi Anda
-        'id_keluarga' => 1,
+        ], [
+            'nik' => '222222',
+            'nama_lengkap' => 'Test-User 2',
+            'tanggal_lahir' => '1990-01-01',
+            'jenis_kelamin' => 'Laki-Laki',
+            'alamat_domisili' => 'Jl. Raya No. 123',
+            'roles' => 'rt',
+            'pekerjaan' => 'Pegawai',
+            'status_perkawinan' => 'Kawin',
+            'password' => Hash::make('testuser2'), // Sesuaikan dengan metode hash yang digunakan di aplikasi Anda
+            'id_keluarga' => 1,
 
-]];
-    DB::table('warga')->insert($data);
-    }
+        ], [
+            'nik' => '333333',
+            'nama_lengkap' => 'Test User 3',
+            'tanggal_lahir' => '1990-01-01',
+            'jenis_kelamin' => 'Laki-Laki',
+            'alamat_domisili' => 'Jl. Raya No. 123',
+            'pekerjaan' => 'Pegawai',
+            'roles' => 'warga',
+            'status_perkawinan' => 'Kawin',
+            'password' => Hash::make('testuser3'), // Sesuaikan dengan metode hash yang digunakan di aplikasi Anda
+            'id_keluarga' => 1,
+
+        ]];
+        DB::table('warga')->updateOrInsert($data);
+        }
 }

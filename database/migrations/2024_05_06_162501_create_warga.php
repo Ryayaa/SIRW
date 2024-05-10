@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('warga', function (Blueprint $table) {
             $table->id('id_warga');
-            $table->string('nik', 20)->unique();
+            $table->string('nik', 16)->unique();
             $table->string('nama_lengkap', 100);
             $table->date('tanggal_lahir');
             $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan']);
             $table->string('alamat_domisili', 255);
             $table->string('pekerjaan', 50);
             $table->enum('status_perkawinan', ['Kawin', 'Belum Kawin','Cerai Mati','Cerai Hidup'])->default('Belum Kawin');
-            $table->enum('level', ['RT', 'RW','Warga','Warga Sementara'])->default('Warga');
+            $table->enum('roles', ['rt', 'rw','warga','warga sementara'])->default('warga');
             $table->string('password');
 
             $table->timestamps();
