@@ -2,19 +2,20 @@
 
 namespace Database\Seeders;
 
+use App\Models\Warga;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+
 
 class WargaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
+
         $data = [[
             'nik' => '111111',
             'nama_lengkap' => 'Test-User 1',
@@ -53,5 +54,5 @@ class WargaSeeder extends Seeder
 
         ]];
         DB::table('warga')->updateOrInsert($data);
-    }
+        }
 }

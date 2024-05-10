@@ -1138,6 +1138,34 @@ section {
 /*--------------------------------------------------------------
 # Berita dan Kegiatan Section
 --------------------------------------------------------------*/
+/* .berita-header {
+  text-align: left;
+  padding-bottom: 20px;
+  color: #117AEB;
+}
+
+.berita-header h2{
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.berita .card{
+  padding: 40px 40px 40px 40px;
+  background-color: #117AEB;
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+}
+
+.berita .gambar-berita{
+
+}
+.berita .isi-berita{
+
+} */
+
 .article-list {
     margin-bottom: 50px;
     position: relative;
@@ -1214,6 +1242,25 @@ section {
     .article-list {
         margin-bottom: 15px
     };
+.berita-header {
+    text-align: left;
+    padding-bottom: 20px;
+    color: #117aeb;
+}
+
+.berita-header h2 {
+    font-size: 40px;
+    /* font-weight: bold; */
+}
+
+.berita .card {
+    padding: 40px;
+    background-color: rgba(17, 122, 235, 0.2);
+    border-radius: 16px;
+}
+}
+
+@media (max-width: 480px) {
     .article-list figure {
         width: 100%;
         height: 200px;
@@ -1775,6 +1822,38 @@ section {
 
 
 
+.features .tab-content {
+    margin-top: 30px;
+}
+
+.features .tab-pane.active {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.features .tab-pane h3 {
+    font-weight: 600;
+    font-size: 36px;
+    color: var(--color-secondary);
+}
+
+.features .tab-pane ul {
+    list-style: none;
+    padding: 0;
+}
+
+.features .tab-pane ul li {
+    padding-bottom: 10px;
+}
+
+.features .tab-pane ul i {
+    font-size: 24px;
+    margin-right: 4px;
+    color: var(--color-primary);
+}
+
+.features .tab-pane p:last-child {
+    margin-bottom: 0;
+}
 
 @keyframes fadeIn {
     0% {
@@ -2386,48 +2465,49 @@ section {
     position: relative;
     display: flex;
     flex-direction: column;
-    top:0;
-  }
+}
 
-  .recent-blog-posts .post-box .post-img {
+.recent-blog-posts .post-box .post-img {
     overflow: hidden;
     position: relative;
     border-radius: 10px;
-    width: 100%;
-    height: 50%;
-    background-size: cover;
-  }
+}
 
-  .recent-blog-posts .post-box .post-img img {
+.recent-blog-posts .post-box .post-img img {
     transition: 0.5s;
-  }
+}
 
-  .recent-blog-posts .post-box .meta {
-    margin-top: 10px;
-  }
+.recent-blog-posts .post-box .meta {
+    margin-top: 15px;
+}
 
+.recent-blog-posts .post-box .meta .post-date {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--color-primary);
+}
 
-  .recent-blog-posts .post-box .meta .post-author {
+.recent-blog-posts .post-box .meta .post-author {
     font-size: 15px;
     font-weight: 400;
     color: var(--color-secondary);
-  }
+}
 
-  .recent-blog-posts .post-box .post-title {
+.recent-blog-posts .post-box .post-title {
     font-size: 24px;
     color: var(--color-secondary);
     font-weight: 700;
     margin: 15px 0 0 0;
     position: relative;
     transition: 0.3s;
-  }
+}
 
-  .recent-blog-posts .post-box p {
-    margin: 5px 0 0 0;
+.recent-blog-posts .post-box p {
+    margin: 15px 0 0 0;
     color: rgba(var(--color-secondary-dark-rgb), 0.7);
-  }
+}
 
-  .recent-blog-posts .post-box .readmore {
+.recent-blog-posts .post-box .readmore {
     display: flex;
     align-items: center;
     font-weight: 600;

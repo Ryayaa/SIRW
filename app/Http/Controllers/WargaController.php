@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\WargaModel;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Warga;
+use App\Models\KeluargaModel;
 use Illuminate\Http\RedirectResponse;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Hash;
@@ -22,16 +23,17 @@ class WargaController extends Controller
             'title' => 'Daftar Warga yang terdaftar pada sistem',
         ];
         $activeMenu = 'warga';
+        $keluarga = KeluargaModel::all();
 
         return view('warga.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
-            'activeMenu' => $activeMenu
+            'activeMenu' => $activeMenu,
+            'keluarga' => $keluarga
         ]);
     }
 
-    public function show($id)
-{
+    public function show($id){
     // Mengambil data warga berdasarkan ID
     $warga = Warga::findOrFail($id);
 
@@ -61,13 +63,8 @@ class WargaController extends Controller
 
     public function list(Request $request)
     {
-        $warga = Warga::select('id_warga', 'NKK', 'NIK', 'nama_lengkap', 'jenis_kelamin', 'alamat', 'pekerjaan', 'status_perkawinan')
-            ->with('rt')
-            ->with('kategoriWarga');
-
-        if ($request->level_id) {
-            $warga->where('level_id', $request->level_id);
-        }
+        $warga = WargaModel::select('id_warga', 'NIK', 'nama_lengkap', 'tanggal_lahir', 'jenis_kelamin', 'alamat_domisili', 'pekerjaan', 'status_perkawinan','level', 'id_keluarga')
+            ->with('keluarga');
 
         return DataTables::of($warga)
             ->addIndexColumn()
@@ -94,69 +91,117 @@ class WargaController extends Controller
             'title' => 'Tambah Warga Baru',
         ];
 
+        $keluarga = KeluargaModel::all();
         $activeMenu = 'warga';
 
         return view('warga.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
-            'activeMenu' => $activeMenu
+            'activeMenu' => $activeMenu,
+            'keluarga' => $keluarga
         ]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'NKK' => 'required|string|max:20',
-            'NIK' => 'required|string|max:20|unique:warga,NIK',
+            'NIK' => 'required|string|max:20',
             'nama_lengkap' => 'required|string|max:100',
-            'jenis_kelamin' => 'required|in:L,P',
-            'alamat' => 'required|string|max:255',
+            'tanggal_lahir' => 'required',
+            'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
+            'alamat_domisili' => 'required|string|max:255',
             'pekerjaan' => 'required|string|max:50',
             'status_perkawinan' => 'required|in:Kawin,Belum Kawin',
+            'level' => 'required|in:RT,RW,Warga,Warga Sementara',
             'password' => 'required|min:5',
-            'id_rt' => 'required|integer',
-            'id_kategori_warga' => 'required|integer',
+            'id_keluarga' => 'required|integer',
         ]);
 
-        Warga::create([
-            'NKK' => $request->NKK,
+        WargaModel::create([
             'NIK' => $request->NIK,
             'nama_lengkap' => $request->nama_lengkap,
+            'tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
-            'alamat' => $request->alamat,
+            'alamat_domisili' => $request->alamat_domisili,
             'pekerjaan' => $request->pekerjaan,
             'status_perkawinan' => $request->status_perkawinan,
+            'level' => $request->level,
             'password' => bcrypt($request->password),
-            'id_rt' => $request->id_rt,
-            'id_kategori_warga' => $request->id_kategori_warga,
+            'id_keluarga' => $request->id_keluarga,
         ]);
 
         return redirect('/warga')->with('success', 'Data warga baru telah ditambahkan');
     }
 
-    public function edit(string $id)
-{
-    $warga = Warga::find($id);
+    public function edit(string $id){
+        $warga = WargaModel::find($id);
+        $keluarga = KeluargaModel::all();
 
-    $breadcrumb = (object) [
-        'title' => 'Edit Warga',
-        'list' => ['Home', 'Warga', 'Edit']
-    ];
+        $breadcrumb = (object) [
+            'title' => 'Edit Warga',
+            'list' => ['Home', 'Warga', 'Edit']
+        ];
 
-    $page = (object) [
-        'title' => 'Edit Warga'
-    ];
+        $page = (object) [
+            'title' => 'Edit Warga'
+        ];
 
-    $activeMenu = 'warga';
+        $activeMenu = 'warga';
 
-    return view('warga.edit', [
-        'breadcrumb' => $breadcrumb,
-        'page' => $page,
-        'warga' => $warga,
-        'activeMenu' => $activeMenu
-    ]);
-}
+        return view('warga.edit', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'warga' => $warga,
+            'activeMenu' => $activeMenu,
+            'keluarga' => $keluarga
+        ]);
+    }
 
+    public function update(Request $request, string $id){
+        $request->validate([
+            'NIK' => 'required|string|max:20',
+            'nama_lengkap' => 'required|string|max:100',
+            'tanggal_lahir' => 'required',
+            'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
+            'alamat_domisili' => 'required|string|max:255',
+            'pekerjaan' => 'required|string|max:50',
+            'status_perkawinan' => 'required|in:Kawin,Belum Kawin',
+            'level' => 'required|in:RT,RW,Warga,Warga Sementara',
+            'password' => 'required|min:5',
+            'id_keluarga' => 'required|integer',
+        ]);
 
-    // Metode lain tetap tidak berubah
+        WargaModel::find($id)->update([
+            'NIK' => $request->NIK,
+            'nama_lengkap' => $request->nama_lengkap,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'alamat_domisili' => $request->alamat_domisili,
+            'pekerjaan' => $request->pekerjaan,
+            'status_perkawinan' => $request->status_perkawinan,
+            'level' => $request->level,
+            'password' => bcrypt($request->password),
+            'id_keluarga' => $request->id_keluarga,
+        ]);
+
+        return redirect('/warga')->with('success', 'Data warga berhasil diubah');
+    }
+
+    public function destroy(string $id){
+        $check = WargaModel::find($id);
+        if (!$check){    // untuk mengecek apakah data user dengan id yang dimaksud ada atau tidak
+            return redirect('/warga')->with('error', 'Data warga tidak ditemukan');
+        }
+
+        try{
+            WargaModel::destroy($id);
+
+            return redirect('/warga')->with('success', 'Data warga berhasil dihapus');
+        }catch(\Illuminate\Database\QueryException $e){
+
+            // jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
+            return redirect('/warga')->with('error', 'Data warga gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+        }
+
+    }
 }

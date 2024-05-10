@@ -29,6 +29,6 @@ class Warga extends Authenticable
     // Relationship with Keluarga model
     public function keluarga()
     {
-        return $this->belongsTo(Keluarga::class, 'id_keluarga');
+        return $this->belongsTo(KeluargaModel::class, 'id_keluarga','id_keluarga');
     }
 }

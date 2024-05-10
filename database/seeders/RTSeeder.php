@@ -23,9 +23,9 @@ class RTSeeder extends Seeder
             'alamat' => 'Jalan Raya No. 123',
             'no_telepon' => '08123456789',
             'id_rw' => 1,
-            // 'status' => 'Aktif',
-            // 'mulai_jabatan' => '2020-01-01',
-            // 'akhir_jabatan' => '2025-01-01',
+            'status' => 'Aktif',
+            'mulai_jabatan' => '2020-01-01',
+            'akhir_jabatan' => '2025-01-01',
         ];
 
         // Tambahkan data lainnya sesuai kebutuhan
