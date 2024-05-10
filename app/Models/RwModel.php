@@ -24,7 +24,7 @@ class RwModel extends Model
         'akhir_jabatan'
     ];
 
-    public function rws(): HasMany
+    public function rts(): HasMany
     {
         return $this->hasMany(RtModel::class, 'id_rw', 'id_rw');
     }
