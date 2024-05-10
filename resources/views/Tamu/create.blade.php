@@ -43,7 +43,7 @@
                 </div>
                 <div class="form-group">
                     <label for="no_telepon">Nomor Telepon</label>
-                    <input type="text" name="no_telepon" id="no_telepon" class="form-control" value="{{ old('no_telepon') }}" required>
+                    <input type="number" name="no_telepon" id="no_telepon" class="form-control" value="{{ old('no_telepon') }}" required>
                 </div>
                 <div class="form-group">
                     <label for="tanggal_masuk">Tanggal Masuk</label>
