@@ -6,11 +6,12 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Login Page</title>
     <!-- Bootstrap CSS -->
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Bootstrap Icons CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Main CSS -->
-    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="{{asset('assets/css/main.css')}}" rel="stylesheet">
+    @stack('css')
 </head>
 
 <body>
@@ -22,34 +23,41 @@
                     <div class="card">
                         <div class="card-body">
                             <h2 class="text-center mb-5">Sign in</h2>
-                            <form>
+                            <form action="{{url('proses_login')}}" method="POST">
+                                @csrf
                                 <div class="mb-4">
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                        <input type="email" class="form-control form-control-lg" placeholder="Username" />
+                                        <input type="text"  class="form-control form-control-lg @error('nik') is-invalid @enderror" name="nik" value="{{ old('nik') }}" placeholder="NIK" autofocus required/>
                                     </div>
+                                    @error('nik')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
-
                                 <div class="mb-4">
+
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="bi bi-three-dots"></i></span>
-                                        <input id="passwordInput" type="password" class="form-control form-control-lg"
-                                            placeholder="Password" />
+                                        <input id="passwordInput" type="password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password"
+                                            placeholder="Password" required autofocus/>
                                         <button id="togglePassword" class="btn" type="button">
                                             <i class="bi bi-eye"></i>
                                         </button>
                                     </div>
+
                                 </div>
 
                                 <div class="form-check d-flex justify-content-end mb-4">
-                                    <input class="form-check-input" type="checkbox" value="" id="rememberPassword" />
+                                    {{-- <input class="form-check-input" type="checkbox" value="" id="rememberPassword" />
                                     <label class="form-check-label ms-2" for="rememberPassword"> Remember password
-                                    </label>
+                                    </label> --}}
                                 </div>
 
                                 <div class="d-flex justify-content-between">
 
-                                    <button class="btn btn-secondary btn-lg btn-block" type="submit">Kembali</button>
+                                    <a class="btn btn-secondary btn-lg btn-block" type="submit" href="/index">Kembali</a>
                                     <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
                                 </div>
 
@@ -63,10 +71,10 @@
     </div>
 
     <!-- Bootstrap JS -->
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <!-- Main JS -->
-    <script src="assets/js/login.js"></script>
-
+    <script src="{{asset('assets/js/login.js')}}"></script>
+@stack('js')
 </body>
 
 </html>

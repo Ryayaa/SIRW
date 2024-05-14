@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PenerimaBansosModel;
+use App\Models\Warga;
 use App\Models\WargaModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -37,8 +38,8 @@ class PenerimaBansosController extends Controller
         }
 
         return DataTables::of($penerima)
-            ->addIndexColumn() 
-            ->addColumn('aksi', function ($penerima) { 
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($penerima) {
                 $btn = '<a href="' . url('/penerima/' . $penerima->id_penerima_bansos) . '" class="btn btn-info btn-sm">Detail</a> ';
                 $btn .= '<a href="' . url('/penerima/' . $penerima->id_penerima_bansos . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 $btn .= '<form class="d-inline-block" method="POST" action="' . url('/penerima/' . $penerima->id_penerima_bansos) . '">'
@@ -60,7 +61,7 @@ class PenerimaBansosController extends Controller
             'title' => 'Tambah penerima bansos'
         ];
 
-        $warga = WargaModel::all(); // ambil data level untuk ditampilkan di form
+        $warga = Warga::all(); // ambil data level untuk ditampilkan di form
         $activeMenu = 'penerima'; // set menu sedang aktif
 
         return view('penerima.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'warga' => $warga, 'activeMenu' => $activeMenu]);
