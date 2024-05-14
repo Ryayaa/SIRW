@@ -22,7 +22,6 @@ return new class extends Migration
             $table->enum('status', ['Aktif', 'Pensiun']);
             $table->dateTime('mulai_jabatan')->nullable();
             $table->dateTime('akhir_jabatan')->nullable();
-            $table->timestamps();
             $table->foreign('id_rw')->references('id_rw')->on('rw');
 
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\TamuController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\PengumumanController;
 
 Route::get('/',[AuthController::class,'index'])->name('login');
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
@@ -19,9 +20,14 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/index', function () {
     return view('index');
 });
-Route::get('/login', function () {
-    return view('login');
-});
+
+Route::get('/dashboard',[WelcomeController::class,'index']);
+
+
+
+// Route::get('/login', function () {
+//     return view('login');
+// });
 
 Route::group(['prefix' => 'warga'], function () {
     Route::get('/', [WargaController::class, 'index'])->name('warga.index'); // Menampilkan data warga
@@ -73,6 +79,18 @@ Route::group(['middleware' => ['auth']],function(){
         Route::get('/rw-dashboard', [Dashboard::class,'DashboardRW'])->name('rw-dashboard');
     });
 
+Route::group(['prefix' => 'pengumuman'], function () {
+    Route::get('/', [PengumumanController::class, 'index'])->name('pengumuman.index'); // Menampilkan daftar pengumuman
+    Route::post('/list', [PengumumanController::class, 'list'])->name('pengumuman.list'); // Menampilkan data pengumuman dalam bentuk JSON untuk DataTables
+    Route::get('/create', [PengumumanController::class, 'create'])->name('pengumuman.create'); // Menampilkan form tambah pengumuman
+    Route::post('/', [PengumumanController::class, 'store'])->name('pengumuman.store'); // Menyimpan data pengumuman
+    Route::get('/{id}', [PengumumanController::class, 'show'])->name('pengumuman.show'); // Menampilkan detail pengumuman
+    Route::get('/{id}/edit', [PengumumanController::class, 'edit'])->name('pengumuman.edit'); // Menampilkan form edit pengumuman
+    Route::put('/{id}', [PengumumanController::class, 'update'])->name('pengumuman.update'); // Mengupdate data pengumuman
+    Route::delete('/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy'); // Menghapus data pengumuman
+});
+
+
 
     //Route Untuk RT
     Route::group(['middleware' => ['roles:rt']],function(){
@@ -86,3 +104,4 @@ Route::group(['middleware' => ['auth']],function(){
 
 
 });
+
