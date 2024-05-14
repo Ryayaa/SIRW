@@ -20,13 +20,9 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>NKK</th>
                         <th>NIK</th>
                         <th>Nama Lengkap</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Alamat</th>
-                        <th>Pekerjaan</th>
-                        <th>Status Perkawinan</th>
+                        <th>Level</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -49,13 +45,9 @@
                 },
                 columns: [
                     { data: 'id_warga', name: 'id_warga' },
-                    { data: 'NKK', name: 'NKK' },
                     { data: 'NIK', name: 'NIK' },
                     { data: 'nama_lengkap', name: 'nama_lengkap' },
-                    { data: 'jenis_kelamin', name: 'jenis_kelamin' },
-                    { data: 'alamat', name: 'alamat' },
-                    { data: 'pekerjaan', name: 'pekerjaan' },
-                    { data: 'status_perkawinan', name: 'status_perkawinan' },
+                    { data: 'level', name: 'level' },
                     { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
                 ]
             });

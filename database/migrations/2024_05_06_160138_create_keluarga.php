@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id("id_keluarga");
             $table->string('nomor_kk');
             $table->string('alamat');
-            $table->string('id_rt');
+            $table->unsignedBigInteger('id_rt');
             $table->timestamps();
 
             $table->foreign('id_rt')->references('id_rt')->on('rt');

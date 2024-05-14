@@ -1070,28 +1070,31 @@ section {
     color: rgba(var(--color-primary-rgb), 0.8);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 1200px) {
     .hero-static {
-        padding: 130px 0 0px;
+
+      min-height: 55vh;
+      max-height: 60vh;
+      padding: 115px 0 0px;
     }
+
     .hero-static h2 {
-        font-size: 24px;
+      font-size: 20px;
     }
     .hero-static h2 span {
-        color: var(--color-primary);
-        font-size: 32px;
+      color: var(--color-primary);
+      font-size: 28px;
     }
 
     .hero-static p {
-        font-size: 14px;
-        margin-bottom: 30px;
+      font-size: 14px;
     }
 
     .hero-static .btn-get-started,
     .hero-static .btn-watch-video {
-        font-size: 14px;
+      font-size: 14px;
     }
-}
+  }
 
 /*--------------------------------------------------------------
 # Pengumuman Section
@@ -1104,19 +1107,33 @@ section {
     height: 100%;
     box-shadow: 0px 0 60px 0 rgba(var(--color-secondary-rgb), 0.1);
     border: grey;
-}
+  }
 
-.pengumuman .pengumuman-item time {
+
+  .pengumuman .pengumuman-item time{
     font-size: 14px;
-}
+  }
 
-.pengumuman .pengumuman-item h4 {
+  .pengumuman .pengumuman-item h4{
     font-size: 24px;
-}
-.pengumuman .pengumuman-item:hover {
+  }
+  .featured-services .service-item:hover {
     transform: translateY(-10px);
-    transition: all ease-in-out 0.4s;
-}
+  }
+
+  @media (max-width: 1200px) {
+
+    .pengumuman .row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .pengumuman .pengumuman-item {
+      /* width: 100; Pastikan lebar item pengumuman 100% agar berada di tengah */
+      max-width: 100%;
+    }
+  }
 
 /*--------------------------------------------------------------
 # Berita dan Kegiatan Section
@@ -1220,6 +1237,11 @@ section {
     margin-top: 0;
 }
 
+
+@media (max-width: 480px) {
+    .article-list {
+        margin-bottom: 15px
+    };
 .berita-header {
     text-align: left;
     padding-bottom: 20px;
@@ -1235,6 +1257,7 @@ section {
     padding: 40px;
     background-color: rgba(17, 122, 235, 0.2);
     border-radius: 16px;
+}
 }
 
 @media (max-width: 480px) {
@@ -1259,6 +1282,73 @@ section {
     transition: color 0.3s ease; /* Efek transisi saat tautan berubah warna */
 }
 
+.activity-card img{
+    background-image: cover;
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.activity-card a {
+    color: inherit; /* Inherit text color */
+    text-decoration: none; /* Remove default underline */
+}
+.news-card h5{
+    font-size: 24px;
+    color: var(--color-secondary);
+}
+
+.activity-card .details {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.activity-card .details i {
+    margin-right: 10px;
+    font-size: 18px;
+    vertical-align: middle;
+    color: rgba(var(--color-black-rgb), 1);
+}
+
+.activity-card .details time {
+    font-size: 14px;
+    color: #888;
+}
+
+.activity-card .details span {
+    font-size: 14px;
+    color: #888;
+}
+
+@media(max-width:576px){
+.news-card h5{
+    font-size: 14px;
+}
+.news-card p{
+    font-size: 10px;
+}
+.news-card time{
+    font-size: 8px;
+}
+.activity-card .details i{
+    font-size: 10px;
+    margin-right: 4px;
+}
+    .activity-card .details time,
+    .accordion-card .details span{
+        font-size: 10px;
+    }
+
+    .activity-card h5{
+        font-size: 14px;
+    }
+
+    .activity-card .details span {
+        font-size: 10px;
+        color: #888;
+    }
+}
 /*--------------------------------------------------------------
 # Featured Services Section
 --------------------------------------------------------------*/
@@ -1728,6 +1818,9 @@ section {
 .features .nav-link.active i {
     color: var(--color-white) !important;
 }
+
+
+
 
 .features .tab-content {
     margin-top: 30px;
@@ -2421,21 +2514,39 @@ section {
     line-height: 1;
     transition: 0.3s;
     margin-top: 15px;
-}
+  }
 
-.recent-blog-posts .post-box .readmore i {
+  .recent-blog-posts .post-box .readmore i {
     line-height: 0;
     margin-left: 4px;
     font-size: 18px;
-}
+  }
 
-.recent-blog-posts .post-box:hover .post-title {
+  .recent-blog-posts .post-box:hover .post-title {
     color: var(--color-primary);
-}
+  }
 
-.recent-blog-posts .post-box:hover .post-img img {
+  .recent-blog-posts .post-box:hover .post-img img {
     transform: scale(1.1);
-}
+  }
+
+  @media (max-width:1200px){
+     .recent-blog-posts .post-box .post-title{
+      font-size: 16px;
+     }
+     .recent-blog-posts .post-box .meta .post-author{
+      font-size: 10px;
+     }
+     .recent-blog-posts .post-box p{
+      font-size: 12px;
+     }
+     .recent-blog-posts .post-box .readmore{
+      font-size: 10px;
+     }
+     .recent-blog-posts .post-box .readmore i{
+      font-size: 10px;
+     }
+  }
 
 /*--------------------------------------------------------------
 # Contact Section
