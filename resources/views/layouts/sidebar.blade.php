@@ -40,6 +40,12 @@
                 <p>Penerima Bansos</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ url('/pengumuman') }}" class="nav-link {{ $activeMenu == 'pengumuman' ? 'active' : '' }} ">
+                <i class="nav-icon far fa fa-file-medical"></i>
+                <p>Pengumuman</p>
+            </a>
+          </li>
           {{-- <li class="nav-header">Data Pengguna</li>
           <li class="nav-item">
               <a href="{{ url('/level') }}" class="nav-link {{ $activeMenu == 'level' ? 'active' : '' }} ">

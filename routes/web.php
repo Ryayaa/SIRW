@@ -5,15 +5,16 @@ use App\Http\Controllers\PenerimaBansosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\PengumumanController;
 
 Route::get('/',[WelcomeController::class,'index']);
 
 Route::get('/index', function () {
     return view('index');
 });
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/login', function () {
     return view('login');
 });
@@ -51,6 +52,19 @@ Route::group(['prefix' => 'penerima'], function () {
     Route::put('/{id}', [PenerimaBansosController::class, 'update']); // Mengupdate data warga
     Route::delete('/{id}', [PenerimaBansosController::class, 'destroy']); // Menghapus data warga
 });
+
+
+Route::group(['prefix' => 'pengumuman'], function () {
+    Route::get('/', [PengumumanController::class, 'index'])->name('pengumuman.index'); // Menampilkan daftar pengumuman
+    Route::post('/list', [PengumumanController::class, 'list'])->name('pengumuman.list'); // Menampilkan data pengumuman dalam bentuk JSON untuk DataTables
+    Route::get('/create', [PengumumanController::class, 'create'])->name('pengumuman.create'); // Menampilkan form tambah pengumuman
+    Route::post('/', [PengumumanController::class, 'store'])->name('pengumuman.store'); // Menyimpan data pengumuman
+    Route::get('/{id}', [PengumumanController::class, 'show'])->name('pengumuman.show'); // Menampilkan detail pengumuman
+    Route::get('/{id}/edit', [PengumumanController::class, 'edit'])->name('pengumuman.edit'); // Menampilkan form edit pengumuman
+    Route::put('/{id}', [PengumumanController::class, 'update'])->name('pengumuman.update'); // Mengupdate data pengumuman
+    Route::delete('/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy'); // Menghapus data pengumuman
+});
+
 
 
 // Route::get('/', function () {
