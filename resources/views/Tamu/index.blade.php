@@ -34,19 +34,25 @@
 @push('js')
 <script>
     $(document).ready(function() {
-        var dataTable = $('#table_tamu').DataTable({
-            serverSide: true,
-            processing: true,
-            ajax: {
-                url: "{{ route('tamu.list') }}",
-                type: 'POST',
+    var dataTable = $('#table_tamu').DataTable({
+        serverSide: true,
+        ajax: {
+            url: "{{ route('tamu.list') }}",
+            type: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}"
             },
-            columns: [
-                { data: 'id_tamu', name: 'id_tamu' },
-                { data: 'nama_lengkap', name: 'nama_lengkap' },
-                { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
-            ]
-        });
+            error: function(xhr, error, thrown) {
+                console.log(xhr.responseText);
+            }
+        },
+        columns: [
+            { data: 'id_tamu', name: 'id_tamu' },
+            { data: 'nama_lengkap', name: 'nama_lengkap' },
+            { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
+        ]
     });
+});
+
 </script>
 @endpush

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Tamu;
+use App\Models\Tamu;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -28,10 +28,13 @@ class TamuController extends Controller
 
     public function list(Request $request)
     {
-        return DataTables::of(Tamu::query())
+        $tamu = Tamu::select('id_tamu', 'nama_lengkap');
+
+        return DataTables::of($tamu)
+            ->addIndexColumn() 
             ->addColumn('aksi', function ($tamu) {
-                $btn = '<a href="' . route('tamu.show', $tamu->id_tamu) . '" class="btn btn-info btn-sm">Detail</a> ';
-                $btn .= '<a href="' . route('tamu.edit', $tamu->id_tamu) . '" class="btn btn-warning btn-sm">Edit</a> ';
+                $btn = '<a href="' . url('/tamu/', $tamu->id_tamu) . '" class="btn btn-info btn-sm">Detail</a> ';
+                $btn .= '<a href="' . url('/tamu/', $tamu->id_tamu) . '" class="btn btn-warning btn-sm">Edit</a> ';
                 $btn .= '<form class="d-inline-block" method="POST" action="' . route('tamu.destroy', $tamu->id_tamu) . '">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
                 return $btn;
             })
