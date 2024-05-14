@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tamu;
+use App\Tamu;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
