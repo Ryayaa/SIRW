@@ -19,15 +19,12 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/index', function () {
     return view('index');
 });
-<<<<<<< HEAD
-// Route::get('/', function () {
-//     return view('welcome');
+
+
+
+// Route::get('/login', function () {
+//     return view('login');
 // });
-=======
->>>>>>> e8057ae0a2d266db17c556d035f07878209f236d
-Route::get('/login', function () {
-    return view('login');
-});
 
 Route::group(['prefix' => 'warga'], function () {
     Route::get('/', [WargaController::class, 'index'])->name('warga.index'); // Menampilkan data warga
@@ -69,7 +66,6 @@ Route::group(['middleware' => ['auth']],function(){
         Route::get('/rw-dashboard', [Dashboard::class,'DashboardRW'])->name('rw-dashboard');
     });
 
-<<<<<<< HEAD
 Route::group(['prefix' => 'pengumuman'], function () {
     Route::get('/', [PengumumanController::class, 'index'])->name('pengumuman.index'); // Menampilkan daftar pengumuman
     Route::post('/list', [PengumumanController::class, 'list'])->name('pengumuman.list'); // Menampilkan data pengumuman dalam bentuk JSON untuk DataTables
@@ -83,11 +79,6 @@ Route::group(['prefix' => 'pengumuman'], function () {
 
 
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-=======
-
     //Route Untuk RT
     Route::group(['middleware' => ['roles:rt']],function(){
         Route::get('/rt-dashboard', [Dashboard::class,'DashboardRT'])->name('rt-dashboard');
@@ -100,4 +91,4 @@ Route::group(['prefix' => 'pengumuman'], function () {
 
 
 });
->>>>>>> e8057ae0a2d266db17c556d035f07878209f236d
+
