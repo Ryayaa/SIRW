@@ -20,6 +20,8 @@ Route::get('/index', function () {
     return view('index');
 });
 
+Route::get('/dashboard',[WelcomeController::class,'index']);
+
 
 
 // Route::get('/login', function () {
