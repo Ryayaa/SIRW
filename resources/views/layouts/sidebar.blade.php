@@ -48,41 +48,7 @@
         </ul>
     </nav>
   </div>
-<<<<<<< HEAD
-  <!-- Sidebar Menu -->
-  <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item">
-              <a href="{{ url('/') }}" class="nav-link {{ $activeMenu == 'dashboard' ? 'active' : '' }} ">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
-                  <p>Dashboard</p>
-              </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/warga') }}" class="nav-link {{ $activeMenu == 'warga' ? 'active' : '' }} ">
-                <i class="nav-icon far fa-address-card"></i>
-                <p>Kelola Warga</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ url('/bansos') }}" class="nav-link {{ $activeMenu == 'bansos' ? 'active' : '' }}">
-                <i class="nav-icon fas fa-hand-holding-usd"></i>
-                <p>Kelola Bansos</p>
-            </a>
-        </li>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/penerima') }}" class="nav-link {{ $activeMenu == 'penerima' ? 'active' : '' }} ">
-                <i class="nav-icon far fa fa-file-medical"></i>
-                <p>Penerima Bansos</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/pengumuman') }}" class="nav-link {{ $activeMenu == 'pengumuman' ? 'active' : '' }} ">
-                <i class="nav-icon far fa fa-file-medical"></i>
-                <p>Pengumuman</p>
-            </a>
-          </li>
+
           {{-- <li class="nav-header">Data Pengguna</li>
           <li class="nav-item">
               <a href="{{ url('/level') }}" class="nav-link {{ $activeMenu == 'level' ? 'active' : '' }} ">
@@ -125,5 +91,4 @@
       </ul>
   </nav>
 </div>
-=======
->>>>>>> e8057ae0a2d266db17c556d035f07878209f236d
+
