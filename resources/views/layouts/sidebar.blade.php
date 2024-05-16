@@ -46,6 +46,24 @@
               </a>
           </li>
           <li class="nav-item">
+            <a href="{{ url('/rw') }}" class="nav-link {{ ($activeMenu == 'rw') ? 'active' : '' }} ">
+                <i class="nav-icon far fa fa-user-tie"></i>
+                <p>Ketua RW</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/rt') }}" class="nav-link {{ ($activeMenu == 'rt') ? 'active' : '' }} ">
+                <i class="nav-icon far fa fa-user-tie"></i>
+                <p>Ketua RT</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/keluarga') }}" class="nav-link {{ ($activeMenu == 'keluarga') ? 'active' : '' }} ">
+                <i class="nav-icon far fa fa-house-user"></i>
+                <p>Keluarga</p>
+            </a>
+          </li>
+          <li class="nav-item">
               <a href="{{ url('/bansos') }}" class="nav-link {{--{{ ($activeMenu == 'bansos') ? 'active' : '' }}--}}">
                   <i class="nav-icon fas fa-hand-holding-usd"></i>
                   <p>Kelola Bansos</p>
@@ -56,6 +74,12 @@
                   <i class="nav-icon far fa fa-file-medical"></i>
                   <p>Penerima Bansos</p>
               </a>
+              <li class="nav-item">
+                  <a href="{{ route('tamu.index') }}" class="nav-link {{ $activeMenu == 'tamu' ? 'active' : '' }}">
+                      <i class="nav-icon far fa fa-user"></i>
+                      <p>Data Tamu</p>
+                  </a>
+              </li>
             </li>
             <li class="nav-item">
                 <a href="{{ url('/pengumuman') }}" class="nav-link ">
