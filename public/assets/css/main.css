@@ -2455,6 +2455,10 @@ section {
     opacity: 1;
 }
 
+
+
+
+
 /*--------------------------------------------------------------
 # Recent Blog Posts
 --------------------------------------------------------------*/
@@ -3633,3 +3637,28 @@ section {
         padding: 0.5rem 1rem;
     }
 }
+
+/*--------------------------------------------------------------
+# Profil User
+--------------------------------------------------------------*/
+
+.profile-user .card-header h3{
+    color: rgba(var(--color-primary-dark-rgb), 0.9);
+    font-weight: bold;
+}
+
+.profile-user .card-body .profile-items h4{
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    font-size: 32px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgba(var(--color-black-rgb), 0.7);
+}
+
+.profile-user .card-body .profile-items strong{
+
+    color: rgba(var(--color-black-rgb), 0.9);
+    margin-right: 4px;
+}
+
+

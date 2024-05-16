@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\BansosController;
 use App\Http\Controllers\KeluargaController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PenerimaBansosController;
 use App\Http\Controllers\RtController;
 use App\Http\Controllers\RwController;
@@ -62,35 +63,38 @@ Route::group(['prefix' => 'penerima'], function () {
     Route::delete('/{id}', [PenerimaBansosController::class, 'destroy']); // Menghapus data warga
 });
 
-Route::group(['middleware' => ['auth']],function(){
+Route::group(['middleware' => ['auth']], function () {
     // Route Untuk RW
-    Route::group(['middleware' => ['roles:rw']],function(){
-        Route::get('/rw-dashboard', [Dashboard::class,'DashboardRW'])->name('rw-dashboard');
+    Route::group(['middleware' => ['roles:rw']], function () {
+        Route::get('/rw-dashboard', [Dashboard::class, 'DashboardRW'])->name('rw-dashboard');
     });
 
-Route::group(['prefix' => 'pengumuman'], function () {
-    Route::get('/', [PengumumanController::class, 'index'])->name('pengumuman.index'); // Menampilkan daftar pengumuman
-    Route::post('/list', [PengumumanController::class, 'list'])->name('pengumuman.list'); // Menampilkan data pengumuman dalam bentuk JSON untuk DataTables
-    Route::get('/create', [PengumumanController::class, 'create'])->name('pengumuman.create'); // Menampilkan form tambah pengumuman
-    Route::post('/', [PengumumanController::class, 'store'])->name('pengumuman.store'); // Menyimpan data pengumuman
-    Route::get('/{id}', [PengumumanController::class, 'show'])->name('pengumuman.show'); // Menampilkan detail pengumuman
-    Route::get('/{id}/edit', [PengumumanController::class, 'edit'])->name('pengumuman.edit'); // Menampilkan form edit pengumuman
-    Route::put('/{id}', [PengumumanController::class, 'update'])->name('pengumuman.update'); // Mengupdate data pengumuman
-    Route::delete('/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy'); // Menghapus data pengumuman
-});
+    Route::group(['prefix' => 'pengumuman'], function () {
+        Route::get('/', [PengumumanController::class, 'index'])->name('pengumuman.index'); // Menampilkan daftar pengumuman
+        Route::post('/list', [PengumumanController::class, 'list'])->name('pengumuman.list'); // Menampilkan data pengumuman dalam bentuk JSON untuk DataTables
+        Route::get('/create', [PengumumanController::class, 'create'])->name('pengumuman.create'); // Menampilkan form tambah pengumuman
+        Route::post('/', [PengumumanController::class, 'store'])->name('pengumuman.store'); // Menyimpan data pengumuman
+        Route::get('/{id}', [PengumumanController::class, 'show'])->name('pengumuman.show'); // Menampilkan detail pengumuman
+        Route::get('/{id}/edit', [PengumumanController::class, 'edit'])->name('pengumuman.edit'); // Menampilkan form edit pengumuman
+        Route::put('/{id}', [PengumumanController::class, 'update'])->name('pengumuman.update'); // Mengupdate data pengumuman
+        Route::delete('/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy'); // Menghapus data pengumuman
+    });
+
+
 
 
 
     //Route Untuk RT
-    Route::group(['middleware' => ['roles:rt']],function(){
-        Route::get('/rt-dashboard', [Dashboard::class,'DashboardRT'])->name('rt-dashboard');
+    Route::group(['middleware' => ['roles:rt']], function () {
+        Route::get('/rt-dashboard', [Dashboard::class, 'DashboardRT'])->name('rt-dashboard');
     });
 
     //Route Untuk Warga
-    Route::group(['middleware' => ['roles:warga']],function(){
-        Route::get('/warga-dashboard', [Dashboard::class,'DashboardWarga'])->name('user-dashboard');
+    Route::group(['middleware' => ['roles:warga']], function () {
+        Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile');
+        Route::get('/warga-dashboard', [Dashboard::class, 'DashboardWarga'])->name('user-dashboard');
+        Route::post('/profile/change-password', [AuthController::class, 'changePassword'])->name('profile.change-password');
+        Route::get('/struktur-rw', [PageController::class, 'showPengurusRW'])->name('struktur');
+
     });
-
-
 });
-

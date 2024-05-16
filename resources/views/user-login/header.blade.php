@@ -9,6 +9,7 @@
 
         <nav id="navbar" class="navbar">
             <ul>
+                <li><a class="nav-link scrollto" href="#">Tentang</a></li>
                 <li class="dropdown"><a href="#"><span>Bantuan Sosial</span> <i
                             class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
@@ -26,7 +27,7 @@
                 <li class="dropdown"><a href="#"><span>Informasi</span> <i
                             class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
-                        <li><a href="#">Struktur Pengurus</a></li>
+                        <li><a href="{{route('struktur')}}">Struktur Pengurus</a></li>
                         <li><a href="#">Pengumuman</a></li>
                         <li><a href="#">Kegiatan Warga</a></li>
                         <li><a href="#">Kas</a></li>
@@ -44,7 +45,7 @@
                 <li class="dropdown"><a href="#"><span>Akun</span> <i
                             class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
-                        <li><a href="#">Profile</a></li>
+                        <li><a href="{{route('profile')}}">Profile</a></li>
                         <li><a href="{{ route('logout') }}">Logout</a></li>
                     </ul>
                 </li>
