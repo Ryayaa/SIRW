@@ -81,6 +81,31 @@ class BansosController extends Controller
         return redirect('/bansos')->with('success', 'Bantuan Sosial berhasil disimpan');
     }
 
+    public function edit(string $id)
+    {
+        $bansos = Bansos::findOrFail($id);
+    
+        $breadcrumb = (object) [
+            'title' => 'Edit Bansos',
+            'list' => ['Home', 'Bansos', 'Edit']
+        ];
+    
+        $page = (object) [
+            'title' => 'Edit Bansos'
+        ];
+    
+        $activeMenu = 'bansos';
+    
+        return view('bansos.edit', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'bansos' => $bansos,
+            'activeMenu' => $activeMenu
+        ]);
+    }
+    
+
+
     public function show($id)
     {
         $bansos = Bansos::findOrFail($id);

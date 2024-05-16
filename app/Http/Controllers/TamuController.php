@@ -27,20 +27,21 @@ class TamuController extends Controller
     }
 
     public function list(Request $request)
-    {
-        $tamu = Tamu::select('id_tamu', 'nama_lengkap');
+{
+    $tamu = Tamu::select('id_tamu', 'nama_lengkap');
 
-        return DataTables::of($tamu)
-            ->addIndexColumn() 
-            ->addColumn('aksi', function ($tamu) {
-                $btn = '<a href="' . url('/tamu/', $tamu->id_tamu) . '" class="btn btn-info btn-sm">Detail</a> ';
-                $btn .= '<a href="' . url('/tamu/', $tamu->id_tamu) . '" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . route('tamu.destroy', $tamu->id_tamu) . '">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
-                return $btn;
-            })
-            ->rawColumns(['aksi'])
-            ->make(true);
-    }
+    return DataTables::of($tamu)
+        ->addIndexColumn()
+        ->addColumn('aksi', function ($tamu) {
+            $btn = '<a href="' . url('/tamu/' . $tamu->id_tamu) . '" class="btn btn-info btn-sm">Detail</a> ';
+            $btn .= '<a href="' . url('/tamu/' . $tamu->id_tamu . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+            $btn .= '<form class="d-inline-block" method="POST" action="' . route('tamu.destroy', $tamu->id_tamu) . '">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+            return $btn;
+        })
+        ->rawColumns(['aksi'])
+        ->make(true);
+}
+
 
 
 
@@ -78,6 +79,29 @@ class TamuController extends Controller
         Tamu::create($data);
 
         return redirect('/tamu')->with('success', 'Data tamu berhasil disimpan');
+    }
+
+    public function edit(string $id)
+    {
+        $tamu = Tamu::findOrFail($id);
+
+        $breadcrumb = (object) [
+            'title' => 'Edit Tamu',
+            'list' => ['Home', 'Tamu', 'Edit']
+        ];
+
+        $page = (object) [
+        'title' => 'Edit Tamu'
+        ];
+
+        $activeMenu = 'tamu';
+
+    return view('tamu.edit', [
+        'breadcrumb' => $breadcrumb,
+        'page' => $page,
+        'tamu' => $tamu,
+        'activeMenu' => $activeMenu
+        ]);
     }
 
     public function show($id)
