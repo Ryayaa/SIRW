@@ -22,6 +22,24 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ url('/rw') }}" class="nav-link">
+                    <i class="nav-icon far fa fa-user-tie"></i>
+                    <p>Ketua RW</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/rt') }}" class="nav-link">
+                    <i class="nav-icon far fa fa-user-tie"></i>
+                    <p>Ketua RT</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/keluarga') }}" class="nav-link">
+                    <i class="nav-icon far fa fa-house-user"></i>
+                    <p>Keluarga</p>
+                </a>
+              </li>
+            <li class="nav-item">
               <a href="{{ url('/warga') }}" class="nav-link {{--{{ $activeMenu == 'warga' ? 'active' : '' }}--}} ">
                   <i class="nav-icon far fa-address-card"></i>
                   <p>Kelola Warga</p>
@@ -64,6 +82,12 @@
               </li>
             </li>
             <li class="nav-item">
+                <a href="{{ url('/pengumuman') }}" class="nav-link ">
+                    <i class="nav-icon far fa fa-file-medical"></i>
+                    <p>Pengumuman</p>
+                </a>
+              </li>
+            <li class="nav-item">
               <a href="{{ route('logout') }}" class="nav-link ">
                   <i class="nav-icon far fa fa-file-medical"></i>
                   <p>Logout</p>
@@ -72,4 +96,3 @@
         </ul>
     </nav>
   </div>
-  
