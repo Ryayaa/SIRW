@@ -1,8 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Pengumuman;
+use App\Models\RtModel; // Import model Rt
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
@@ -59,7 +59,14 @@ class PengumumanController extends Controller
 
         $activeMenu = 'pengumuman';
 
-        return view('pengumuman.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        $rts = RtModel::all(); // Ambil semua data RT
+
+        return view('pengumuman.create', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu,
+            'rts' => $rts // Kirim data RT ke view
+        ]);
     }
 
     public function store(Request $request)
@@ -117,7 +124,15 @@ class PengumumanController extends Controller
 
         $activeMenu = 'pengumuman';
 
-        return view('pengumuman.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'pengumuman' => $pengumuman, 'activeMenu' => $activeMenu]);
+        $rts = RtModel::all(); // Ambil semua data RT
+
+        return view('pengumuman.edit', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'pengumuman' => $pengumuman,
+            'activeMenu' => $activeMenu,
+            'rts' => $rts // Kirim data RT ke view
+        ]);
     }
 
     public function update(Request $request, $id)
