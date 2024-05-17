@@ -55,7 +55,7 @@
                   <p>Penerima Bansos</p>
               </a>
               <li class="nav-item">
-                  <a href="{{ route('tamu.index') }}" class="nav-link {{ $activeMenu == 'tamu' ? 'active' : '' }}">
+                  <a href="{{ route('tamu.index') }}" class="nav-link {{--{{ $activeMenu == 'tamu' ? 'active' : '' }}--}} ">
                       <i class="nav-icon far fa fa-user"></i>
                       <p>Data Tamu</p>
                   </a>
