@@ -46,24 +46,6 @@
               </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('/rw') }}" class="nav-link {{ ($activeMenu == 'rw') ? 'active' : '' }} ">
-                <i class="nav-icon far fa fa-user-tie"></i>
-                <p>Ketua RW</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/rt') }}" class="nav-link {{ ($activeMenu == 'rt') ? 'active' : '' }} ">
-                <i class="nav-icon far fa fa-user-tie"></i>
-                <p>Ketua RT</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/keluarga') }}" class="nav-link {{ ($activeMenu == 'keluarga') ? 'active' : '' }} ">
-                <i class="nav-icon far fa fa-house-user"></i>
-                <p>Keluarga</p>
-            </a>
-          </li>
-          <li class="nav-item">
               <a href="{{ url('/bansos') }}" class="nav-link {{--{{ ($activeMenu == 'bansos') ? 'active' : '' }}--}}">
                   <i class="nav-icon fas fa-hand-holding-usd"></i>
                   <p>Kelola Bansos</p>
