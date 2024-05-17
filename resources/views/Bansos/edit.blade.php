@@ -13,9 +13,9 @@
             @if (session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
-            <form method="POST" action="{{ url('/bansos/' . $bansos->id_bansos) }}" class="form-horizontal">
+            <form method="POST" action="{{ route('bansos.update', $bansos->id_bansos) }}" class="form-horizontal" enctype="multipart/form-data">
                 @csrf
-                {!! method_field('PUT') !!}
+                @method('PUT')
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Nama Bansos</label>
                     <div class="col-11">
@@ -39,6 +39,9 @@
                     <label class="col-1 control-label col-form-label">Gambar</label>
                     <div class="col-11">
                         <input type="file" class="form-control-file" id="gambar" name="gambar">
+                        @if($bansos->gambar)
+                            <img src="{{ url('images/' . $bansos->gambar) }}" alt="Current Image" width="100" class="mt-2">
+                        @endif
                         @error('gambar')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror

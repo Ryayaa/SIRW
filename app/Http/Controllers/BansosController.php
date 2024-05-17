@@ -67,7 +67,7 @@ class BansosController extends Controller
             'nama_bansos' => 'required|string|max:255',
             'deskripsi' => 'required',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        ]);        
 
         $data = $request->all();
         if ($request->hasFile('gambar')) {
@@ -80,31 +80,6 @@ class BansosController extends Controller
 
         return redirect('/bansos')->with('success', 'Bantuan Sosial berhasil disimpan');
     }
-
-    public function edit(string $id)
-    {
-        $bansos = Bansos::findOrFail($id);
-    
-        $breadcrumb = (object) [
-            'title' => 'Edit Bansos',
-            'list' => ['Home', 'Bansos', 'Edit']
-        ];
-    
-        $page = (object) [
-            'title' => 'Edit Bansos'
-        ];
-    
-        $activeMenu = 'bansos';
-    
-        return view('bansos.edit', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'bansos' => $bansos,
-            'activeMenu' => $activeMenu
-        ]);
-    }
-    
-
 
     public function show($id)
     {
@@ -128,14 +103,17 @@ class BansosController extends Controller
     {
         $bansos = Bansos::findOrFail($id);
 
-        if ($bansos->gambar) {
-            Storage::delete('public/images/' . $bansos->gambar);
+        // Check if the bansos entry has an associated image and delete it
+        if ($bansos->gambar && file_exists(public_path('images/' . $bansos->gambar))) {
+            unlink(public_path('images/' . $bansos->gambar));
         }
 
+        // Delete the bansos entry from the database
         if ($bansos->delete()) {
             return redirect()->route('bansos.index')->with('success', 'Bansos successfully deleted.');
         } else {
             return redirect()->route('bansos.index')->with('error', 'Failed to delete Bansos.');
         }
     }
+
 }

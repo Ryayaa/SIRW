@@ -1,5 +1,3 @@
-{{-- JS7 praktikum 1 bagian 12 --}}
-
 <div class="sidebar">
     <!-- SidebarSearch Form -->
     <div class="form-inline mt-2">
