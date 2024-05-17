@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\WargaSementaraController;
 
 Route::get('/',[AuthController::class,'index'])->name('login');
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
@@ -127,6 +128,18 @@ Route::group(['prefix' => 'tamu'], function () {
     Route::put('/{id}', [TamuController::class, 'update'])->name('tamu.update'); 
     Route::delete('/{id}', [TamuController::class, 'destroy'])->name('tamu.destroy');
 });
+
+Route::group(['prefix' => 'warga-sementara'], function () {
+    Route::get('/', [WargaSementaraController::class, 'index'])->name('warga-sementara.index');
+    Route::get('/create', [WargaSementaraController::class, 'create'])->name('warga-sementara.create');
+    Route::post('/store', [WargaSementaraController::class, 'store'])->name('warga-sementara.store');
+    Route::get('/{id}/edit', [WargaSementaraController::class, 'edit'])->name('warga-sementara.edit');
+    Route::put('/{id}', [WargaSementaraController::class, 'update'])->name('warga-sementara.update');
+    Route::get('/{id}', [WargaSementaraController::class, 'show'])->name('warga-sementara.show');
+    Route::delete('/{id}', [WargaSementaraController::class, 'destroy'])->name('warga-sementara.destroy');
+    Route::post('/list', [WargaSementaraController::class, 'list'])->name('warga-sementara.list');
+});
+
 Route::group(['middleware' => ['auth']],function(){
     // Route Untuk RW
     Route::group(['middleware' => ['roles:rw']],function(){
