@@ -42,9 +42,6 @@ class TamuController extends Controller
         ->make(true);
 }
 
-
-
-
     public function create()
     {
         $breadcrumb = (object) [
@@ -103,6 +100,25 @@ class TamuController extends Controller
         'activeMenu' => $activeMenu
         ]);
     }
+
+    public function update(Request $request, $id)
+{
+    $request->validate([
+        'nama_lengkap' => 'required|string|max:255',
+        'tanggal_lahir' => 'required|date',
+        'jenis_kelamin' => 'required|in:L,P',
+        'alamat_ktp' => 'required|string|max:255',
+        'alamat_menetap' => 'required|string|max:255',
+        'no_telepon' => 'required|string|max:20',
+        'tanggal_masuk' => 'required|date',
+        'tanggal_keluar' => 'required|date|after:tanggal_masuk',
+    ]);
+
+    $tamu = Tamu::findOrFail($id);
+    $tamu->update($request->all());
+
+    return redirect('/tamu')->with('success', 'Data tamu berhasil diperbarui');
+}
 
     public function show($id)
     {
