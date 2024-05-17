@@ -57,7 +57,7 @@
 
                                 <div class="d-flex justify-content-between">
 
-                                    <a class="btn btn-secondary btn-lg btn-block" type="submit" href="{{route('guest')}}">Kembali</a>
+                                    <a class="btn btn-secondary btn-lg btn-block" type="submit" href="/index">Kembali</a>
                                     <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
                                 </div>
 
