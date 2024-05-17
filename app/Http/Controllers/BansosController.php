@@ -67,7 +67,7 @@ class BansosController extends Controller
             'nama_bansos' => 'required|string|max:255',
             'deskripsi' => 'required',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        ]);        
 
         $data = $request->all();
         if ($request->hasFile('gambar')) {
@@ -103,8 +103,39 @@ class BansosController extends Controller
             'activeMenu' => $activeMenu
         ]);
     }
-    
 
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama_bansos' => 'required|string|max:255',
+            'deskripsi' => 'required',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);        
+
+        $bansos = Bansos::findOrFail($id);
+
+        // Update the bansos data
+        $bansos->nama_bansos = $request->input('nama_bansos');
+        $bansos->deskripsi = $request->input('deskripsi');
+
+        // Check if a new image is uploaded
+        if ($request->hasFile('gambar')) {
+            // Delete the old image from storage
+            if ($bansos->gambar && file_exists(public_path('images/' . $bansos->gambar))) {
+                unlink(public_path('images/' . $bansos->gambar));
+            }
+
+            // Upload the new image
+            $imageName = time().'.'.$request->gambar->extension();
+            $request->gambar->move(public_path('images'), $imageName);
+            $bansos->gambar = $imageName;
+        }
+
+        // Save the updated bansos
+        $bansos->save();
+
+        return redirect()->route('bansos.index')->with('success', 'Bansos successfully updated.');
+    }
 
     public function show($id)
     {
@@ -128,14 +159,17 @@ class BansosController extends Controller
     {
         $bansos = Bansos::findOrFail($id);
 
-        if ($bansos->gambar) {
-            Storage::delete('public/images/' . $bansos->gambar);
+        // Check if the bansos entry has an associated image and delete it
+        if ($bansos->gambar && file_exists(public_path('images/' . $bansos->gambar))) {
+            unlink(public_path('images/' . $bansos->gambar));
         }
 
+        // Delete the bansos entry from the database
         if ($bansos->delete()) {
             return redirect()->route('bansos.index')->with('success', 'Bansos successfully deleted.');
         } else {
             return redirect()->route('bansos.index')->with('error', 'Failed to delete Bansos.');
         }
     }
+
 }
