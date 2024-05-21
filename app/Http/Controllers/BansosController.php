@@ -99,6 +99,39 @@ class BansosController extends Controller
         return view('bansos.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'bansos' => $bansos, 'activeMenu' => $activeMenu]);
     }
 
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'nama_bansos' => 'required|string|max:255',
+        'deskripsi' => 'required',
+        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+
+    $bansos = Bansos::findOrFail($id);
+
+    // Update the bansos data
+    $bansos->nama_bansos = $request->input('nama_bansos');
+    $bansos->deskripsi = $request->input('deskripsi');
+
+    // Check if a new image is uploaded
+    if ($request->hasFile('gambar')) {
+        // Delete the old image from storage
+        if ($bansos->gambar) {
+            Storage::delete('public/images/' . $bansos->gambar);
+        }
+
+        // Upload the new image
+        $imageName = time().'.'.$request->gambar->extension();
+        $request->gambar->move(public_path('images'), $imageName);
+        $bansos->gambar = $imageName;
+    }
+
+    // Save the updated bansos
+    $bansos->save();
+
+    return redirect()->route('bansos.index')->with('success', 'Bansos successfully updated.');
+}
+
     public function destroy($id)
     {
         $bansos = Bansos::findOrFail($id);
