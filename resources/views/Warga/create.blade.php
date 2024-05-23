@@ -53,8 +53,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="level">Level</label>
-                    <select name="level" id="level" class="form-control" required>
+                    <label for="roles">roles</label>
+                    <select name="roles" id="roles" class="form-control" required>
                         <option value="RT">RT</option>
                         <option value="RW">RW</option>
                         <option value="Warga">Warga</option>
