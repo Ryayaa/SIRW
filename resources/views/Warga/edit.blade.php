@@ -105,13 +105,13 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Level</label>
+                    <label class="col-1 control-label col-form-label">roles</label>
                     <div class="col-11">
-                        <select class="form-control" id="level" name="level" required>
-                            <option value="RT" {{ $warga->level == 'RT' ? 'selected' : '' }}>RT</option>
-                            <option value="RW" {{ $warga->level == 'RW' ? 'selected' : '' }}>RW</option>
-                            <option value="Warga" {{ $warga->level == 'Warga' ? 'selected' : '' }}>Warga</option>
-                            <option value="Warga Sementara" {{ $warga->level == 'Warga Sementara' ? 'selected' : '' }}>Warga Sementara</option>
+                        <select class="form-control" id="roles" name="roles" required>
+                            <option value="RT" {{ $warga->roles == 'RT' ? 'selected' : '' }}>RT</option>
+                            <option value="RW" {{ $warga->roles == 'RW' ? 'selected' : '' }}>RW</option>
+                            <option value="Warga" {{ $warga->roles == 'Warga' ? 'selected' : '' }}>Warga</option>
+                            <option value="Warga Sementara" {{ $warga->roles == 'Warga Sementara' ? 'selected' : '' }}>Warga Sementara</option>
                         </select>
                         @error('status_perkawinan')
                             <small class="form-text text-danger">{{ $message }}</small>

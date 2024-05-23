@@ -14,7 +14,7 @@
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-                <a href="{{ url('/dashboard') }}" class="nav-link {{--{{ $activeMenu == 'dashboard' ? 'active' : '' }}--}} ">
+                <a href="{{ url('/dashboard') }}" class="nav-link {{ $activeMenu == 'dashboard' ? 'active' : '' }} ">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>Dashboard</p>
                 </a>
@@ -38,24 +38,24 @@
                 </a>
               </li>
             <li class="nav-item">
-              <a href="{{ url('/warga') }}" class="nav-link {{--{{ $activeMenu == 'warga' ? 'active' : '' }}--}} ">
+              <a href="{{ url('/warga') }}" class="nav-link {{ $activeMenu == 'warga' ? 'active' : '' }} ">
                   <i class="nav-icon far fa-address-card"></i>
                   <p>Kelola Warga</p>
               </a>
           </li>
           <li class="nav-item">
-              <a href="{{ url('/bansos') }}" class="nav-link {{--{{ ($activeMenu == 'bansos') ? 'active' : '' }}--}}">
+              <a href="{{ url('/bansos') }}" class="nav-link {{ ($activeMenu == 'bansos') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-hand-holding-usd"></i>
                   <p>Kelola Bansos</p>
               </a>
           </li>
             <li class="nav-item">
-              <a href="{{ url('/penerima') }}" class="nav-link {{--{{ $activeMenu == 'penerima' ? 'active' : '' }}--}} ">
+              <a href="{{ url('/penerima') }}" class="nav-link {{ $activeMenu == 'penerima' ? 'active' : '' }} ">
                   <i class="nav-icon far fa fa-file-medical"></i>
                   <p>Penerima Bansos</p>
               </a>
               <li class="nav-item">
-                  <a href="{{ route('tamu.index') }}" class="nav-link {{ $activeMenu == 'tamu' ? 'active' : '' }}">
+                  <a href="{{ route('tamu.index') }}" class="nav-link {{ $activeMenu == 'tamu' ? 'active' : '' }} ">
                       <i class="nav-icon far fa fa-user"></i>
                       <p>Data Tamu</p>
                   </a>

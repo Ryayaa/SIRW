@@ -63,7 +63,7 @@ class WargaController extends Controller
 
     public function list(Request $request)
     {
-        $warga = WargaModel::select('id_warga', 'NIK', 'nama_lengkap', 'tanggal_lahir', 'jenis_kelamin', 'alamat_domisili', 'pekerjaan', 'status_perkawinan','level', 'id_keluarga')
+        $warga = WargaModel::select('id_warga', 'NIK', 'nama_lengkap', 'tanggal_lahir', 'jenis_kelamin', 'alamat_domisili', 'pekerjaan', 'status_perkawinan','roles', 'id_keluarga')
             ->with('keluarga');
 
         return DataTables::of($warga)
@@ -112,7 +112,7 @@ class WargaController extends Controller
             'alamat_domisili' => 'required|string|max:255',
             'pekerjaan' => 'required|string|max:50',
             'status_perkawinan' => 'required|in:Kawin,Belum Kawin',
-            'level' => 'required|in:RT,RW,Warga,Warga Sementara',
+            'roles' => 'required|in:RT,RW,Warga,Warga Sementara',
             'password' => 'required|min:5',
             'id_keluarga' => 'required|integer',
         ]);
@@ -125,7 +125,7 @@ class WargaController extends Controller
             'alamat_domisili' => $request->alamat_domisili,
             'pekerjaan' => $request->pekerjaan,
             'status_perkawinan' => $request->status_perkawinan,
-            'level' => $request->level,
+            'roles' => $request->roles,
             'password' => bcrypt($request->password),
             'id_keluarga' => $request->id_keluarga,
         ]);
@@ -166,7 +166,7 @@ class WargaController extends Controller
             'alamat_domisili' => 'required|string|max:255',
             'pekerjaan' => 'required|string|max:50',
             'status_perkawinan' => 'required|in:Kawin,Belum Kawin',
-            'level' => 'required|in:RT,RW,Warga,Warga Sementara',
+            'roles' => 'required|in:RT,RW,Warga,Warga Sementara',
             'password' => 'required|min:5',
             'id_keluarga' => 'required|integer',
         ]);
@@ -179,7 +179,7 @@ class WargaController extends Controller
             'alamat_domisili' => $request->alamat_domisili,
             'pekerjaan' => $request->pekerjaan,
             'status_perkawinan' => $request->status_perkawinan,
-            'level' => $request->level,
+            'roles' => $request->roles,
             'password' => bcrypt($request->password),
             'id_keluarga' => $request->id_keluarga,
         ]);
