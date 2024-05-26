@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\UMKMController;
 
 Route::get('/',[AuthController::class,'index'])->name('login');
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
@@ -156,6 +157,17 @@ Route::group(['prefix' => 'keluarga'], function () {
     Route::get('/{id}/edit', [KeluargaController::class, 'edit'])->name('keluarga.edit'); // Menampilkan form edit warga
     Route::put('/{id}', [KeluargaController::class, 'update'])->name('keluarga.update'); // Mengupdate data warga
     Route::delete('/{id}', [KeluargaController::class, 'destroy'])->name('keluarga.destroy'); // Menghapus data warga
+});
+
+Route::group(['prefix' => 'umkm'], function () {
+    Route::get('/', [UMKMController::class, 'index'])->name('umkm.index'); // Display UMKM list
+    Route::post('/list', [UMKMController::class, 'list'])->name('umkm.list'); // Display UMKM data in JSON format for DataTables
+    Route::get('/create', [UMKMController::class, 'create'])->name('umkm.create'); // Display form to add UMKM
+    Route::post('/', [UMKMController::class, 'store'])->name('umkm.store'); // Store UMKM data
+    Route::get('/{id}', [UMKMController::class, 'show'])->name('umkm.show'); // Display UMKM details
+    Route::get('/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit'); // Display form to edit UMKM
+    Route::put('/{id}', [UMKMController::class, 'update'])->name('umkm.update'); // Update UMKM data
+    Route::delete('/{id}', [UMKMController::class, 'destroy'])->name('umkm.destroy'); // Delete UMKM data
 });
 
 
