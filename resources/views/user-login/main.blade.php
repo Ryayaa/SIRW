@@ -1,4 +1,5 @@
 @extends('user-login.index')
+
 <section id="hero-static">
     <div class="hero-static ">
         <div class="hero-bg"></div>

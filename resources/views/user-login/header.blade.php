@@ -13,14 +13,14 @@
                 <li class="dropdown"><a href="#"><span>Bantuan Sosial</span> <i
                             class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
-                        <li><a href="#">Daftar Bansos</a></li>
+                        <li><a href="{{route('bansos.user-login')}}">Daftar Bansos</a></li>
                         <li><a href="#">Pengajuan Penerima Baru</a></li>
                     </ul>
                 </li>
                 <li class="dropdown"><a href="#"><span>UMKM</span> <i
                             class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
-                        <li><a href="#">Daftar UMKM</a></li>
+                        <li><a href="{{route('umkm.user-login')}}">Daftar UMKM</a></li>
                         <li><a href="#">Pengajuan UMKM</a></li>
                     </ul>
                 </li>
@@ -28,9 +28,10 @@
                             class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
                         <li><a href="{{route('struktur')}}">Struktur Pengurus</a></li>
-                        <li><a href="#">Pengumuman</a></li>
-                        <li><a href="#">Kegiatan Warga</a></li>
-                        <li><a href="#">Kas</a></li>
+                        <li><a href="{{route('pengumuman')}}">Pengumuman</a></li>
+                        <li><a href="{{route('kegiatanWarga')}}">Kegiatan Warga</a></li>
+                        <li><a href="{{route('laporanMasalah')}}">Laporan Masalah</a></li>
+                        {{-- <li><a href="{{route('kasWarga')}}">Kas</a></li> --}}
                     </ul>
                 </li>
                 <li class="dropdown"><a href="#"><span>Pengajuan</span> <i

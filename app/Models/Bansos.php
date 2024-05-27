@@ -14,6 +14,8 @@ class Bansos extends Model
     protected $primaryKey = 'id_bansos';
 
     protected $fillable = [
-        'nama_bansos', 'deskripsi', 'gambar'
+        'nama_bansos',
+        'deskripsi',
+        'gambar'
     ];
 }

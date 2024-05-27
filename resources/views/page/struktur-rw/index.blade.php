@@ -15,16 +15,16 @@
                 <div class="card-header text-center bg-primary text-white">
                     <h3>Ketua RW</h3>
                 </div>
-                <div class="card-body">
+                {{-- <div class="card-body">
                     <p>Nama: John Doe</p>
                     <p>Alamat: Jl. Mawar No. 10</p>
                     <p>Telepon: 081234567890</p>
-                </div>
-                {{-- <div class="card-body">
+                </div> --}}
+                <div class="card-body">
                     <p>Nama: {{ $rw->nama_lengkap }}</p>
                     <p>Alamat: {{ $rw->alamat }}</p>
                     <p>Telepon: {{ $rw->no_telepon }}</p>
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>
@@ -36,7 +36,7 @@
     </div>
 
     <div class="row my-2 justify-content-center">
-        {{-- @foreach ($rts as $rt)
+        @foreach ($rts as $rt)
         <div class="col-md-6 col-lg-4 col-sm-8">
             <div class="card mb-4">
                 <div class="card-header text-center bg-success text-white">
@@ -49,8 +49,8 @@
                 </div>
             </div>
         </div>
-    @endforeach --}}
-        <div class="col-md-6 col-lg-4 col-sm-8">
+    @endforeach
+        {{-- <div class="col-md-6 col-lg-4 col-sm-8">
             <div class="card mb-4">
                 <div class="card-header text-center bg-success text-white">
                     <h4>RT 01</h4>
@@ -109,7 +109,7 @@
                     <p>Telepon: 081234567893</p>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
 <section></section>
