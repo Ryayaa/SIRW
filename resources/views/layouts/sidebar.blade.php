@@ -75,11 +75,11 @@
               </li>
             </li>
             <li class="nav-item">
-                <a href="{{ route('warga-sementara.index') }}" class="nav-link">
-                    <i class="nav-icon far fa fa-users"></i>
-                    <p>Warga Sementara</p>
+                <a href="{{ url('/warga_sementara') }}" class="nav-link {{ $activeMenu == 'warga_sementara' ? 'active' : '' }} ">
+                    <i class="nav-icon far fa-address-card"></i>
+                    <p>Kelola Warga Sementara</p>
                 </a>
-            </li>            
+            </li>         
             <li class="nav-item">
                 <a href="{{ url('/pengumuman') }}" class="nav-link ">
                     <i class="nav-icon far fa fa-file-medical"></i>

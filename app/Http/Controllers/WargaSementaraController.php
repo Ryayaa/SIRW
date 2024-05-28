@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\WargaSementaraModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class WargaSementaraController extends Controller
@@ -18,7 +17,7 @@ class WargaSementaraController extends Controller
         $page = (object) [
             'title' => 'Daftar Warga Sementara',
         ];
-        $activeMenu = 'warga-sementara';
+        $activeMenu = 'warga_sementara';
 
         return view('warga_sementara.index', [
             'breadcrumb' => $breadcrumb,
@@ -29,14 +28,16 @@ class WargaSementaraController extends Controller
 
     public function list(Request $request)
     {
-        $wargaSementara = WargaSementaraModel::select('id_warga_sementara', 'nama_lengkap', 'tanggal_lahir', 'jenis_kelamin', 'alamat_asal', 'alamat_domisili', 'pekerjaan', 'status_perkawinan', 'tanggal_masuk');
+        $wargaSementara = WargaSementaraModel::select('id_warga_sementara', 'nama_lengkap', 'nik', 'bukti_ktp');
 
         return DataTables::of($wargaSementara)
             ->addIndexColumn()
             ->addColumn('aksi', function ($wargaSementara) {
-                $btn = '<a href="' . url('/warga-sementara/' . $wargaSementara->id_warga_sementara) . '" class="btn btn-info btn-sm">Detail</a> ';
-                $btn .= '<a href="' . url('/warga-sementara/' . $wargaSementara->id_warga_sementara . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . route('warga-sementara.destroy', $wargaSementara->id_warga_sementara) . '">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                $btn = '<a href="' . url('/warga_sementara/' . $wargaSementara->id_warga_sementara) . '" class="btn btn-info btn-sm">Detail</a> ';
+                $btn .= '<a href="' . url('/warga_sementara/' . $wargaSementara->id_warga_sementara . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/warga_sementara/' . $wargaSementara->id_warga_sementara) . '">'
+                    . csrf_field() . method_field('DELETE') .
+                    '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
                 return $btn;
             })
             ->rawColumns(['aksi'])
@@ -45,16 +46,16 @@ class WargaSementaraController extends Controller
 
     public function create()
     {
-        $breadcrumb = (object) [
+        $breadcrumb = (object)[
             'title' => 'Tambah Warga Sementara',
-            'list' => ['Home', 'Warga Sementara', 'Tambah']
+            'list'  => ['Home', 'Warga Sementara', 'Tambah']
         ];
 
         $page = (object) [
             'title' => 'Tambah Warga Sementara'
         ];
 
-        $activeMenu = 'warga-sementara';
+        $activeMenu = 'warga_sementara';
 
         return view('warga_sementara.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
@@ -62,29 +63,52 @@ class WargaSementaraController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_lengkap' => 'required|string|max:255',
+            'nik' => 'required|string|max:20|unique:warga_sementara,nik',
+            'nama_lengkap' => 'required|string|max:100',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
             'alamat_asal' => 'required|string|max:255',
             'alamat_domisili' => 'required|string|max:255',
-            'pekerjaan' => 'required|string|max:255',
-            'status_perkawinan' => 'required|string|max:255',
+            'pekerjaan' => 'required|string|max:50',
+            'status_perkawinan' => 'required|in:Kawin,Belum Kawin,Cerai Mati,Cerai Hidup',
             'tanggal_masuk' => 'required|date',
-        ]);
+            'password' => 'required|string|min:8',
+            'bukti_ktp' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);        
 
-        if ($request->hasFile('bukti_ktp')) 
-        {
-            $imageName = time() . '.' . $request->bukti_ktp->getClientOriginalExtension();
+        $data = $request->all();
+        if ($request->hasFile('bukti_ktp')) {
+            $imageName = time().'.'.$request->bukti_ktp->extension();
             $request->bukti_ktp->move(public_path('images'), $imageName);
             $data['bukti_ktp'] = $imageName;
         }
 
+        $data['password'] = bcrypt($data['password']);
+        
         WargaSementaraModel::create($data);
 
-        return redirect('/warga-sementara')->with('success', 'Data warga sementara berhasil disimpan');
+        return redirect('/warga_sementara')->with('success', 'Warga Sementara berhasil disimpan');
     }
 
-    public function edit(string $id)
+    public function show($id)
+    {
+        $wargaSementara = WargaSementaraModel::findOrFail($id);
+
+        $breadcrumb = (object)[
+            'title' => 'Detail Warga Sementara',
+            'list'  => ['Home', 'Warga Sementara', 'Detail']
+        ];
+
+        $page = (object) [
+            'title' => 'Detail Warga Sementara'
+        ];
+
+        $activeMenu = 'warga_sementara';
+
+        return view('warga_sementara.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'wargaSementara' => $wargaSementara, 'activeMenu' => $activeMenu]);
+    }
+
+    public function edit($id)
     {
         $wargaSementara = WargaSementaraModel::findOrFail($id);
 
@@ -97,7 +121,7 @@ class WargaSementaraController extends Controller
             'title' => 'Edit Warga Sementara'
         ];
 
-        $activeMenu = 'warga-sementara';
+        $activeMenu = 'warga_sementara';
 
         return view('warga_sementara.edit', [
             'breadcrumb' => $breadcrumb,
@@ -107,32 +131,73 @@ class WargaSementaraController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function update(Request $request, $id)
     {
+        $request->validate([
+            'nik' => 'required|string|max:20|unique:warga_sementara,nik,' . $id . ',id_warga_sementara',
+            'nama_lengkap' => 'required|string|max:100',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
+            'alamat_asal' => 'required|string|max:255',
+            'alamat_domisili' => 'required|string|max:255',
+            'pekerjaan' => 'required|string|max:50',
+            'status_perkawinan' => 'required|in:Kawin,Belum Kawin,Cerai Mati,Cerai Hidup',
+            'tanggal_masuk' => 'required|date',
+            'password' => 'nullable|string|min:8',
+            'bukti_ktp' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
         $wargaSementara = WargaSementaraModel::findOrFail($id);
 
-        $breadcrumb = (object) [
-            'title' => 'Detail Warga Sementara',
-            'list' => ['Home', 'Warga Sementara', 'Detail']
-        ];
+        // Update the warga sementara data
+        $wargaSementara->nik = $request->input('nik');
+        $wargaSementara->nama_lengkap = $request->input('nama_lengkap');
+        $wargaSementara->tanggal_lahir = $request->input('tanggal_lahir');
+        $wargaSementara->jenis_kelamin = $request->input('jenis_kelamin');
+        $wargaSementara->alamat_asal = $request->input('alamat_asal');
+        $wargaSementara->alamat_domisili = $request->input('alamat_domisili');
+        $wargaSementara->pekerjaan = $request->input('pekerjaan');
+        $wargaSementara->status_perkawinan = $request->input('status_perkawinan');
+        $wargaSementara->tanggal_masuk = $request->input('tanggal_masuk');
 
-        $page = (object) [
-            'title' => 'Detail Warga Sementara'
-        ];
+        // Check if a new password is provided
+        if ($request->filled('password')) {
+            $wargaSementara->password = bcrypt($request->input('password'));
+        }
 
-        $activeMenu = 'warga-sementara';
+        // Check if a new image is uploaded
+        if ($request->hasFile('bukti_ktp')) {
+            // Delete the old image from storage
+            if ($wargaSementara->bukti_ktp && file_exists(public_path('images/' . $wargaSementara->bukti_ktp))) {
+                unlink(public_path('images/' . $wargaSementara->bukti_ktp));
+            }
 
-        return view('warga_sementara.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'wargaSementara' => $wargaSementara, 'activeMenu' => $activeMenu]);
+            // Upload the new image
+            $imageName = time().'.'.$request->bukti_ktp->extension();
+            $request->bukti_ktp->move(public_path('images'), $imageName);
+            $wargaSementara->bukti_ktp = $imageName;
+        }
+
+        // Save the updated warga sementara
+        $wargaSementara->save();
+
+        return redirect()->route('warga_sementara.index')->with('success', 'Warga Sementara berhasil diupdate.');
     }
 
     public function destroy($id)
     {
         $wargaSementara = WargaSementaraModel::findOrFail($id);
 
+        // Check if the warga sementara entry has an associated image and delete it
+        if ($wargaSementara->bukti_ktp && file_exists(public_path('images/' . $wargaSementara->bukti_ktp))) {
+            unlink(public_path('images/' . $wargaSementara->bukti_ktp));
+        }
+
+        // Delete the warga sementara entry from the database
         if ($wargaSementara->delete()) {
-            return redirect()->route('warga-sementara.index')->with('success', 'Data warga sementara berhasil dihapus.');
+            return redirect()->route('warga_sementara.index')->with('success', 'Warga Sementara berhasil dihapus.');
         } else {
-            return redirect()->route('warga-sementara.index')->with('error', 'Gagal menghapus data warga sementara.');
+            return redirect()->route('warga_sementara.index')->with('error', 'Gagal menghapus Warga Sementara.');
         }
     }
 }

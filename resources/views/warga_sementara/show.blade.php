@@ -14,20 +14,24 @@
             @else
                 <table class="table table-bordered table-striped table-hover table-sm">
                     <tr>
-                        <th>NIK</th>
-                        <td>{{ $wargaSementara->nik }}</td>
+                        <th>ID Warga Sementara</th>
+                        <td>{{ $wargaSementara->id_warga_sementara }}</td>
                     </tr>
                     <tr>
-                        <th>Tanggal Lahir</th>
-                        <td>{{ $wargaSementara->tanggal_lahir }}</td>
+                        <th>NIK</th>
+                        <td>{{ $wargaSementara->nik }}</td>
                     </tr>
                     <tr>
                         <th>Nama Lengkap</th>
                         <td>{{ $wargaSementara->nama_lengkap }}</td>
                     </tr>
                     <tr>
+                        <th>Tanggal Lahir</th>
+                        <td>{{ $wargaSementara->tanggal_lahir }}</td>
+                    </tr>
+                    <tr>
                         <th>Jenis Kelamin</th>
-                        <td>{{ $wargaSementara->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                        <td>{{ $wargaSementara->jenis_kelamin }}</td>
                     </tr>
                     <tr>
                         <th>Alamat Asal</th>
@@ -51,11 +55,23 @@
                     </tr>
                     <tr>
                         <th>Bukti KTP</th>
-                        <td><img src="{{ asset($wargaSementara->bukti_ktp) }}" alt="Bukti KTP" width="100"></td>
+                        <td>
+                            @if($wargaSementara->bukti_ktp)
+                                <img src="{{ asset('images/'.$wargaSementara->bukti_ktp) }}" alt="{{ $wargaSementara->nama_lengkap }}" width="100">
+                            @else
+                                No Image
+                            @endif
+                        </td>
                     </tr>
                 </table>
             @endempty
-            <a href="{{ route('warga-sementara.index') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
+            <a href="{{ route('warga_sementara.index') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
         </div>
     </div>
 @endsection
+
+@push('css')
+@endpush
+
+@push('js')
+@endpush

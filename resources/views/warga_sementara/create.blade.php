@@ -16,23 +16,24 @@
                 </div>
             @endif
 
-            <form action="{{ route('warga-sementara.store') }}" method="POST">
+            <form action="{{ route('warga_sementara.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="nik">NIK</label>
                     <input type="text" name="nik" id="nik" class="form-control" value="{{ old('nik') }}" required>
                 </div>
                 <div class="form-group">
-                    <label for="tanggal_lahir">Tanggal Lahir</label>
-                    <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" value="{{ old('tanggal_lahir') }}" required>
-                </div>
-                <div class="form-group">
                     <label for="nama_lengkap">Nama Lengkap</label>
                     <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control" value="{{ old('nama_lengkap') }}" required>
                 </div>
                 <div class="form-group">
+                    <label for="tanggal_lahir">Tanggal Lahir</label>
+                    <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" value="{{ old('tanggal_lahir') }}" required>
+                </div>
+                <div class="form-group">
                     <label for="jenis_kelamin">Jenis Kelamin</label>
                     <select name="jenis_kelamin" id="jenis_kelamin" class="form-control" required>
+                        <option value="">Pilih Jenis Kelamin</option>
                         <option value="Laki-Laki" {{ old('jenis_kelamin') == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki</option>
                         <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                     </select>
@@ -52,6 +53,7 @@
                 <div class="form-group">
                     <label for="status_perkawinan">Status Perkawinan</label>
                     <select name="status_perkawinan" id="status_perkawinan" class="form-control" required>
+                        <option value="">Pilih Status Perkawinan</option>
                         <option value="Kawin" {{ old('status_perkawinan') == 'Kawin' ? 'selected' : '' }}>Kawin</option>
                         <option value="Belum Kawin" {{ old('status_perkawinan') == 'Belum Kawin' ? 'selected' : '' }}>Belum Kawin</option>
                         <option value="Cerai Mati" {{ old('status_perkawinan') == 'Cerai Mati' ? 'selected' : '' }}>Cerai Mati</option>
@@ -68,13 +70,10 @@
                 </div>
                 <div class="form-group">
                     <label for="bukti_ktp">Bukti KTP</label>
-                    <input type="file" name="bukti_ktp" id="bukti_ktp" class="form-control-file" accept="image/*" required>
-                    @error('bukti_ktp')
-                        <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
+                    <input type="file" name="bukti_ktp" id="bukti_ktp" class="form-control-file">
                 </div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <a href="{{ route('warga-sementara.index') }}" class="btn btn-default">Kembali</a>
+                <a href="{{ route('warga_sementara.index') }}" class="btn btn-default">Kembali</a>
             </form>
         </div>
     </div>
