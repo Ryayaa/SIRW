@@ -201,7 +201,7 @@ public function showUMKM(Request $request)
         return view('page.laporan.form');
     }
 
-    public function createLapornForm(Request $request){
+    public function createLaporanForm(Request $request){
         $request->validate([
             'judul_laporan' => 'required|string|max:255',
             'deskripsi' => 'required|string',
