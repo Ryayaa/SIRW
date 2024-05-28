@@ -6,6 +6,8 @@
     <div class="section-header text-center">
         <h1 class="">Daftar Laporan Masalah</h1>
     </div>
+
+
     <div class="list-group d-flex flex-column align-items-center" id="laporanList">
         @foreach($laporans as $laporan)
         <a href="{{ route('laporanMasalah.detail', $laporan->id_laporan_masalah) }}" class="list-group-item list-group-item-action w-75 mb-2">
@@ -23,6 +25,12 @@
         @endforeach
     </div>
 
+
+        <div class="text-center mb-4">
+            <a href="{{ route('laporan_masalah_form.show') }}" class="btn btn-primary">
+                Buat Laporan Baru
+            </a>
+        </div>
     <nav aria-label="Page navigation" class="mt-4">
         <ul class="pagination justify-content-center" id="paginationLaporan">
             {{-- Link Previous --}}
@@ -59,9 +67,7 @@
             @endif
         </ul>
     </nav>
-
 </div>
 
 <section></section>
-
 @endsection

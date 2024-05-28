@@ -195,6 +195,34 @@ public function showUMKM(Request $request)
         return view('page.bansos.index', compact('bansosList'));
     }
 
+
+
+    public function showLaporanForm(){
+        return view('page.laporan.form');
     }
 
+    public function createLapornForm(Request $request){
+        $request->validate([
+            'judul_laporan' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'gambar' => 'nullable|image',
+            'status_hide' => 'required|in:y,t',
+        ]);
 
+        $laporan = new LaporanMasalahModel();
+        $laporan->judul_laporan = $request->judul_laporan;
+        $laporan->deskripsi = $request->deskripsi;
+        $laporan->tanggal_laporan = Carbon::today()->toDateString();
+
+        if ($request->hasFile('gambar')) {
+            $laporan->gambar = $request->file('gambar')->store('gambar');
+        }
+
+        $laporan->id_warga = Auth::user()->id_warga;
+        $laporan->status_hide = $request->status_hide == 't' ? 't' : 'y';
+        $laporan->save();
+
+        return redirect()->back()->with('success', 'Laporan berhasil dibuat.');
+    }
+
+}

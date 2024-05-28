@@ -185,5 +185,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/umkm.-list', [PageController::class, 'showUMKM'])->name('umkm.user-login');
         Route::get('/umkm-list/detail/{id}', [PageController::class, 'showDetailUMKM'])->name('umkm.detail');
         Route::get('/bansos-list', [PageController::class, 'showBansos'])->name('bansos.user-login');
+
+    Route::get('/laporan_masalah/create', [PageController::class, 'showLaporanForm'])->name('laporan_masalah_form.show');
+    Route::post('/laporan_masalah', [PageController::class, 'createLaporanForm'])->name('laporan_masalah_form.create');
+
     });
 });
