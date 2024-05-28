@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\BansosController;
 use App\Http\Controllers\KeluargaController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PenerimaBansosController;
 use App\Http\Controllers\RtController;
 use App\Http\Controllers\RwController;
@@ -13,6 +14,8 @@ use App\Http\Controllers\WargaController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\WargaSementaraController;
+use App\Http\Controllers\UMKMController;
+use App\Http\Controllers\KegiatanController;
 
 Route::get('/',[AuthController::class,'index'])->name('login');
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
@@ -120,12 +123,12 @@ Route::group(['prefix' => 'keluarga'], function () {
 
 Route::group(['prefix' => 'tamu'], function () {
     Route::get('/', [TamuController::class, 'index'])->name('tamu.index');
-    Route::post('/list', [TamuController::class, 'list'])->name('tamu.list'); 
+    Route::post('/list', [TamuController::class, 'list'])->name('tamu.list');
     Route::get('/create', [TamuController::class, 'create'])->name('tamu.create');
     Route::post('/', [TamuController::class, 'store'])->name('tamu.store');
     Route::get('/{id}', [TamuController::class, 'show'])->name('tamu.show');
-    Route::get('/{id}/edit', [TamuController::class, 'edit'])->name('tamu.edit'); 
-    Route::put('/{id}', [TamuController::class, 'update'])->name('tamu.update'); 
+    Route::get('/{id}/edit', [TamuController::class, 'edit'])->name('tamu.edit');
+    Route::put('/{id}', [TamuController::class, 'update'])->name('tamu.update');
     Route::delete('/{id}', [TamuController::class, 'destroy'])->name('tamu.destroy');
 });
 
@@ -142,20 +145,22 @@ Route::group(['prefix' => 'warga-sementara'], function () {
 
 Route::group(['middleware' => ['auth']],function(){
     // Route Untuk RW
-    Route::group(['middleware' => ['roles:rw']],function(){
-        Route::get('/rw-dashboard', [Dashboard::class,'DashboardRW'])->name('rw-dashboard');
+    Route::group(['middleware' => ['roles:rw']], function () {
+        Route::get('/rw-dashboard', [Dashboard::class, 'DashboardRW'])->name('rw-dashboard');
     });
 
-Route::group(['prefix' => 'pengumuman'], function () {
-    Route::get('/', [PengumumanController::class, 'index'])->name('pengumuman.index'); // Menampilkan daftar pengumuman
-    Route::post('/list', [PengumumanController::class, 'list'])->name('pengumuman.list'); // Menampilkan data pengumuman dalam bentuk JSON untuk DataTables
-    Route::get('/create', [PengumumanController::class, 'create'])->name('pengumuman.create'); // Menampilkan form tambah pengumuman
-    Route::post('/', [PengumumanController::class, 'store'])->name('pengumuman.store'); // Menyimpan data pengumuman
-    Route::get('/{id}', [PengumumanController::class, 'show'])->name('pengumuman.show'); // Menampilkan detail pengumuman
-    Route::get('/{id}/edit', [PengumumanController::class, 'edit'])->name('pengumuman.edit'); // Menampilkan form edit pengumuman
-    Route::put('/{id}', [PengumumanController::class, 'update'])->name('pengumuman.update'); // Mengupdate data pengumuman
-    Route::delete('/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy'); // Menghapus data pengumuman
-});
+    Route::group(['prefix' => 'pengumuman'], function () {
+        Route::get('/', [PengumumanController::class, 'index'])->name('pengumuman.index'); // Menampilkan daftar pengumuman
+        Route::post('/list', [PengumumanController::class, 'list'])->name('pengumuman.list'); // Menampilkan data pengumuman dalam bentuk JSON untuk DataTables
+        Route::get('/create', [PengumumanController::class, 'create'])->name('pengumuman.create'); // Menampilkan form tambah pengumuman
+        Route::post('/', [PengumumanController::class, 'store'])->name('pengumuman.store'); // Menyimpan data pengumuman
+        Route::get('/{id}', [PengumumanController::class, 'show'])->name('pengumuman.show'); // Menampilkan detail pengumuman
+        Route::get('/{id}/edit', [PengumumanController::class, 'edit'])->name('pengumuman.edit'); // Menampilkan form edit pengumuman
+        Route::put('/{id}', [PengumumanController::class, 'update'])->name('pengumuman.update'); // Mengupdate data pengumuman
+        Route::delete('/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy'); // Menghapus data pengumuman
+    });
+
+
 
 Route::group(['prefix' => 'keluarga'], function () {
     Route::get('/', [KeluargaController::class, 'index'])->name('keluarga.index'); // Menampilkan data warga
@@ -168,17 +173,39 @@ Route::group(['prefix' => 'keluarga'], function () {
     Route::delete('/{id}', [KeluargaController::class, 'destroy'])->name('keluarga.destroy'); // Menghapus data warga
 });
 
+Route::group(['prefix' => 'umkm'], function () {
+    Route::get('/', [UMKMController::class, 'index'])->name('umkm.index'); // Display UMKM list
+    Route::post('/list', [UMKMController::class, 'list'])->name('umkm.list'); // Display UMKM data in JSON format for DataTables
+    Route::get('/create', [UMKMController::class, 'create'])->name('umkm.create'); // Display form to add UMKM
+    Route::post('/', [UMKMController::class, 'store'])->name('umkm.store'); // Store UMKM data
+    Route::get('/{id}', [UMKMController::class, 'show'])->name('umkm.show'); // Display UMKM details
+    Route::get('/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit'); // Display form to edit UMKM
+    Route::put('/{id}', [UMKMController::class, 'update'])->name('umkm.update'); // Update UMKM data
+    Route::delete('/{id}', [UMKMController::class, 'destroy'])->name('umkm.destroy'); // Delete UMKM data
+});
+
+Route::group(['prefix' => 'kegiatan'], function () {
+    Route::get('/', [KegiatanController::class, 'index'])->name('kegiatan.index'); // Menampilkan daftar kegiatan
+    Route::post('/list', [KegiatanController::class, 'list'])->name('kegiatan.list'); // Menampilkan data kegiatan dalam format JSON untuk DataTables
+    Route::get('/create', [KegiatanController::class, 'create'])->name('kegiatan.create'); // Menampilkan formulir untuk menambah kegiatan
+    Route::post('/', [KegiatanController::class, 'store'])->name('kegiatan.store'); // Menyimpan data kegiatan
+    Route::get('/{id}', [KegiatanController::class, 'show'])->name('kegiatan.show'); // Menampilkan detail kegiatan
+    Route::get('/{id}/edit', [KegiatanController::class, 'edit'])->name('kegiatan.edit'); // Menampilkan formulir untuk mengedit kegiatan
+    Route::put('/{id}', [KegiatanController::class, 'update'])->name('kegiatan.update'); // Memperbarui data kegiatan
+    Route::delete('/{id}', [KegiatanController::class, 'destroy'])->name('kegiatan.destroy'); // Menghapus data kegiatan
+});
 
     //Route Untuk RT
-    Route::group(['middleware' => ['roles:rt']],function(){
-        Route::get('/rt-dashboard', [Dashboard::class,'DashboardRT'])->name('rt-dashboard');
+    Route::group(['middleware' => ['roles:rt']], function () {
+        Route::get('/rt-dashboard', [Dashboard::class, 'DashboardRT'])->name('rt-dashboard');
     });
 
     //Route Untuk Warga
-    Route::group(['middleware' => ['roles:warga']],function(){
-        Route::get('/warga-dashboard', [Dashboard::class,'DashboardWarga'])->name('user-dashboard');
+    Route::group(['middleware' => ['roles:warga']], function () {
+        Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile');
+        Route::get('/warga-dashboard', [Dashboard::class, 'DashboardWarga'])->name('user-dashboard');
+        Route::post('/profile/change-password', [AuthController::class, 'changePassword'])->name('profile.change-password');
+        Route::get('/struktur-rw', [PageController::class, 'showPengurusRW'])->name('struktur');
+
     });
-
-
 });
-

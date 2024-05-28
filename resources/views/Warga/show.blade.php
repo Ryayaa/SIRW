@@ -50,8 +50,8 @@
                         <td>{{ $warga->status_perkawinan }}</td>
                     </tr>
                     <tr>
-                        <th>Level</th>
-                        <td>{{ $warga->level }}</td>
+                        <th>roles</th>
+                        <td>{{ $warga->roles }}</td>
                     </tr>
                 </table>
             @endempty

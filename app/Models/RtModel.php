@@ -30,6 +30,6 @@ class RTModel extends Model
     // Relationship dengan tabel rw
     public function rw()
     {
-        return $this->belongsTo(RWModel::class, 'id_rw', 'id_rw');
+        return $this->belongsTo(RwModel::class, 'id_rw', 'id_rw');
     }
 }

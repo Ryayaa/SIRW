@@ -70,7 +70,7 @@
                     <h2><span>Selamat Datang</span></h2>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis fugiat temporibus</p>
                     <div class="d-flex">
-                        <a href="#about" class="btn-get-started scrollto">Get Started</a>
+                        <a href="{{Route('login')}}" class="btn-get-started scrollto" style="font-weight:800; font-size:16px">Masuk</a>
                         <!-- <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a> -->
                     </div>
                 </div>
@@ -136,6 +136,125 @@
             </div>
         </section>
 
+        <!-- ======= Kegiatan Section ======= -->
+{{-- Kegiatan --}}
+<section id="recent-blog-posts" class="recent-blog-posts">
+
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+            <h2>Kegiatan</h2>
+            <p>Kegiatan Yang Akan Datang</p>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col" data-aos="fade-up" data-aos-delay="200">
+                <a href="#">
+                    <div class="activity-card">
+                        <img src="{{asset('assets/img/faq.jpg')}} " class="img-fluid mb-3" alt="#">
+                        <h5 class="text-left">Judul Kegiatan 1</h5>
+                        <div class="details text-left">
+                            <i class="bi bi-clock"></i> <time>08.00 - 12.00</time><br>
+                            <i class="bi bi-calendar"></i> <time>12 Agustus 2024</time><br>
+                            <i class="bi bi-geo-alt"></i> <span>Lokasi</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col" data-aos="fade-up" data-aos-delay="200">
+                <a href="#">
+                    <div class="activity-card">
+                        <img src="{{asset('assets/img/faq.jpg')}} " class="img-fluid mb-3" alt="#">
+                        <h5 class="text-left">Judul Kegiatan 2</h5>
+                        <div class="details text-left">
+                            <i class="bi bi-clock"></i> <time>08.00 - 12.00</time><br>
+                            <i class="bi bi-calendar"></i> <time>12 Agustus 2024</time><br>
+                            <i class="bi bi-geo-alt"></i> <span>Lokasi</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col" data-aos="fade-up" data-aos-delay="200">
+                <a href="#">
+                    <div class="activity-card">
+                        <img src="{{asset('assets/img/faq.jpg')}} " class="img-fluid mb-3" alt="#">
+                        <h5 class="text-left">Judul Kegiatan 3</h5>
+                        <div class="details text-left">
+                            <i class="bi bi-clock"></i> <time>08.00 - 12.00</time><br>
+                            <i class="bi bi-calendar"></i> <time>12 Agustus 2024</time><br>
+                            <i class="bi bi-geo-alt"></i> <span>Lokasi</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12 mt-4 text-center">
+                <a href="#" class="btn btn-primary">Lihat Selengkapnya</a>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- ======= End Kegiatan Section ======= -->
+
+<!-- ======= Fitur Section ======= -->
+<section id="features" class="features">
+    <div class="container" data-aos="fade-up">
+
+        <ul class="nav nav-tabs row gy-4 d-flex justify-content-center">
+
+            <li class="nav-item col-6 col-md-4 col-lg-2">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-binoculars color-cyan"></i>
+                    <h4 class="text-center">Bansos</h4>
+                </a>
+            </li><!-- End Tab 1 Nav -->
+
+            <li class="nav-item col-6 col-md-4 col-lg-2">
+                <a class="nav-link" href="#">
+                    <i class="bi  bi-people-fill color-indigo"></i>
+                    <h4 class="text-center">Pengumuman</h4>
+                </a>
+            </li><!-- End Tab 2 Nav -->
+
+            <li class="nav-item col-6 col-md-4 col-lg-2">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-calendar2-week color-teal"></i>
+                    <h4 class="text-center">Kegiatan</h4>
+                </a>
+            </li><!-- End Tab 3 Nav -->
+
+            <li class="nav-item col-6 col-md-4 col-lg-2">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-newspaper color-red"></i>
+                    <h4 class="text-center">Berita</h4>
+                </a>
+            </li><!-- End Tab 4 Nav -->
+
+            <li class="nav-item col-6 col-md-4 col-lg-2">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-shop color-blue"></i>
+                    <h4 class="text-center">UMKM</h4>
+                </a>
+            </li><!-- End Tab 5 Nav -->
+
+            <li class="nav-item col-6 col-md-4 col-lg-2">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-people-fill color-orange"></i>
+                    <h4 class="text-center">Struktur</h4>
+                </a>
+            </li><!-- End Tab 6 Nav -->
+
+        </ul>
+
+    </div>
+</section>
+<!-- ======= Fitur Section ======= -->
         <!-- ======= UMKM Section ======= -->
         <section id="recent-blog-posts" class="recent-blog-posts">
 

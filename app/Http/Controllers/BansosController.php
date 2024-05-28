@@ -81,6 +81,7 @@ class BansosController extends Controller
         return redirect('/bansos')->with('success', 'Bantuan Sosial berhasil disimpan');
     }
 
+<<<<<<< HEAD
     public function edit(string $id)
     {
         $bansos = Bansos::findOrFail($id);
@@ -137,6 +138,8 @@ class BansosController extends Controller
         return redirect()->route('bansos.index')->with('success', 'Bansos successfully updated.');
     }
 
+=======
+>>>>>>> af49455949a161a45b2feb79b889aee2b6174150
     public function show($id)
     {
         $bansos = Bansos::findOrFail($id);
@@ -153,6 +156,62 @@ class BansosController extends Controller
         $activeMenu = 'bansos';
 
         return view('bansos.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'bansos' => $bansos, 'activeMenu' => $activeMenu]);
+    }
+
+    public function edit($id)
+    {
+        $bansos = Bansos::findOrFail($id);
+
+        $breadcrumb = (object) [
+            'title' => 'Edit Bansos',
+            'list' => ['Home', 'Bansos', 'Edit']
+        ];
+
+        $page = (object) [
+            'title' => 'Edit Bansos'
+        ];
+
+        $activeMenu = 'bansos';
+
+        return view('bansos.edit', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'bansos' => $bansos,
+            'activeMenu' => $activeMenu
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama_bansos' => 'required|string|max:255',
+            'deskripsi' => 'required',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $bansos = Bansos::findOrFail($id);
+
+        // Update the bansos data
+        $bansos->nama_bansos = $request->input('nama_bansos');
+        $bansos->deskripsi = $request->input('deskripsi');
+
+        // Check if a new image is uploaded
+        if ($request->hasFile('gambar')) {
+            // Delete the old image from storage
+            if ($bansos->gambar && file_exists(public_path('images/' . $bansos->gambar))) {
+                unlink(public_path('images/' . $bansos->gambar));
+            }
+
+            // Upload the new image
+            $imageName = time().'.'.$request->gambar->extension();
+            $request->gambar->move(public_path('images'), $imageName);
+            $bansos->gambar = $imageName;
+        }
+
+        // Save the updated bansos
+        $bansos->save();
+
+        return redirect()->route('bansos.index')->with('success', 'Bansos successfully updated.');
     }
 
     public function destroy($id)
