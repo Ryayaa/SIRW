@@ -8,6 +8,8 @@
     </div>
     <div class="row my-2 j" id="umkmList">
         @foreach($umkms as $umkm)
+        @if ($umkm->status_pengajuan =='approved')
+
         <div class="col-md-6 col-lg-6 col-sm-12">
             <div class="card mb-4" onclick="location.href='{{ route('umkm.detail', $umkm->id_umkm) }}'" style="cursor: pointer;">
                 @if($umkm->gambar)
@@ -22,6 +24,7 @@
                 </div>
             </div>
         </div>
+        @endif
         @endforeach
     </div>
 

@@ -186,8 +186,16 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/umkm-list/detail/{id}', [PageController::class, 'showDetailUMKM'])->name('umkm.detail');
         Route::get('/bansos-list', [PageController::class, 'showBansos'])->name('bansos.user-login');
 
-    Route::get('/laporan_masalah/create', [PageController::class, 'showLaporanForm'])->name('laporan_masalah_form.show');
-    Route::post('/laporan_masalah', [PageController::class, 'createLaporanForm'])->name('laporan_masalah_form.create');
+    Route::get('/laporan_masalah', [PageController::class, 'showLaporanForm'])->name('laporan_masalah_form.show');
+    Route::post('/laporan_masalah/create', [PageController::class, 'createLaporanForm'])->name('laporan_masalah_form.create');
 
+    Route::get('/umkm-form', [PageController::class, 'showPengajuanUMKMForm'])->name('umkm_form.show');
+    Route::post('/umkm-form/create', [PageController::class, 'createPengajuanUMKMForm'])->name('umkm_form.create');
+
+    Route::get('/tamu-form', [PageController::class, 'showTamuForm'])->name('tamu_form.show');
+    Route::post('/tamu-form/create', [PageController::class, 'createTamuForm'])->name('tamu_form.create');
+
+    Route::get('/warga-sementara-form', [PageController::class, 'showWargaSementaraForm'])->name('warga-sementara_form.show');
+    Route::post('/warga-sementara-form/create', [PageController::class, 'createWargaSementaraForm'])->name('warga-sementara_form.create');
     });
 });

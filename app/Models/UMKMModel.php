@@ -18,6 +18,7 @@ class UMKMModel extends Model
         'no_telepon',
         'gambar',
         'id_warga',
+        'status_pengajuan',
     ];
 
     public function warga()

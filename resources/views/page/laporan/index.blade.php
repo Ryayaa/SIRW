@@ -10,6 +10,7 @@
 
     <div class="list-group d-flex flex-column align-items-center" id="laporanList">
         @foreach($laporans as $laporan)
+        @if ($laporan->status_pengajuan == 'approved')
         <a href="{{ route('laporanMasalah.detail', $laporan->id_laporan_masalah) }}" class="list-group-item list-group-item-action w-75 mb-2">
             <div class="d-flex justify-content-between">
                 <h5 class="mb-1">{{ $laporan->judul_laporan }}</h5>
@@ -22,6 +23,7 @@
             <small class="text-muted">Dilaporkan oleh: <em>Anonymous</em></small>
             @endif
         </a>
+        @endif
         @endforeach
     </div>
 

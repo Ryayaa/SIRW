@@ -9,7 +9,7 @@
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a class="nav-link scrollto" href="#">Tentang</a></li>
+                <li><a class="nav-link scrollto" href="{{route('user-dashboard')}}">Beranda</a></li>
                 <li class="dropdown"><a href="#"><span>Bantuan Sosial</span> <i
                             class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
@@ -21,7 +21,7 @@
                             class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
                         <li><a href="{{route('umkm.user-login')}}">Daftar UMKM</a></li>
-                        <li><a href="#">Pengajuan UMKM</a></li>
+                        <li><a href="{{route('umkm_form.show')}}">Pengajuan UMKM</a></li>
                     </ul>
                 </li>
                 <li class="dropdown"><a href="#"><span>Informasi</span> <i
@@ -38,10 +38,10 @@
                             class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
                         <li><a href="#">Surat Pengantar</a></li>
-                        <li><a href="#">Warga Sementara</a></li>
+                        <li><a href="{{route('warga-sementara_form.show')}}">Warga Sementara</a></li>
                     </ul>
                 </li>
-                <li><a class="nav-link scrollto" href="#">Tamu</a></li>
+                <li><a class="nav-link scrollto" href="{{route('tamu_form.show')}}">Tamu</a></li>
                 <!-- <li><a class="nav-link scrollto" href="#"></a></li> -->
                 <li class="dropdown"><a href="#"><span>Akun</span> <i
                             class="bi bi-chevron-down dropdown-indicator"></i></a>

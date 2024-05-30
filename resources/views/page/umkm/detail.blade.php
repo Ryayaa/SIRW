@@ -20,7 +20,7 @@
                     <p><strong>Alamat:</strong> {{ $umkm->alamat }}</p>
                     <p><strong>No Telepon:</strong> {{ $umkm->no_telepon }}</p>
                     <p><strong>Deskripsi:</strong> {{ $umkm->deskripsi }}</p>
-                    <!-- Tambahkan bagian lain yang perlu ditampilkan di sini -->
+                    <p>Pemilik: {{$umkm->warga->nama_lengkap}}</p>
                 </div>
             </div>
         </div>

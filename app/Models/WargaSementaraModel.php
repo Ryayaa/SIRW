@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RequestWargaSementaraModel extends Model
+class WargaSementaraModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'request_warga_sementara';
-    protected $primaryKey = 'id_request';
+    protected $table = 'warga_sementara';
+    protected $primaryKey = 'id_warga_sementara';
     protected $fillable = [
-        'id_warga',
         'bukti_ktp',
         'nik',
         'tanggal_lahir',
@@ -24,12 +23,15 @@ class RequestWargaSementaraModel extends Model
         'status_perkawinan',
         'tanggal_masuk',
         'password',
-        'status_konfirmasi'
+        'status_pengajuan',
+        'id_warga',
+        'username',
     ];
-
-    // Relasi dengan model Warga
-    public function warga()
-    {
-        return $this->belongsTo(Warga::class, 'id_warga', 'id_warga');
-    }
+    protected $hidden = [
+        'password',
+    ];
+    protected $casts = [
+        'tanggal_lahir' => 'date',
+        'tanggal_masuk' => 'date',
+    ];
 }

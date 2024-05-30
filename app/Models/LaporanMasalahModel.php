@@ -19,6 +19,7 @@ class LaporanMasalahModel extends Model
         'gambar',
         'status_hide',
         'id_warga',
+        'status_pengajuan',
     ];
 
     public function warga()
