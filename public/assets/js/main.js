@@ -38,43 +38,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-// For Pengumuman Item
-// Mendapatkan tombol "Previous" dan "Next"
-var prevBtn = document.getElementById("prevBtn");
-var nextBtn = document.getElementById("nextBtn");
-
-// Mendapatkan semua pengumuman
-var pengumumanItems = document.querySelectorAll(".pengumuman-item");
-var currentIndex = 0;
-
-// Menyembunyikan semua pengumuman kecuali yang saat ini ditampilkan
-function hideAllPengumuman() {
-  pengumumanItems.forEach(function(item) {
-    item.style.display = "none";
-  });
-}
-
-// Menampilkan pengumuman yang saat ini ditampilkan
-function showCurrentPengumuman() {
-  hideAllPengumuman();
-  pengumumanItems[currentIndex].style.display = "block";
-}
-
-// Mengatur tindakan saat tombol "Previous" diklik
-prevBtn.addEventListener("click", function() {
-  currentIndex = (currentIndex - 1 + pengumumanItems.length) % pengumumanItems.length;
-  showCurrentPengumuman();
-});
-
-// Mengatur tindakan saat tombol "Next" diklik
-nextBtn.addEventListener("click", function() {
-  currentIndex = (currentIndex + 1) % pengumumanItems.length;
-  showCurrentPengumuman();
-});
-
-// Menampilkan pengumuman yang saat ini ditampilkan saat halaman dimuat
-showCurrentPengumuman();
-
 
 
 document.addEventListener('DOMContentLoaded', () => {

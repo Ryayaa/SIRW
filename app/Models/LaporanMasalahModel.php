@@ -5,18 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UMKMModel extends Model
+class LaporanMasalahModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'umkm';
-    protected $primaryKey = 'id_umkm';
+    protected $table = 'laporan_masalah';
+    protected $primaryKey = 'id_laporan_masalah';
 
     protected $fillable = [
-        'nama_umkm',
-        'alamat',
-        'no_telepon',
+        'judul_laporan',
+        'deskripsi',
+        'tanggal_laporan',
         'gambar',
+        'status_hide',
         'id_warga',
         'status_pengajuan',
     ];

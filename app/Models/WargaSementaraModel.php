@@ -22,7 +22,10 @@ class WargaSementaraModel extends Model
         'pekerjaan',
         'status_perkawinan',
         'tanggal_masuk',
-        'password'
+        'password',
+        'status_pengajuan',
+        'id_warga',
+        'username',
     ];
     protected $hidden = [
         'password',

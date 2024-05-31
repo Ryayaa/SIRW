@@ -4,22 +4,32 @@
 <section></section>
 <div class="container mt-5">
     <div class="section-header text-center">
-        <h1 class="">Daftar Pengumuman</h1>
+        <h1 class="">Daftar UMKM</h1>
     </div>
-    <div class="list-group d-flex flex-column align-items-center" id="announcementList">
-        @foreach($pengumumans as $pengumuman)
-        <a href="{{ route('pengumuman.detail', $pengumuman->id_pengumuman) }}" class="list-group-item list-group-item-action w-75 mb-2">
-            <div class="d-flex justify-content-between">
-                <h5 class="mb-1">{{ $pengumuman->judul_pengumuman }}</h5>
-                <small class="text-muted"><i class="bi bi-calendar"></i> {{ $pengumuman->tanggal }}</small>
+    <div class="row my-2 j" id="umkmList">
+        @foreach($umkms as $umkm)
+        @if ($umkm->status_pengajuan =='approved')
+
+        <div class="col-md-6 col-lg-6 col-sm-12">
+            <div class="card mb-4" onclick="location.href='{{ route('umkm.detail', $umkm->id_umkm) }}'" style="cursor: pointer;">
+                @if($umkm->gambar)
+                <img src="{{ asset('storage/'.$umkm->gambar) }}" class="card-img-top" alt="{{ $umkm->nama_umkm }}">
+                @else
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Gambar tidak tersedia">
+                @endif
+                <div class="card-body">
+                    <h5 class="card-title">{{ $umkm->nama_umkm }}</h5>
+                    <p class="card-text"><i class="bi bi-geo-alt-fill"></i> <strong>Alamat:</strong> {{ $umkm->alamat }}</p>
+                    <p class="card-text"><i class="bi bi-telephone-fill"></i> <strong>No Telepon:</strong> {{ $umkm->no_telepon }}</p>
+                </div>
             </div>
-            <p class="mb-1">{{ $pengumuman->deskripsi }}</p>
-        </a>
+        </div>
+        @endif
         @endforeach
     </div>
 
     <nav aria-label="Page navigation" class="mt-4">
-        <ul class="pagination justify-content-center" id="paginationPengumuman">
+        <ul class="pagination justify-content-center" id="paginationUmkm">
             {{-- Link Previous --}}
             @if($page > 1)
             <li class="page-item">
@@ -56,7 +66,5 @@
     </nav>
 
 </div>
-
 <section></section>
-
 @endsection
