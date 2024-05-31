@@ -4,22 +4,37 @@
 <section></section>
 <div class="container mt-5">
     <div class="section-header text-center">
-        <h1 class="">Daftar Pengumuman</h1>
+        <h1 class="">Daftar Laporan Masalah</h1>
     </div>
-    <div class="list-group d-flex flex-column align-items-center" id="announcementList">
-        @foreach($pengumumans as $pengumuman)
-        <a href="{{ route('pengumuman.detail', $pengumuman->id_pengumuman) }}" class="list-group-item list-group-item-action w-75 mb-2">
+
+
+    <div class="list-group d-flex flex-column align-items-center" id="laporanList">
+        @foreach($laporans as $laporan)
+        @if ($laporan->status_pengajuan == 'approved')
+        <a href="{{ route('laporanMasalah.detail', $laporan->id_laporan_masalah) }}" class="list-group-item list-group-item-action w-75 mb-2">
             <div class="d-flex justify-content-between">
-                <h5 class="mb-1">{{ $pengumuman->judul_pengumuman }}</h5>
-                <small class="text-muted"><i class="bi bi-calendar"></i> {{ $pengumuman->tanggal }}</small>
+                <h5 class="mb-1">{{ $laporan->judul_laporan }}</h5>
+                <small class="text-muted"><i class="bi bi-calendar"></i> {{ $laporan->tanggal_laporan }}</small>
             </div>
-            <p class="mb-1">{{ $pengumuman->deskripsi }}</p>
+            <p class="mb-1">{{ $laporan->deskripsi }}</p>
+            @if($laporan->status_hide == 't')
+            <small class="text-muted">Dilaporkan oleh: {{ $laporan->warga->nama_lengkap }}</small>
+            @else
+            <small class="text-muted">Dilaporkan oleh: <em>Anonymous</em></small>
+            @endif
         </a>
+        @endif
         @endforeach
     </div>
 
+
+        <div class="text-center mb-4">
+            <a href="{{ route('laporan_masalah_form.show') }}" class="btn btn-primary">
+                Buat Laporan Baru
+            </a>
+        </div>
     <nav aria-label="Page navigation" class="mt-4">
-        <ul class="pagination justify-content-center" id="paginationPengumuman">
+        <ul class="pagination justify-content-center" id="paginationLaporan">
             {{-- Link Previous --}}
             @if($page > 1)
             <li class="page-item">
@@ -54,9 +69,7 @@
             @endif
         </ul>
     </nav>
-
 </div>
 
 <section></section>
-
 @endsection

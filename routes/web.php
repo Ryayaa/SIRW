@@ -16,7 +16,7 @@ use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\UMKMController;
 use App\Http\Controllers\KegiatanController;
 
-Route::get('/',[AuthController::class,'index'])->name('login');
+Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -24,7 +24,7 @@ Route::get('/index', function () {
     return view('index');
 });
 
-Route::get('/dashboard',[WelcomeController::class,'index']);
+Route::get('/dashboard', [WelcomeController::class, 'index']);
 
 
 
@@ -130,7 +130,7 @@ Route::group(['prefix' => 'tamu'], function () {
     Route::put('/{id}', [TamuController::class, 'update'])->name('tamu.update');
     Route::delete('/{id}', [TamuController::class, 'destroy'])->name('tamu.destroy');
 });
-Route::group(['middleware' => ['auth']],function(){
+Route::group(['middleware' => ['auth']], function () {
     // Route Untuk RW
     Route::group(['middleware' => ['roles:rw']], function () {
         Route::get('/rw-dashboard', [Dashboard::class, 'DashboardRW'])->name('rw-dashboard');
@@ -149,16 +149,16 @@ Route::group(['middleware' => ['auth']],function(){
 
 
 
-Route::group(['prefix' => 'keluarga'], function () {
-    Route::get('/', [KeluargaController::class, 'index'])->name('keluarga.index'); // Menampilkan data warga
-    Route::post('/list', [KeluargaController::class, 'list'])->name('keluarga.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
-    Route::get('/create', [KeluargaController::class, 'create'])->name('keluarga.create'); // Menampilkan form tambah warga
-    Route::post('/', [KeluargaController::class, 'store'])->name('keluarga.store'); // Menyimpan data warga
-    Route::get('/{id}', [KeluargaController::class, 'show'])->name('keluarga.show'); // Menampilkan detail warga
-    Route::get('/{id}/edit', [KeluargaController::class, 'edit'])->name('keluarga.edit'); // Menampilkan form edit warga
-    Route::put('/{id}', [KeluargaController::class, 'update'])->name('keluarga.update'); // Mengupdate data warga
-    Route::delete('/{id}', [KeluargaController::class, 'destroy'])->name('keluarga.destroy'); // Menghapus data warga
-});
+    Route::group(['prefix' => 'keluarga'], function () {
+        Route::get('/', [KeluargaController::class, 'index'])->name('keluarga.index'); // Menampilkan data warga
+        Route::post('/list', [KeluargaController::class, 'list'])->name('keluarga.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
+        Route::get('/create', [KeluargaController::class, 'create'])->name('keluarga.create'); // Menampilkan form tambah warga
+        Route::post('/', [KeluargaController::class, 'store'])->name('keluarga.store'); // Menyimpan data warga
+        Route::get('/{id}', [KeluargaController::class, 'show'])->name('keluarga.show'); // Menampilkan detail warga
+        Route::get('/{id}/edit', [KeluargaController::class, 'edit'])->name('keluarga.edit'); // Menampilkan form edit warga
+        Route::put('/{id}', [KeluargaController::class, 'update'])->name('keluarga.update'); // Mengupdate data warga
+        Route::delete('/{id}', [KeluargaController::class, 'destroy'])->name('keluarga.destroy'); // Menghapus data warga
+    });
 
 Route::group(['prefix' => 'umkm'], function () {
     Route::get('/', [UMKMController::class, 'index'])->name('umkm.index'); // Display UMKM list
@@ -194,5 +194,31 @@ Route::group(['prefix' => 'kegiatan'], function () {
         Route::post('/profile/change-password', [AuthController::class, 'changePassword'])->name('profile.change-password');
         Route::get('/struktur-rw', [PageController::class, 'showPengurusRW'])->name('struktur');
 
+
+        //surat
+        Route::get('/surat_pengantar/create', [PageController::class, 'showSuratForm'])->name('surat_pengantar.form');
+        Route::post('/surat_pengantar', [PageController::class, 'createSurat'])->name('surat_pengantar.create');
+        //pengumuman
+        Route::get('/pengumuman-list', [PageController::class, 'showPengumuman'])->name('pengumuman');
+        Route::get('/pengumuman-list/detail/{id_pengumuman}', [PageController::class, 'showDetailPengumuman'])->name('pengumuman.detail');
+        Route::get('/kegiatan-list', [PageController::class, 'showKegiatan'])->name('kegiatanWarga');
+        Route::get('/kegiatan-list/detail/{id}', [PageController::class, 'showDetailKegiatan'])->name('kegiatan.detail');
+        Route::get('/laporan-list', [PageController::class, 'showLaporan'])->name('laporanMasalah');
+        Route::get('/laporan-list/detail/{id}', [PageController::class, 'showDetailLaporan'])->name('laporanMasalah.detail');
+        Route::get('/umkm.-list', [PageController::class, 'showUMKM'])->name('umkm.user-login');
+        Route::get('/umkm-list/detail/{id}', [PageController::class, 'showDetailUMKM'])->name('umkm.detail');
+        Route::get('/bansos-list', [PageController::class, 'showBansos'])->name('bansos.user-login');
+
+    Route::get('/laporan_masalah', [PageController::class, 'showLaporanForm'])->name('laporan_masalah_form.show');
+    Route::post('/laporan_masalah/create', [PageController::class, 'createLaporanForm'])->name('laporan_masalah_form.create');
+
+    Route::get('/umkm-form', [PageController::class, 'showPengajuanUMKMForm'])->name('umkm_form.show');
+    Route::post('/umkm-form/create', [PageController::class, 'createPengajuanUMKMForm'])->name('umkm_form.create');
+
+    Route::get('/tamu-form', [PageController::class, 'showTamuForm'])->name('tamu_form.show');
+    Route::post('/tamu-form/create', [PageController::class, 'createTamuForm'])->name('tamu_form.create');
+
+    Route::get('/warga-sementara-form', [PageController::class, 'showWargaSementaraForm'])->name('warga-sementara_form.show');
+    Route::post('/warga-sementara-form/create', [PageController::class, 'createWargaSementaraForm'])->name('warga-sementara_form.create');
     });
 });

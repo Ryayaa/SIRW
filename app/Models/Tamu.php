@@ -29,7 +29,7 @@ class Tamu extends Model
      * @var array
      */
     protected $fillable = [
-        'nama_lengkap', 'tanggal_lahir', 'jenis_kelamin', 'alamat_ktp', 'alamat_menetap', 'no_telepon', 'tanggal_masuk', 'tanggal_keluar'
+        'nama_lengkap', 'tanggal_lahir', 'jenis_kelamin', 'alamat_ktp', 'alamat_menetap', 'no_telepon', 'tanggal_masuk', 'tanggal_keluar','bukti_ktp',
     ];
 
     /**
