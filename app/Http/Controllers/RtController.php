@@ -59,8 +59,8 @@ class RtController extends Controller
         $rt = RtModel::select('id_rt','no_rt', 'nama_lengkap', 'jenis_kelamin', 'alamat', 'no_telepon', 'status', 'mulai_jabatan', 'akhir_jabatan');
 
         return DataTables::of($rt)
-            ->addIndexColumn() 
-            ->addColumn('aksi', function ($rt) { 
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($rt) {
                 $btn = '<a href="' . url('/rt/' . $rt->id_rt) . '" class="btn btn-info btn-sm">Detail</a> ';
                 $btn .= '<a href="' . url('/rt/' . $rt->id_rt . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 $btn .= '<form class="d-inline-block" method="POST" action="' . url('/rt/' . $rt->id_rt) . '">'

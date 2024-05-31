@@ -64,8 +64,8 @@ class KeluargaController extends Controller
             ->with('rt');
 
         return DataTables::of($keluarga)
-            ->addIndexColumn() 
-            ->addColumn('aksi', function ($keluarga) { 
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($keluarga) {
                 $btn = '<a href="' . url('/keluarga/' . $keluarga->id_keluarga) . '" class="btn btn-info btn-sm">Detail</a> ';
                 $btn .= '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 $btn .= '<form class="d-inline-block" method="POST" action="' . url('/keluarga/' . $keluarga->id_keluarga) . '">'

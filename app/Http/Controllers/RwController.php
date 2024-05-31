@@ -59,8 +59,8 @@ class RwController extends Controller
         $rw = RwModel::select('id_rw', 'nama_lengkap', 'jenis_kelamin', 'alamat', 'no_telepon', 'status', 'mulai_jabatan', 'akhir_jabatan');
 
         return DataTables::of($rw)
-            ->addIndexColumn() 
-            ->addColumn('aksi', function ($rw) { 
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($rw) {
                 $btn = '<a href="' . url('/rw/' . $rw->id_rw) . '" class="btn btn-info btn-sm">Detail</a> ';
                 $btn .= '<a href="' . url('/rw/' . $rw->id_rw . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 $btn .= '<form class="d-inline-block" method="POST" action="' . url('/rw/' . $rw->id_rw) . '">'
