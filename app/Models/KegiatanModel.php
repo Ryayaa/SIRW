@@ -23,6 +23,6 @@ class KegiatanModel extends Model
 
     public function rt()
     {
-        return $this->belongsTo(RTModel::class, 'id_rt', 'id_rt');
+        return $this->belongsTo(RtModel::class, 'id_rt', 'id_rt');
     }
 }
