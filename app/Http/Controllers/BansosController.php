@@ -20,7 +20,7 @@ class BansosController extends Controller
         ];
         $activeMenu = 'bansos';
 
-        return view('bansos.index', [
+        return view('Bansos.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
@@ -58,7 +58,7 @@ class BansosController extends Controller
 
         $activeMenu = 'bansos';
 
-        return view('bansos.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('Bansos.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
 
     public function store(Request $request)
@@ -67,7 +67,7 @@ class BansosController extends Controller
             'nama_bansos' => 'required|string|max:255',
             'deskripsi' => 'required',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);        
+        ]);
 
         $data = $request->all();
         if ($request->hasFile('gambar')) {
@@ -96,7 +96,7 @@ class BansosController extends Controller
 
         $activeMenu = 'bansos';
 
-        return view('bansos.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'bansos' => $bansos, 'activeMenu' => $activeMenu]);
+        return view('Bansos.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'bansos' => $bansos, 'activeMenu' => $activeMenu]);
     }
 
     public function edit($id)
@@ -114,7 +114,7 @@ class BansosController extends Controller
 
         $activeMenu = 'bansos';
 
-        return view('bansos.edit', [
+        return view('Bansos.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'bansos' => $bansos,

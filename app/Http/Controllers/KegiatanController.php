@@ -21,7 +21,7 @@ class KegiatanController extends Controller
         $activeMenu = 'kegiatan';
         $rt = RtModel::all();
 
-        return view('kegiatan.index', [
+        return view('Kegiatan.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -63,7 +63,7 @@ class KegiatanController extends Controller
 
         $activeMenu = 'kegiatan';
 
-        return view('kegiatan.show', [
+        return view('Kegiatan.show', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'kegiatan' => $kegiatan,
@@ -85,7 +85,7 @@ class KegiatanController extends Controller
         $rt = RtModel::all();
         $activeMenu = 'kegiatan';
 
-        return view('kegiatan.create', [
+        return view('Kegiatan.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -125,7 +125,7 @@ class KegiatanController extends Controller
 
         $activeMenu = 'kegiatan';
 
-        return view('kegiatan.edit', [
+        return view('Kegiatan.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'kegiatan' => $kegiatan,

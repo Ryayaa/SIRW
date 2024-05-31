@@ -22,7 +22,7 @@ class KeluargaController extends Controller
 
         $rt = RtModel::all();
 
-        return view('keluarga.index', [
+        return view('Keluarga.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -49,7 +49,7 @@ class KeluargaController extends Controller
         $activeMenu = 'keluarga';
 
         // Mengirim data ke view
-        return view('keluarga.show', [
+        return view('Keluarga.show', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'keluarga' => $keluarga,
@@ -64,8 +64,8 @@ class KeluargaController extends Controller
             ->with('rt');
 
         return DataTables::of($keluarga)
-            ->addIndexColumn() 
-            ->addColumn('aksi', function ($keluarga) { 
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($keluarga) {
                 $btn = '<a href="' . url('/keluarga/' . $keluarga->id_keluarga) . '" class="btn btn-info btn-sm">Detail</a> ';
                 $btn .= '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 $btn .= '<form class="d-inline-block" method="POST" action="' . url('/keluarga/' . $keluarga->id_keluarga) . '">'
@@ -91,7 +91,7 @@ class KeluargaController extends Controller
         $rt = RtModel::all();
         $activeMenu = 'keluarga';
 
-        return view('keluarga.create', [
+        return view('Keluarga.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -131,7 +131,7 @@ class KeluargaController extends Controller
 
         $activeMenu = 'keluarga';
 
-        return view('keluarga.edit', [
+        return view('Keluarga.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'keluarga' => $keluarga,

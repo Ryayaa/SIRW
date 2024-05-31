@@ -19,7 +19,7 @@ class RtController extends Controller
         ];
         $activeMenu = 'rt';
 
-        return view('rt.index', [
+        return view('RT.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
@@ -45,7 +45,7 @@ class RtController extends Controller
         $activeMenu = 'rt';
 
         // Mengirim data ke view
-        return view('rt.show', [
+        return view('RT.show', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'rt' => $rt,
@@ -59,8 +59,8 @@ class RtController extends Controller
         $rt = RtModel::select('id_rt','no_rt', 'nama_lengkap', 'jenis_kelamin', 'alamat', 'no_telepon', 'status', 'mulai_jabatan', 'akhir_jabatan');
 
         return DataTables::of($rt)
-            ->addIndexColumn() 
-            ->addColumn('aksi', function ($rt) { 
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($rt) {
                 $btn = '<a href="' . url('/rt/' . $rt->id_rt) . '" class="btn btn-info btn-sm">Detail</a> ';
                 $btn .= '<a href="' . url('/rt/' . $rt->id_rt . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 $btn .= '<form class="d-inline-block" method="POST" action="' . url('/rt/' . $rt->id_rt) . '">'
@@ -85,7 +85,7 @@ class RtController extends Controller
 
         $activeMenu = 'rt';
 
-        return view('rt.create', [
+        return view('RT.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
@@ -133,7 +133,7 @@ class RtController extends Controller
 
         $activeMenu = 'rt';
 
-        return view('rt.edit', [
+        return view('RT.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'rt' => $rt,
