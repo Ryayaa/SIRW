@@ -64,7 +64,7 @@
         </div>
         <div class="col-md-6 col-lg-4 col-sm-8">
             <div class="card mb-4">
-                <div class="card-header text-center bg-info text-white">
+                <div class="card-header text-center bg-success text-white">
                     <h4>RT 02</h4>
                 </div>
                 <div class="card-body">
@@ -76,7 +76,7 @@
         </div>
         <div class="col-md-6 col-lg-4 col-sm-8">
             <div class="card mb-4">
-                <div class="card-header text-center bg-warning text-white">
+                <div class="card-header text-center bg-success text-white">
                     <h4>RT 03</h4>
                 </div>
                 <div class="card-body">
@@ -88,7 +88,7 @@
         </div>
         <div class="col-md-6 col-lg-4 col-sm-8">
             <div class="card mb-4">
-                <div class="card-header text-center bg-danger text-white">
+                <div class="card-header text-center bg-success text-white">
                     <h4>RT 04</h4>
                 </div>
                 <div class="card-body">
@@ -100,7 +100,7 @@
         </div>
         <div class="col-md-6 col-lg-4 col-sm-8">
             <div class="card mb-4">
-                <div class="card-header text-center bg-danger text-white">
+                <div class="card-header text-center bg-success text-white">
                     <h4>RT 04</h4>
                 </div>
                 <div class="card-body">

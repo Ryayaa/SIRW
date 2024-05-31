@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\UMKMController;
+use App\Http\Controllers\KegiatanController;
 
 Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
@@ -158,6 +160,27 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/{id}', [KeluargaController::class, 'destroy'])->name('keluarga.destroy'); // Menghapus data warga
     });
 
+Route::group(['prefix' => 'umkm'], function () {
+    Route::get('/', [UMKMController::class, 'index'])->name('umkm.index'); // Display UMKM list
+    Route::post('/list', [UMKMController::class, 'list'])->name('umkm.list'); // Display UMKM data in JSON format for DataTables
+    Route::get('/create', [UMKMController::class, 'create'])->name('umkm.create'); // Display form to add UMKM
+    Route::post('/', [UMKMController::class, 'store'])->name('umkm.store'); // Store UMKM data
+    Route::get('/{id}', [UMKMController::class, 'show'])->name('umkm.show'); // Display UMKM details
+    Route::get('/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit'); // Display form to edit UMKM
+    Route::put('/{id}', [UMKMController::class, 'update'])->name('umkm.update'); // Update UMKM data
+    Route::delete('/{id}', [UMKMController::class, 'destroy'])->name('umkm.destroy'); // Delete UMKM data
+});
+
+Route::group(['prefix' => 'kegiatan'], function () {
+    Route::get('/', [KegiatanController::class, 'index'])->name('kegiatan.index'); // Menampilkan daftar kegiatan
+    Route::post('/list', [KegiatanController::class, 'list'])->name('kegiatan.list'); // Menampilkan data kegiatan dalam format JSON untuk DataTables
+    Route::get('/create', [KegiatanController::class, 'create'])->name('kegiatan.create'); // Menampilkan formulir untuk menambah kegiatan
+    Route::post('/', [KegiatanController::class, 'store'])->name('kegiatan.store'); // Menyimpan data kegiatan
+    Route::get('/{id}', [KegiatanController::class, 'show'])->name('kegiatan.show'); // Menampilkan detail kegiatan
+    Route::get('/{id}/edit', [KegiatanController::class, 'edit'])->name('kegiatan.edit'); // Menampilkan formulir untuk mengedit kegiatan
+    Route::put('/{id}', [KegiatanController::class, 'update'])->name('kegiatan.update'); // Memperbarui data kegiatan
+    Route::delete('/{id}', [KegiatanController::class, 'destroy'])->name('kegiatan.destroy'); // Menghapus data kegiatan
+});
 
     //Route Untuk RT
     Route::group(['middleware' => ['roles:rt']], function () {
