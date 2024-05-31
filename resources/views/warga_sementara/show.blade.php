@@ -57,7 +57,7 @@
                         <th>Bukti KTP</th>
                         <td>
                             @if($wargaSementara->bukti_ktp)
-                                <img src="{{ asset('images/'.$wargaSementara->bukti_ktp) }}" alt="{{ $wargaSementara->nama_lengkap }}" width="100">
+                                <img src="{{ asset('images/'.$wargaSementara->bukti_ktp) }}" alt="{{ $wargaSementara->nama_lengkap }}" width="200">
                             @else
                                 No Image
                             @endif

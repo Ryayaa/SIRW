@@ -77,7 +77,7 @@
             <li class="nav-item">
                 <a href="{{ url('/warga_sementara') }}" class="nav-link {{ $activeMenu == 'warga_sementara' ? 'active' : '' }} ">
                     <i class="nav-icon far fa-address-card"></i>
-                    <p>Kelola Warga Sementara</p>
+                    <p>Warga Sementara</p>
                 </a>
             </li>         
             <li class="nav-item">
