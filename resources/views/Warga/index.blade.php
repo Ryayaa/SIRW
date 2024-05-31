@@ -22,7 +22,7 @@
                         <th>ID</th>
                         <th>NIK</th>
                         <th>Nama Lengkap</th>
-                        <th>roles</th>
+                        {{-- <th>roles</th> --}}
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -47,7 +47,7 @@
                     { data: 'id_warga', name: 'id_warga' },
                     { data: 'NIK', name: 'NIK' },
                     { data: 'nama_lengkap', name: 'nama_lengkap' },
-                    { data: 'roles', name: 'roles' },
+                    // { data: 'roles', name: 'roles' },
                     { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
                 ]
             });
