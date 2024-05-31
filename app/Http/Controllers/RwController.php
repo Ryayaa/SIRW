@@ -19,7 +19,7 @@ class RwController extends Controller
         ];
         $activeMenu = 'rw';
 
-        return view('rw.index', [
+        return view('RW.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
@@ -45,7 +45,7 @@ class RwController extends Controller
         $activeMenu = 'rw';
 
         // Mengirim data ke view
-        return view('rw.show', [
+        return view('RW.show', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'rw' => $rw,
@@ -85,7 +85,7 @@ class RwController extends Controller
 
         $activeMenu = 'rw';
 
-        return view('rw.create', [
+        return view('RW.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
@@ -129,7 +129,7 @@ class RwController extends Controller
 
         $activeMenu = 'rw';
 
-        return view('rw.edit', [
+        return view('RW.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'rw' => $rw,

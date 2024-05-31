@@ -19,7 +19,7 @@ class RtController extends Controller
         ];
         $activeMenu = 'rt';
 
-        return view('rt.index', [
+        return view('RT.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
@@ -45,7 +45,7 @@ class RtController extends Controller
         $activeMenu = 'rt';
 
         // Mengirim data ke view
-        return view('rt.show', [
+        return view('RT.show', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'rt' => $rt,
@@ -85,7 +85,7 @@ class RtController extends Controller
 
         $activeMenu = 'rt';
 
-        return view('rt.create', [
+        return view('RT.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
@@ -133,7 +133,7 @@ class RtController extends Controller
 
         $activeMenu = 'rt';
 
-        return view('rt.edit', [
+        return view('RT.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'rt' => $rt,

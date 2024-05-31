@@ -21,7 +21,7 @@ class PenerimaBansosController extends Controller
         ];
         $activeMenu = 'penerima';
 
-        return view('penerima.index', [
+        return view('Penerima.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
@@ -64,7 +64,7 @@ class PenerimaBansosController extends Controller
         $warga = Warga::all(); // ambil data level untuk ditampilkan di form
         $activeMenu = 'penerima'; // set menu sedang aktif
 
-        return view('penerima.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'warga' => $warga, 'activeMenu' => $activeMenu]);
+        return view('Penerima.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'warga' => $warga, 'activeMenu' => $activeMenu]);
     }
 
     // Menyimpan data user baru
@@ -95,6 +95,6 @@ class PenerimaBansosController extends Controller
 
         $activeMenu = 'penerima'; // set menu yang sedang aktif
 
-        return view('penerima.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penerima' => $penerima, 'activeMenu' => $activeMenu]);
+        return view('Penerima.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penerima' => $penerima, 'activeMenu' => $activeMenu]);
     }
 }

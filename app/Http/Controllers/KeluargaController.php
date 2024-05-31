@@ -22,7 +22,7 @@ class KeluargaController extends Controller
 
         $rt = RtModel::all();
 
-        return view('keluarga.index', [
+        return view('Keluarga.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -49,7 +49,7 @@ class KeluargaController extends Controller
         $activeMenu = 'keluarga';
 
         // Mengirim data ke view
-        return view('keluarga.show', [
+        return view('Keluarga.show', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'keluarga' => $keluarga,
@@ -91,7 +91,7 @@ class KeluargaController extends Controller
         $rt = RtModel::all();
         $activeMenu = 'keluarga';
 
-        return view('keluarga.create', [
+        return view('Keluarga.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -131,7 +131,7 @@ class KeluargaController extends Controller
 
         $activeMenu = 'keluarga';
 
-        return view('keluarga.edit', [
+        return view('Keluarga.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'keluarga' => $keluarga,
