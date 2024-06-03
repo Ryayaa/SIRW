@@ -19,7 +19,7 @@ class TamuController extends Controller
         ];
         $activeMenu = 'tamu';
 
-        return view('tamu.index', [
+        return view('Tamu.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
@@ -58,7 +58,7 @@ class TamuController extends Controller
 
         $activeMenu = 'tamu';
 
-        return view('tamu.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('Tamu.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
 
     public function store(Request $request)
@@ -96,7 +96,7 @@ class TamuController extends Controller
 
         $activeMenu = 'tamu';
 
-    return view('tamu.edit', [
+    return view('Tamu.edit', [
         'breadcrumb' => $breadcrumb,
         'page' => $page,
         'tamu' => $tamu,
@@ -119,7 +119,7 @@ class TamuController extends Controller
 
         $activeMenu = 'tamu';
 
-        return view('tamu.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'tamu' => $tamu, 'activeMenu' => $activeMenu]);
+        return view('Tamu.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'tamu' => $tamu, 'activeMenu' => $activeMenu]);
     }
 
     public function destroy($id)

@@ -54,6 +54,19 @@
                   <i class="nav-icon far fa fa-file-medical"></i>
                   <p>Penerima Bansos</p>
               </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('/umkm') }}" class="nav-link {{ $activeMenu == 'umkm' ? 'active' : '' }} ">
+                  <i class="nav-icon far fa fa-file-medical"></i>
+                  <p>Pengajuan UMKM</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('/kegiatan') }}" class="nav-link {{ $activeMenu == 'kegiatan' ? 'active' : '' }} ">
+                  <i class="nav-icon far fa fa-file-medical"></i>
+                  <p>Kegiatan Warga</p>
+              </a>
+            </li>
               <li class="nav-item">
                   <a href="{{ route('tamu.index') }}" class="nav-link {{ $activeMenu == 'tamu' ? 'active' : '' }} ">
                       <i class="nav-icon far fa fa-user"></i>

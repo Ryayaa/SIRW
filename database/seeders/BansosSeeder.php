@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -21,5 +23,6 @@ class BansosSeeder extends Seeder
 
         // Tambahkan data lainnya sesuai kebutuhan
         DB::table('bansos')->updateOrInsert($data);
+
     }
 }

@@ -24,7 +24,7 @@ class WargaController extends Controller
         $activeMenu = 'warga';
         $keluarga = KeluargaModel::all();
 
-        return view('warga.index', [
+        return view('Warga.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -51,7 +51,7 @@ class WargaController extends Controller
     $activeMenu = 'warga';
 
     // Mengirim data ke view
-    return view('warga.show', [
+    return view('Warga.show', [
         'breadcrumb' => $breadcrumb,
         'page' => $page,
         'warga' => $warga,
@@ -93,7 +93,7 @@ class WargaController extends Controller
         $keluarga = KeluargaModel::all();
         $activeMenu = 'warga';
 
-        return view('warga.create', [
+        return view('Warga.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -147,7 +147,7 @@ class WargaController extends Controller
 
         $activeMenu = 'warga';
 
-        return view('warga.edit', [
+        return view('Warga.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'warga' => $warga,

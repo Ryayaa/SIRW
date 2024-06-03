@@ -26,6 +26,7 @@ class PenerimaBansosController extends Controller
         ];
         $activeMenu = 'penerima';
 
+
         $bansosList = Bansos::withCount([
             'penerimas as penerimas_diterima_count' => function ($query) {
                 $query->where('status', 'diterima');
@@ -36,6 +37,7 @@ class PenerimaBansosController extends Controller
         ])->get();
 
         return view('penerima.index', [
+
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -147,6 +149,7 @@ class PenerimaBansosController extends Controller
         $result = $this->calculateMoora('pending', $idBansos);
         $ranking = $result['ranking'];
         $moora = $result['moora'];
+
 
         return view('penerima.pengajuan', [
             'breadcrumb' => $breadcrumb,
@@ -312,6 +315,7 @@ class PenerimaBansosController extends Controller
         return redirect(url('penerima/' . $penerima->id_bansos . '/pengajuan'))->with('success', 'Penerima berhasil ditolak');
     }
 
+
     public function detail($id){
         $breadcrumb = (object) [
             'title' => 'Detail Penerima Bansos',
@@ -331,5 +335,6 @@ class PenerimaBansosController extends Controller
             'activeMenu' => $activeMenu,
             'penerima' => $penerima,
         ]);
+
     }
 }

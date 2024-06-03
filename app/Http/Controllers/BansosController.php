@@ -23,7 +23,7 @@ class BansosController extends Controller
         $activeMenu = 'bansos';
         $bansosList = Bansos::all();
 
-        return view('bansos.index', [
+        return view('Bansos.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -44,7 +44,7 @@ class BansosController extends Controller
 
         $activeMenu = 'bansos';
 
-        return view('bansos.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('Bansos.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
 
     public function store(Request $request)
@@ -54,6 +54,7 @@ class BansosController extends Controller
             'deskripsi' => 'required|string',
             'gambar' => 'image|max:2048',
             'jumlah_kriteria' => 'required|integer|min:1',
+
         ]);
 
         $bansos = Bansos::create([
@@ -139,12 +140,14 @@ class BansosController extends Controller
 
         $activeMenu = 'bansos';
 
+
         return view('bansos.show', [
             'breadcrumb' => $breadcrumb, 
             'page' => $page, 
             'bansos' => $bansos, 
             'activeMenu' => $activeMenu
         ]);
+
     }
 
     public function edit($id_bansos)
@@ -159,6 +162,7 @@ class BansosController extends Controller
         ];
 
         $activeMenu = 'bansos';
+
         $bansos = Bansos::with('kriteria.subkriteria')->find($id_bansos);
         if (!$bansos) {
             return redirect()->route('bansos.index')->with('error', 'Bantuan sosial tidak ditemukan');
@@ -167,6 +171,7 @@ class BansosController extends Controller
             'breadcrumb' => $breadcrumb, 
             'page' => $page, 
             'bansos' => $bansos, 
+
             'activeMenu' => $activeMenu
         ]);
     }
