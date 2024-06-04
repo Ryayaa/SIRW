@@ -12,8 +12,7 @@
             <div class="card">
                 <img src="{{ asset('storage/'.$bansos->gambar) }}" class="card-img-top" alt="{{ $bansos->nama_bansos }}">
                 <div class="card-body">
-                    <h5 class="card-title"><a href="{{ url('/bansos-list/detail/' . $bansos->id_bansos) }}">{{ $bansos->nama_bansos }}</h5>
-                    <p class="card-text">{{ $bansos->deskripsi }}</p>
+                    <h5 class="card-title"><a href="{{ url('/pengajuan-list/check/' . $bansos->id_bansos) }}">{{ $bansos->nama_bansos }}</h5>
                 </div>
             </div>
         </div>
