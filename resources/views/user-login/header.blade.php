@@ -14,7 +14,7 @@
                             class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
                         <li><a href="{{route('bansos.user-login')}}">Daftar Bansos</a></li>
-                        <li><a href="#">Pengajuan Penerima Baru</a></li>
+                        <li><a href="{{route('pengajuan.user-login')}}">Pengajuan Penerima Baru</a></li>
                     </ul>
                 </li>
                 <li class="dropdown"><a href="#"><span>UMKM</span> <i
