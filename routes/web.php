@@ -218,6 +218,13 @@ Route::group(['prefix' => 'kegiatan'], function () {
         Route::get('/umkm.-list', [PageController::class, 'showUMKM'])->name('umkm.user-login');
         Route::get('/umkm-list/detail/{id}', [PageController::class, 'showDetailUMKM'])->name('umkm.detail');
         Route::get('/bansos-list', [PageController::class, 'showBansos'])->name('bansos.user-login');
+        Route::get('/bansos-list/detail/{id}', [PageController::class, 'detailBansos'])->name('bansos.detail');
+        Route::get('/pengajuan-list', [PageController::class, 'showPengajuan'])->name('pengajuan.user-login');
+        Route::get('/pengajuan-list/form/{idBansos}', [PageController::class, 'formPengajuan'])->name('pengajuan.form');
+        Route::post('/pengajuan-list/store', [PageController::class, 'storePengajuan'])->name('pengajuan.store');
+        Route::get('/pengajuan-list/check/{id}', [PageController::class, 'checkPengajuan'])->name('pengajuan.check');
+        Route::get('/pengajuan-list/detail/{idBansos}/{idPengajuan}', [PageController::class, 'detailPengajuan'])->name('pengajuan.detail');
+
 
     Route::get('/laporan_masalah', [PageController::class, 'showLaporanForm'])->name('laporan_masalah_form.show');
     Route::post('/laporan_masalah/create', [PageController::class, 'createLaporanForm'])->name('laporan_masalah_form.create');
