@@ -1736,17 +1736,135 @@
 </body>
 </html> --}}
 
-
 @extends('layouts.template')
 
 @section('content')
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Hallo Apa Kabar</h3>
-        <div class="card-tools"></div>
     </div>
     <div class="card-body">
-        Selamat Datang semua, ini adalah halaman utama aplikasi ini yang dibuat 
+        <p>Selamat Datang semua, ini adalah halaman utama aplikasi ini yang dibuat.</p>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="info-box bg-warning">
+                <span class="info-box-icon"><i class="fas fa-city"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Jumlah RW</span>
+                    <span class="info-box-number">{{ $jumlah_rw }}</span>
+                </div>
+            </div>
+        </div>
+            <div class="col-md-3">
+                <div class="info-box bg-success">
+                    <span class="info-box-icon"><i class="fas fa-house-user"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Jumlah RT</span>
+                        <span class="info-box-number">{{ $jumlah_rt }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+              <div class="info-box bg-info">
+                  <span class="info-box-icon"><i class="fas fa-users"></i></span>
+                  <div class="info-box-content">
+                      <span class="info-box-text">Jumlah Warga</span>
+                      <span class="info-box-number">{{ $jumlah_warga }}</span>
+                  </div>
+              </div>
+          </div>
+            <div class="col-md-3">
+              <div class="info-box bg-info">
+                  <span class="info-box-icon"><i class="fas fa-address-book"></i></span>
+                  <div class="info-box-content">
+                      <span class="info-box-text">Jumlah Tamu</span>
+                      <span class="info-box-number">{{ $jumlah_tamu }}</span>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="info-box bg-primary">
+                    <span class="info-box-icon"><i class="fas fa-male"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Jumlah Laki-laki</span>
+                        <span class="info-box-number">{{ $jumlah_laki }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="info-box bg-danger">
+                    <span class="info-box-icon"><i class="fas fa-female"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Jumlah Perempuan</span>
+                        <span class="info-box-number">{{ $jumlah_perempuan }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="info-box bg-secondary">
+                    <span class="info-box-icon"><i class="fas fa-hand-holding-heart"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Jumlah Bansos</span>
+                        <span class="info-box-number">{{ $jumlah_bansos }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="info-box bg-dark">
+                    <span class="info-box-icon"><i class="fas fa-hand-holding"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Jumlah Penerima Bansos</span>
+                        <span class="info-box-number">{{ $jumlah_penerima_bansos }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <!-- Empty column for spacing -->
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12 d-flex justify-content-center">
+                <canvas id="genderChart" width="300" height="300"></canvas>
+            </div>
+        </div>
     </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      var ctx = document.getElementById('genderChart').getContext('2d');
+      var totalLaki = {{ $jumlah_laki }} + {{ $jumlah_tamu_laki }};
+      var totalPerempuan = {{ $jumlah_perempuan }} + {{ $jumlah_tamu_perempuan }};
+
+      var genderChart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+              labels: ['Laki-laki', 'Perempuan'],
+              datasets: [{
+                  label: 'Jumlah Total',
+                  data: [totalLaki, totalPerempuan],
+                  backgroundColor: ['#007bff', '#dc3545'],
+              }]
+          },
+          options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                  legend: {
+                      position: 'top',
+                  },
+                  title: {
+                      display: true,
+                      text: 'Jumlah Total Warga Berdasarkan Jenis Kelamin'
+                  }
+              }
+          }
+      });
+  });
+</script>
+
 @endsection
