@@ -21,7 +21,7 @@ class UMKMController extends Controller
         ];
         $activeMenu = 'umkm';
 
-        return view('umkm.index', [
+        return view('UMKM.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
@@ -61,7 +61,7 @@ class UMKMController extends Controller
 
         $wargas = WargaModel::all(); // Ambil semua data WargaModel
 
-        return view('umkm.create', [
+        return view('UMKM.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -106,7 +106,7 @@ class UMKMController extends Controller
 
         $activeMenu = 'umkm';
 
-        return view('umkm.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'umkm' => $umkm, 'activeMenu' => $activeMenu]);
+        return view('UMKM.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'umkm' => $umkm, 'activeMenu' => $activeMenu]);
     }
 
     public function edit($id)
@@ -126,7 +126,7 @@ class UMKMController extends Controller
 
         $wargas = WargaModel::all(); // Ambil semua data WargaModel
 
-        return view('umkm.edit', [
+        return view('UMKM.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'umkm' => $umkm,

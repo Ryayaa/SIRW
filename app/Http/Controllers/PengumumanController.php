@@ -21,7 +21,7 @@ class PengumumanController extends Controller
         ];
         $activeMenu = 'pengumuman';
 
-        return view('pengumuman.index', [
+        return view('Pengumuman.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
@@ -61,7 +61,7 @@ class PengumumanController extends Controller
 
         $rts = RtModel::all(); // Ambil semua data RT
 
-        return view('pengumuman.create', [
+        return view('Pengumuman.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -106,7 +106,7 @@ class PengumumanController extends Controller
 
         $activeMenu = 'pengumuman';
 
-        return view('pengumuman.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'pengumuman' => $pengumuman, 'activeMenu' => $activeMenu]);
+        return view('Pengumuman.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'pengumuman' => $pengumuman, 'activeMenu' => $activeMenu]);
     }
 
     public function edit($id)
@@ -126,7 +126,7 @@ class PengumumanController extends Controller
 
         $rts = RtModel::all(); // Ambil semua data RT
 
-        return view('pengumuman.edit', [
+        return view('Pengumuman.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'pengumuman' => $pengumuman,

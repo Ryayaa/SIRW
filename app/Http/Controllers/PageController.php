@@ -6,7 +6,7 @@ use App\Models\Bansos;
 use App\Models\KegiatanModel;
 use App\Models\LaporanMasalahModel;
 use App\Models\PengumumanModel;
-use App\Models\RTModel;
+use App\Models\RtModel;
 use App\Models\RwModel;
 use App\Models\Tamu;
 use App\Models\UMKMModel;
@@ -23,7 +23,7 @@ class PageController extends Controller
         $rw = RwModel::first();
 
         // Retrieve RT data associated with the RW
-        $rts = RTModel::where('id_rw', $rw->id_rw)->get();
+        $rts = RtModel::where('id_rw', $rw->id_rw)->get();
 
         // Pass the data to the view
         return view('page.struktur-rw.index', compact('rw', 'rts'));

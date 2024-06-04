@@ -20,43 +20,19 @@
                     <tr>
                         <th>ID</th>
                         <th>Nama Bansos</th>
-                        <th>Deskripsi</th>
                         <th>Gambar</th>
-                        <th>Aksi</th>
                     </tr>
                 </thead>
+                <tbody>
+                    @foreach($bansosList as $bansos)
+                        <tr>
+                            <td>{{ $bansos->id_bansos }}</td>
+                            <td><a href="{{ url('/bansos/' . $bansos->id_bansos) }}">{{ $bansos->nama_bansos }}</a></td>
+                            <td>{{ $bansos->gambar }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
             </table>
         </div>
     </div>
 @endsection
-
-@push('css')
-@endpush
-
-@push('js')
-<script>
-    $(document).ready(function() {
-        // Set a base URL variable using Blade to output the base path
-        var baseUrl = "{{ url('images') }}/";
-
-        var dataTable = $('#table_bansos').DataTable({
-            serverSide: true,
-            processing: true,
-            ajax: {
-                url: "{{ route('bansos.list') }}",
-                type: 'POST',
-            },
-            columns: [
-                { data: 'id_bansos', name: 'id_bansos' },
-                { data: 'nama_bansos', name: 'nama_bansos' },
-                { data: 'deskripsi', name: 'deskripsi' },
-                { data: 'gambar', name: 'gambar', render: function(data, type, full, meta) {
-                    return data ? `<img src="` + baseUrl + data + `" width="50" height="50" alt="Bansos Image">` : 'No Image';
-                }},
-                { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
-            ]
-        });
-    });
-</script>
-@endpush
-
