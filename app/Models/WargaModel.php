@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class WargaModel extends Model
+class WargaModel extends Authenticable
 {
     use HasFactory;
 
@@ -20,13 +22,14 @@ class WargaModel extends Model
         'alamat_domisili',
         'pekerjaan',
         'status_perkawinan',
-        'level',
+        'roles',
         'password',
         'id_keluarga',
+        'username'
     ];
 
     // Relationship dengan tabel kategori_warga
-    public function keluarga()
+    public function keluarga(): BelongsTo
     {
         return $this->belongsTo(KeluargaModel::class, 'id_keluarga', 'id_keluarga');
     }

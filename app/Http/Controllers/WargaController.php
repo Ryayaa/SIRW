@@ -24,7 +24,7 @@ class WargaController extends Controller
         $activeMenu = 'warga';
         $keluarga = KeluargaModel::all();
 
-        return view('warga.index', [
+        return view('Warga.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -51,7 +51,7 @@ class WargaController extends Controller
     $activeMenu = 'warga';
 
     // Mengirim data ke view
-    return view('warga.show', [
+    return view('Warga.show', [
         'breadcrumb' => $breadcrumb,
         'page' => $page,
         'warga' => $warga,
@@ -62,12 +62,12 @@ class WargaController extends Controller
 
     public function list(Request $request)
     {
-        $warga = WargaModel::select('id_warga', 'NIK', 'nama_lengkap', 'tanggal_lahir', 'jenis_kelamin', 'alamat_domisili', 'pekerjaan', 'status_perkawinan','level', 'id_keluarga')
+        $warga = WargaModel::select('id_warga', 'NIK', 'nama_lengkap', 'tanggal_lahir', 'jenis_kelamin', 'alamat_domisili', 'pekerjaan', 'status_perkawinan','roles', 'id_keluarga')
             ->with('keluarga');
 
         return DataTables::of($warga)
-            ->addIndexColumn() 
-            ->addColumn('aksi', function ($warga) { 
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($warga) {
                 $btn = '<a href="' . url('/warga/' . $warga->id_warga) . '" class="btn btn-info btn-sm">Detail</a> ';
                 $btn .= '<a href="' . url('/warga/' . $warga->id_warga . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 $btn .= '<form class="d-inline-block" method="POST" action="' . url('/warga/' . $warga->id_warga) . '">'
@@ -93,7 +93,7 @@ class WargaController extends Controller
         $keluarga = KeluargaModel::all();
         $activeMenu = 'warga';
 
-        return view('warga.create', [
+        return view('Warga.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -104,15 +104,14 @@ class WargaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'NIK' => 'required|string|max:20',
+            'NIK' => 'required|string|max:16',
             'nama_lengkap' => 'required|string|max:100',
             'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
             'alamat_domisili' => 'required|string|max:255',
             'pekerjaan' => 'required|string|max:50',
             'status_perkawinan' => 'required|in:Kawin,Belum Kawin',
-            'level' => 'required|in:RT,RW,Warga,Warga Sementara',
-            'password' => 'required|min:5',
+            'roles' => 'required|in:RT,RW,Warga,Warga Sementara',
             'id_keluarga' => 'required|integer',
         ]);
 
@@ -124,9 +123,10 @@ class WargaController extends Controller
             'alamat_domisili' => $request->alamat_domisili,
             'pekerjaan' => $request->pekerjaan,
             'status_perkawinan' => $request->status_perkawinan,
-            'level' => $request->level,
-            'password' => bcrypt($request->password),
+            'roles' => $request->roles,
             'id_keluarga' => $request->id_keluarga,
+            'username' => $request->NIK,
+            'password' => Hash::make($request->NIK),
         ]);
 
         return redirect('/warga')->with('success', 'Data warga baru telah ditambahkan');
@@ -147,7 +147,7 @@ class WargaController extends Controller
 
         $activeMenu = 'warga';
 
-        return view('warga.edit', [
+        return view('Warga.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'warga' => $warga,
@@ -158,15 +158,14 @@ class WargaController extends Controller
 
     public function update(Request $request, string $id){
         $request->validate([
-            'NIK' => 'required|string|max:20',
+            'NIK' => 'required|string|max:16',
             'nama_lengkap' => 'required|string|max:100',
             'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
             'alamat_domisili' => 'required|string|max:255',
             'pekerjaan' => 'required|string|max:50',
             'status_perkawinan' => 'required|in:Kawin,Belum Kawin',
-            'level' => 'required|in:RT,RW,Warga,Warga Sementara',
-            'password' => 'required|min:5',
+            'roles' => 'required|in:RT,RW,Warga,Warga Sementara',
             'id_keluarga' => 'required|integer',
         ]);
 
@@ -178,8 +177,7 @@ class WargaController extends Controller
             'alamat_domisili' => $request->alamat_domisili,
             'pekerjaan' => $request->pekerjaan,
             'status_perkawinan' => $request->status_perkawinan,
-            'level' => $request->level,
-            'password' => bcrypt($request->password),
+            'roles' => $request->roles,
             'id_keluarga' => $request->id_keluarga,
         ]);
 

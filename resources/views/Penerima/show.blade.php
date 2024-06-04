@@ -4,60 +4,35 @@
     <div class="card card-outline card-primary">
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
-            <div class="card-tools"></div>
         </div>
         <div class="card-body">
-            @empty($penerima)
-                <div class="alert alert-danger alert-dismissible">
-                    <h5><i class="icon fas fa-ban"></i> Kesalahan!</h5> Data yang Anda cari tidak ditemukan.
-                </div>
-            @else
-                <table class="table table-bordered table-striped table-hover table-sm">
+            <h5><strong>Nama Warga:</strong> {{ $penerima->warga->nama_lengkap }}</h5>
+            <table class="table table-bordered">
+                <thead>
                     <tr>
-                        <th>ID</th>
-                        <td>{{ $penerima->id_penerima_bansos }}</td>
+                        <th>Kriteria</th>
+                        <th>Subkriteria</th>
                     </tr>
-                    <tr>
-                        <th>ID Warga</th>
-                        <td>{{ $penerima->warga->id_warga }}</td>
-                    </tr>
-                    <tr>
-                        <th>NKK</th>
-                        <td>{{ $penerima->warga->NKK }}</td>
-                    </tr>
-                    <tr>
-                        <th>NIK</th>
-                        <td>{{ $penerima->warga->NIK }}</td>
-                    </tr>
-                    <tr>
-                        <th>Nama Lengkap</th>
-                        <td>{{ $penerima->warga->nama_lengkap }}</td>
-                    </tr>
-                    <tr>
-                        <th>Jenis Kelamin</th>
-                        <td>{{ $penerima->warga->jenis_kelamin }}</td>
-                    </tr>
-                    <tr>
-                        <th>Alamat</th>
-                        <td>{{ $penerima->warga->alamat }}</td>
-                    </tr>
-                    <tr>
-                        <th>Pekerjaan</th>
-                        <td>{{ $penerima->warga->pekerjaan }}</td>
-                    </tr>
-                    <tr>
-                        <th>Status Perkawinan</th>
-                        <td>{{ $penerima->warga->status_perkawinan }}</td>
-                    </tr>
-                </table>
-            @endempty
-            <a href="{{ route('penerima.index') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
+                </thead>
+                <tbody>
+                    @foreach($penerima->nilaiA as $nilai)
+                        <tr>
+                            <td>{{ $nilai->kriteria->nama }}</td>
+                            <td>{{ $nilai->nilai->subkriteria }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <br>
+            <form action="{{ route('penerima.accept', $penerima->id_penerima) }}" method="POST" style="display: inline;">
+                @csrf
+                <button type="submit" class="btn btn-success float-right">Terima</button>
+            </form>
+            <form action="{{ route('penerima.reject', $penerima->id_penerima) }}" method="POST" style="display: inline;">
+                @csrf
+                <button type="submit" class="btn btn-danger float-right">Tolak</button>
+            </form>
+            <a class="btn btn btn-default" href="{{ url('penerima/' . $penerima->id_bansos . '/pengajuan/') }}">Kembali</a>
         </div>
     </div>
 @endsection
-
-@push('css')
-@endpush
-
-@push('js')
-@endpush

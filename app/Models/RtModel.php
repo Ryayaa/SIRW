@@ -28,8 +28,8 @@ class RtModel extends Model
     }
 
     // Relationship dengan tabel rw
-    // public function rw()
-    // {
-    //     return $this->belongsTo(RwModel::class, 'id_rw', 'id_rw');
-    // }
+    public function rw()
+    {
+        return $this->belongsTo(RwModel::class, 'id_rw', 'id_rw');
+    }
 }

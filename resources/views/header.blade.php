@@ -10,7 +10,6 @@
         <nav id="navbar" class="navbar">
             <ul>
                 <li><a class="nav-link scrollto" href="#">Tentang</a></li>
-                <li><a class="nav-link scrollto" href="#">Struktur Pengurus</a></li>
                 <li class="dropdown"><a href="#"><span>Bantuan Sosial</span> <i
                             class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
@@ -28,15 +27,23 @@
                 <li class="dropdown"><a href="#"><span>Informasi</span> <i
                             class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
+                        <li><a href="#">Struktur Pengurus</a></li>
                         <li><a href="#">Pengumuman</a></li>
                         <li><a href="#">Kegiatan Warga</a></li>
+                        <li><a href="#">Kas</a></li>
                     </ul>
                 </li>
-                <li><a class="nav-link scrollto" href="#">Kas</a></li>
+                <li class="dropdown"><a href="#"><span>Pengajuan</span> <i
+                            class="bi bi-chevron-down dropdown-indicator"></i></a>
+                    <ul>
+                        <li><a href="#">Surat Pengantar</a></li>
+                        <li><a href="#">Warga Sementara</a></li>
+                    </ul>
+                </li>
                 <li><a class="nav-link scrollto" href="#">Tamu</a></li>
                 <!-- <li><a class="nav-link scrollto" href="#"></a></li> -->
                 <li class="nav-link scrollto">
-                    <a class="btn-getstarted" href="index.html">Masuk</a>
+                    <a class="btn-getstarted" href="{{ route('login') }}">Masuk</a>
                 </li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle d-none"></i>
