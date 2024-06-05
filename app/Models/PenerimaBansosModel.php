@@ -17,7 +17,7 @@ class PenerimaBansosModel extends Model
     // Relationship dengan tabel rt
     public function warga(): BelongsTo
     {
-        return $this->belongsTo(Warga::class, 'id_warga', 'id_warga');
+        return $this->belongsTo(WargaModel::class, 'id_warga', 'id_warga');
     }
 
 }

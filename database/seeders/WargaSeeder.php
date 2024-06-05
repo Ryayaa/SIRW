@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Warga;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;

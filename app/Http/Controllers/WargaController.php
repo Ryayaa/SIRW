@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\WargaModel;
 use App\Http\Requests\StorePostRequest;
-use App\Models\Warga;
 use App\Models\KeluargaModel;
 use Illuminate\Http\RedirectResponse;
 use Yajra\DataTables\Facades\DataTables;
@@ -35,7 +34,7 @@ class WargaController extends Controller
 
     public function show($id){
     // Mengambil data warga berdasarkan ID
-    $warga = Warga::findOrFail($id);
+    $warga = WargaModel::findOrFail($id);
 
     // Membuat objek breadcrumb
     $breadcrumb = (object) [

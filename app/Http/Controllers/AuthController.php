@@ -30,13 +30,29 @@ class AuthController extends Controller
     public function proses_login(Request $request)
     {
         $request->validate([
-            'nik' => 'required',
+            'login' => 'required',
             'password' => 'required'
         ]);
 
-        $credential = $request->only('nik', 'password');
+        $login = $request->input('login');
+        $password = $request->input('password');
 
-        if (Auth::attempt($credential)) {
+        // Coba login dengan NIK
+        $credentialNik = ['nik' => $login, 'password' => $password];
+        if (Auth::attempt($credentialNik)) {
+            $user = Auth::user();
+            if ($user->roles == 'rw') {
+                return redirect()->route('rw-dashboard');
+            } elseif ($user->roles == 'rt') {
+                return redirect()->route('rt-dashboard');
+            } elseif ($user->roles == 'warga') {
+                return redirect()->route('user-dashboard');
+            }
+        }
+
+        // Coba login dengan Username
+        $credentialUsername = ['username' => $login, 'password' => $password];
+        if (Auth::attempt($credentialUsername)) {
             $user = Auth::user();
             if ($user->roles == 'rw') {
                 return redirect()->route('rw-dashboard');
@@ -50,7 +66,7 @@ class AuthController extends Controller
         // Jika tidak berhasil login, kembali ke halaman login dengan pesan error
         return redirect()->route('login')
             ->withInput()
-            ->withErrors(['login_gagal' => 'Pastikan NIK dan password yang dimasukkan sudah benar']);
+            ->withErrors(['login_gagal' => 'Pastikan NIK/Username dan password yang dimasukkan sudah benar']);
     }
 
     public function logout(Request $request)

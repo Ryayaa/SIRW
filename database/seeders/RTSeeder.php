@@ -17,8 +17,8 @@ class RTSeeder extends Seeder
     public function run()
     {
         $data = [
-            'no_rt' => 'RT-Test',
-            'nama_lengkap' => 'Test-RT',
+            'no_rt' => 'RT-01',
+            'nama_lengkap' => 'Arman Junji',
             'jenis_kelamin' => 'L',
             'alamat' => 'Jalan Raya No. 123',
             'no_telepon' => '08123456789',
@@ -26,6 +26,8 @@ class RTSeeder extends Seeder
             'status' => 'Aktif',
             'mulai_jabatan' => '2020-01-01',
             'akhir_jabatan' => '2025-01-01',
+            'username' => 'rtsatu1',
+            'password' => Hash::make('rtsatujaya'),
         ];
 
         // Tambahkan data lainnya sesuai kebutuhan

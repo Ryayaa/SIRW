@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\PenerimaBansosModel;
-use App\Models\Warga;
 use App\Models\WargaModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -61,7 +60,7 @@ class PenerimaBansosController extends Controller
             'title' => 'Tambah penerima bansos'
         ];
 
-        $warga = Warga::all(); // ambil data level untuk ditampilkan di form
+        $warga = WargaModel::all(); // ambil data level untuk ditampilkan di form
         $activeMenu = 'penerima'; // set menu sedang aktif
 
         return view('Penerima.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'warga' => $warga, 'activeMenu' => $activeMenu]);
