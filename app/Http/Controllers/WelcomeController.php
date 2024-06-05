@@ -7,7 +7,7 @@ use App\Models\RwModel;
 use App\Models\WargaModel;
 use App\Models\Bansos;
 use App\Models\PenerimaBansosModel;
-use App\Models\Tamu;
+use App\Models\WargaSementaraModel;
 use Illuminate\Http\Request;
 
 class WelcomeController extends Controller
@@ -25,11 +25,13 @@ class WelcomeController extends Controller
         $jumlah_warga = WargaModel::count();
         $jumlah_rt = RtModel::count();
         $jumlah_rw = RwModel::count();
-        $jumlah_tamu = Tamu::count();
+        $jumlah_sementara = WargaSementaraModel::count();
         $jumlah_laki = WargaModel::where('jenis_kelamin', 'Laki-laki')->count();
         $jumlah_perempuan = WargaModel::where('jenis_kelamin', 'Perempuan')->count();
-        $jumlah_tamu_laki = Tamu::where('jenis_kelamin', 'Laki-laki')->count();
-        $jumlah_tamu_perempuan = Tamu::where('jenis_kelamin', 'Perempuan')->count();
+        $jumlah_laki_sementara = WargaSementaraModel::where('jenis_kelamin', 'Laki-laki')->count();
+        $jumlah_perempuan_sementara = WargaSementaraModel::where('jenis_kelamin', 'Perempuan')->count();
+        $jumlah_sementara_laki = WargaSementaraModel::where('jenis_kelamin', 'Laki-laki')->count();
+        $jumlah_sementara_perempuan = WargaSementaraModel::where('jenis_kelamin', 'Perempuan')->count();
         $jumlah_bansos = Bansos::count();
         $jumlah_penerima_bansos = PenerimaBansosModel::count();
 
@@ -39,11 +41,13 @@ class WelcomeController extends Controller
             'jumlah_warga' => $jumlah_warga,
             'jumlah_rt' => $jumlah_rt,
             'jumlah_rw' => $jumlah_rw,
-            'jumlah_tamu' => $jumlah_tamu,
+            'jumlah_sementara' => $jumlah_sementara,
             'jumlah_laki' => $jumlah_laki,
             'jumlah_perempuan' => $jumlah_perempuan,
-            'jumlah_tamu_laki' => $jumlah_tamu_laki,
-            'jumlah_tamu_perempuan' => $jumlah_tamu_perempuan,
+            'jumlah_laki_sementara' => $jumlah_laki_sementara,
+            'jumlah_perempuan_sementara' => $jumlah_perempuan_sementara,
+            'jumlah_sementara_laki' => $jumlah_sementara_laki,
+            'jumlah_sementara_perempuan' => $jumlah_sementara_perempuan,
             'jumlah_bansos' => $jumlah_bansos,
             'jumlah_penerima_bansos' => $jumlah_penerima_bansos,
         ]);

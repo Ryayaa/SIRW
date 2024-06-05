@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\WargaSementaraModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class WargaSementaraController extends Controller
 {
@@ -74,17 +75,21 @@ class WargaSementaraController extends Controller
             'tanggal_masuk' => 'required|date',
             'password' => 'required|string|min:8',
             'bukti_ktp' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);        
+        ]);
 
         $data = $request->all();
+
         if ($request->hasFile('bukti_ktp')) {
-            $imageName = time().'.'.$request->bukti_ktp->extension();
+            $imageName = time() . '.' . $request->bukti_ktp->extension();
             $request->bukti_ktp->move(public_path('images'), $imageName);
             $data['bukti_ktp'] = $imageName;
         }
 
         $data['password'] = bcrypt($data['password']);
-        
+        $data['status_pengajuan'] = 'pending';
+        $data['id_warga'] = Auth::user()->id_warga;
+        $data['username'] = $this->generateUsername($data['nama_lengkap']);
+
         WargaSementaraModel::create($data);
 
         return redirect('/warga_sementara')->with('success', 'Warga Sementara berhasil disimpan');
@@ -149,7 +154,6 @@ class WargaSementaraController extends Controller
 
         $wargaSementara = WargaSementaraModel::findOrFail($id);
 
-        // Update the warga sementara data
         $wargaSementara->nik = $request->input('nik');
         $wargaSementara->nama_lengkap = $request->input('nama_lengkap');
         $wargaSementara->tanggal_lahir = $request->input('tanggal_lahir');
@@ -159,26 +163,24 @@ class WargaSementaraController extends Controller
         $wargaSementara->pekerjaan = $request->input('pekerjaan');
         $wargaSementara->status_perkawinan = $request->input('status_perkawinan');
         $wargaSementara->tanggal_masuk = $request->input('tanggal_masuk');
+        $wargaSementara->status_pengajuan = 'pending';
+        $wargaSementara->id_warga = Auth::user()->id_warga;
+        $wargaSementara->username = $this->generateUsername($request->input('nama_lengkap'));
 
-        // Check if a new password is provided
         if ($request->filled('password')) {
             $wargaSementara->password = bcrypt($request->input('password'));
         }
 
-        // Check if a new image is uploaded
         if ($request->hasFile('bukti_ktp')) {
-            // Delete the old image from storage
             if ($wargaSementara->bukti_ktp && file_exists(public_path('images/' . $wargaSementara->bukti_ktp))) {
                 unlink(public_path('images/' . $wargaSementara->bukti_ktp));
             }
 
-            // Upload the new image
-            $imageName = time().'.'.$request->bukti_ktp->extension();
+            $imageName = time() . '.' . $request->bukti_ktp->extension();
             $request->bukti_ktp->move(public_path('images'), $imageName);
             $wargaSementara->bukti_ktp = $imageName;
         }
 
-        // Save the updated warga sementara
         $wargaSementara->save();
 
         return redirect()->route('warga_sementara.index')->with('success', 'Warga Sementara berhasil diupdate.');
@@ -188,16 +190,26 @@ class WargaSementaraController extends Controller
     {
         $wargaSementara = WargaSementaraModel::findOrFail($id);
 
-        // Check if the warga sementara entry has an associated image and delete it
         if ($wargaSementara->bukti_ktp && file_exists(public_path('images/' . $wargaSementara->bukti_ktp))) {
             unlink(public_path('images/' . $wargaSementara->bukti_ktp));
         }
 
-        // Delete the warga sementara entry from the database
         if ($wargaSementara->delete()) {
             return redirect()->route('warga_sementara.index')->with('success', 'Warga Sementara berhasil dihapus.');
         } else {
             return redirect()->route('warga_sementara.index')->with('error', 'Gagal menghapus Warga Sementara.');
         }
     }
+
+    private function generateUsername($nama_lengkap)
+    {
+        // Example username generation from the full name
+        $username = strtolower(str_replace(' ', '.', $nama_lengkap));
+        $count = WargaSementaraModel::where('username', 'like', $username . '%')->count();
+        if ($count > 0) {
+            $username .= ($count + 1);
+        }
+        return $username;
+    }
 }
+

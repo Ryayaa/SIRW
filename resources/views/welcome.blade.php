@@ -1777,8 +1777,8 @@
               <div class="info-box bg-info">
                   <span class="info-box-icon"><i class="fas fa-address-book"></i></span>
                   <div class="info-box-content">
-                      <span class="info-box-text">Jumlah Tamu</span>
-                      <span class="info-box-number">{{ $jumlah_tamu }}</span>
+                      <span class="info-box-text">Jumlah Warga Sementara</span>
+                      <span class="info-box-number">{{ $jumlah_sementara }}</span>
                   </div>
               </div>
           </div>
@@ -1789,7 +1789,7 @@
                     <span class="info-box-icon"><i class="fas fa-male"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Jumlah Laki-laki</span>
-                        <span class="info-box-number">{{ $jumlah_laki }}</span>
+                        <span class="info-box-number">{{ $jumlah_laki + $jumlah_sementara_laki }}</span>
                     </div>
                 </div>
             </div>
@@ -1798,7 +1798,7 @@
                     <span class="info-box-icon"><i class="fas fa-female"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Jumlah Perempuan</span>
-                        <span class="info-box-number">{{ $jumlah_perempuan }}</span>
+                        <span class="info-box-number">{{ $jumlah_perempuan + $jumlah_sementara_perempuan }}</span>
                     </div>
                 </div>
             </div>
@@ -1837,8 +1837,8 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
       var ctx = document.getElementById('genderChart').getContext('2d');
-      var totalLaki = {{ $jumlah_laki }} + {{ $jumlah_tamu_laki }};
-      var totalPerempuan = {{ $jumlah_perempuan }} + {{ $jumlah_tamu_perempuan }};
+      var totalLaki = {{ $jumlah_laki }} + {{ $jumlah_sementara_laki }};
+      var totalPerempuan = {{ $jumlah_perempuan }} + {{ $jumlah_sementara_perempuan }};
 
       var genderChart = new Chart(ctx, {
           type: 'pie',

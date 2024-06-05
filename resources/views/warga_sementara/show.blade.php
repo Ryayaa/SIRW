@@ -3,7 +3,7 @@
 @section('content')
     <div class="card card-outline card-primary">
         <div class="card-header">
-            <h3 class="card-title">{{ $page->title }}</h3>
+            <h3 class="card-title">Detail Warga Sementara</h3>
             <div class="card-tools"></div>
         </div>
         <div class="card-body">
@@ -16,6 +16,10 @@
                     <tr>
                         <th>ID Warga Sementara</th>
                         <td>{{ $wargaSementara->id_warga_sementara }}</td>
+                    </tr>
+                    <tr>
+                        <th>Username</th>
+                        <td>{{ $wargaSementara->username }}</td>
                     </tr>
                     <tr>
                         <th>NIK</th>
@@ -54,12 +58,20 @@
                         <td>{{ $wargaSementara->tanggal_masuk }}</td>
                     </tr>
                     <tr>
+                        <th>Status Pengajuan</th>
+                        <td>{{ $wargaSementara->status_pengajuan }}</td>
+                    </tr>
+                    <tr>
+                        <th>ID Warga</th>
+                        <td>{{ $wargaSementara->id_warga }}</td>
+                    </tr>
+                    <tr>
                         <th>Bukti KTP</th>
                         <td>
                             @if($wargaSementara->bukti_ktp)
                                 <img src="{{ asset('images/'.$wargaSementara->bukti_ktp) }}" alt="{{ $wargaSementara->nama_lengkap }}" width="200">
                             @else
-                                No Image
+                                Tidak ada gambar
                             @endif
                         </td>
                     </tr>

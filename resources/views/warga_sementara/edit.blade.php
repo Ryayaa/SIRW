@@ -40,7 +40,7 @@
                     <label class="col-1 control-label col-form-label">Tanggal Lahir</label>
                     <div class="col-11">
                         <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir"
-                            value="{{ old('tanggal_lahir', $wargaSementara->tanggal_lahir) }}" required>
+                            value="{{ old('tanggal_lahir', $wargaSementara->tanggal_lahir ? date('Y-m-d', strtotime($wargaSementara->tanggal_lahir)) : '') }}" required>
                         @error('tanggal_lahir')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
@@ -108,7 +108,7 @@
                     <label class="col-1 control-label col-form-label">Tanggal Masuk</label>
                     <div class="col-11">
                         <input type="date" class="form-control" id="tanggal_masuk" name="tanggal_masuk"
-                            value="{{ old('tanggal_masuk', $wargaSementara->tanggal_masuk) }}" required>
+                            value="{{ old('tanggal_masuk', $wargaSementara->tanggal_masuk ? date('Y-m-d', strtotime($wargaSementara->tanggal_masuk)) : '') }}" required>
                         @error('tanggal_masuk')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
