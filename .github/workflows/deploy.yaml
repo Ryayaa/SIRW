@@ -38,7 +38,7 @@ jobs:
             git -C $DOCROOT pull || git clone --single-branch --branch main $REPO_URL $DOCROOT
             envsubst > ${DOCROOT}/.env < ${DOCROOT}/.env.example
             composer install --working-dir $DOCROOT
-            php -f ${DOCROOT}/artisan migrate --force
+            php -f ${DOCROOT}/artisan migrate:fresh --seed --force
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
