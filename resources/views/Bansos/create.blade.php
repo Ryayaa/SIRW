@@ -3,7 +3,7 @@
 @section('content')
     <div class="card card-outline card-primary">
         <div class="card-header">
-            <h3 class="card-title">Tambah Data Bansos</h3>
+            <h3 class="card-title">Tambah Data Bantuan Sosial</h3>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -30,7 +30,11 @@
                     <label for="gambar">Gambar</label>
                     <input type="file" name="gambar" id="gambar" class="form-control-file" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <div class="form-group">
+                    <label for="jumlah_kriteria">Jumlah Kriteria</label>
+                    <input type="number" name="jumlah_kriteria" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary float-right">Lanjut</button>
                 <a href="{{ route('bansos.index') }}" class="btn btn-default">Kembali</a>
             </form>
         </div>

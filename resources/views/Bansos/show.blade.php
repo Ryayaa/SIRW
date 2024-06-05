@@ -25,13 +25,26 @@
                         <th>Deskripsi</th>
                         <td>{{ $bansos->deskripsi }}</td>
                     </tr>
+                    @foreach ($bansos->kriteria as $kriteria)
+                        <tr>
+                            <th>{{ $kriteria->nama }}</th>
+                            <td>
+                                <ul>
+                                    @foreach ($kriteria->subkriteria as $subkriteria)
+                                        <li>{{ $subkriteria->subkriteria }}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                        </tr>
+                    @endforeach
                     <tr>
                         <th>Gambar</th>
                         <td><img src="{{ asset('images/'.$bansos->gambar) }}" alt="{{ $bansos->nama_bansos }}" width="100"></td>
                     </tr>
                 </table>
             @endempty
-            <a href="{{ route('bansos.index') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
+            <a href="{{ route('bansos.index') }}" class="btn btn btn-default mt-2">Kembali</a>
+            <a href="{{ url('/bansos/' . $bansos->id_bansos . '/edit/') }}" class="btn btn btn-warning mt-2 float-right">Edit</a>
         </div>
     </div>
 @endsection

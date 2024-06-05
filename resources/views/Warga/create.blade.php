@@ -75,10 +75,6 @@
                         @enderror
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" class="form-control" required>
-                </div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <a href="{{ url('warga') }}" class="btn btn-default">Kembali</a>
             </form>

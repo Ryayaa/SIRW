@@ -24,7 +24,10 @@ Route::get('/index', function () {
     return view('index');
 });
 
+
+
 Route::get('/dashboard', [WelcomeController::class, 'index']);
+
 
 
 
@@ -69,7 +72,9 @@ Route::group(['prefix' => 'bansos'], function () {
     Route::get('/', [BansosController::class, 'index'])->name('bansos.index');
     Route::post('/list', [BansosController::class, 'list'])->name('bansos.list');
     Route::get('/create', [BansosController::class, 'create'])->name('bansos.create');
-    Route::post('/', [BansosController::class, 'store'])->name('bansos.store');
+    Route::post('/store', [BansosController::class, 'store'])->name('bansos.store');
+    Route::get('/create_kriteria', [BansosController::class, 'createKriteria'])->name('bansos.createKriteria');
+    Route::post('/', [BansosController::class, 'storeKriteria'])->name('bansos.storeKriteria');
     Route::get('/{id}', [BansosController::class, 'show'])->name('bansos.show');
     Route::get('/{id}/edit', [BansosController::class, 'edit'])->name('bansos.edit');
     Route::put('/{id}', [BansosController::class, 'update'])->name('bansos.update');
@@ -77,11 +82,16 @@ Route::group(['prefix' => 'bansos'], function () {
 });
 
 Route::group(['prefix' => 'penerima'], function () {
-    Route::get('/', [PenerimaBansosController::class, 'index'])->name('penerima.index'); // Menampilkan data warga
-    Route::post('/list', [PenerimaBansosController::class, 'list'])->name('penerima.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
-    Route::get('/create', [PenerimaBansosController::class, 'create'])->name('penerima.create'); // Menampilkan form tambah warga
-    Route::post('/', [PenerimaBansosController::class, 'store'])->name('penerima.store'); // Menyimpan data warga
-    Route::get('/{id}', [PenerimaBansosController::class, 'show']); // Menampilkan detail warga
+    Route::get('/', [PenerimaBansosController::class, 'index'])->name('penerima.index');
+    Route::get('/{id}/list', [PenerimaBansosController::class, 'list'])->name('penerima.list');
+    Route::get('/{id}/create', [PenerimaBansosController::class, 'create'])->name('penerima.create');
+    Route::post('/save', [PenerimaBansosController::class, 'save'])->name('penerima.save');
+    Route::get('/{id}/pengajuan', [PenerimaBansosController::class, 'pengajuan'])->name('penerima.pengajuan');
+    Route::post('/', [PenerimaBansosController::class, 'store'])->name('penerima.store');
+    Route::get('/{id}', [PenerimaBansosController::class, 'show'])->name('penerima.show');
+    Route::post('penerima/{id}/accept', [PenerimaBansosController::class, 'accept'])->name('penerima.accept');
+    Route::post('penerima/{id}/reject', [PenerimaBansosController::class, 'reject'])->name('penerima.reject');
+    Route::get('/{id}/detail', [PenerimaBansosController::class, 'detail'])->name('penerima.detail');
     Route::get('/{id}/edit', [PenerimaBansosController::class, 'edit']); // Menampilkan form edit warga
     Route::put('/{id}', [PenerimaBansosController::class, 'update']); // Mengupdate data warga
     Route::delete('/{id}', [PenerimaBansosController::class, 'destroy']); // Menghapus data warga
@@ -208,6 +218,13 @@ Route::group(['prefix' => 'kegiatan'], function () {
         Route::get('/umkm.-list', [PageController::class, 'showUMKM'])->name('umkm.user-login');
         Route::get('/umkm-list/detail/{id}', [PageController::class, 'showDetailUMKM'])->name('umkm.detail');
         Route::get('/bansos-list', [PageController::class, 'showBansos'])->name('bansos.user-login');
+        Route::get('/bansos-list/detail/{id}', [PageController::class, 'detailBansos'])->name('bansos.detail');
+        Route::get('/pengajuan-list', [PageController::class, 'showPengajuan'])->name('pengajuan.user-login');
+        Route::get('/pengajuan-list/form/{idBansos}', [PageController::class, 'formPengajuan'])->name('pengajuan.form');
+        Route::post('/pengajuan-list/store', [PageController::class, 'storePengajuan'])->name('pengajuan.store');
+        Route::get('/pengajuan-list/check/{id}', [PageController::class, 'checkPengajuan'])->name('pengajuan.check');
+        Route::get('/pengajuan-list/detail/{idBansos}/{idPengajuan}', [PageController::class, 'detailPengajuan'])->name('pengajuan.detail');
+
 
     Route::get('/laporan_masalah', [PageController::class, 'showLaporanForm'])->name('laporan_masalah_form.show');
     Route::post('/laporan_masalah/create', [PageController::class, 'createLaporanForm'])->name('laporan_masalah_form.create');
