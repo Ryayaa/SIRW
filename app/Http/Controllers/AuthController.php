@@ -45,7 +45,7 @@ class AuthController extends Controller
                 return redirect()->route('rw-dashboard');
             } elseif ($user->roles == 'rt') {
                 return redirect()->route('rt-dashboard');
-            } elseif ($user->roles == 'warga') {
+            } elseif ($user->roles == 'warga'||'warga_sementara') {
                 return redirect()->route('user-dashboard');
             }
         }
@@ -58,7 +58,7 @@ class AuthController extends Controller
                 return redirect()->route('rw-dashboard');
             } elseif ($user->roles == 'rt') {
                 return redirect()->route('rt-dashboard');
-            } elseif ($user->roles == 'warga') {
+            } elseif ($user->roles == 'warga'||'warga_sementara') {
                 return redirect()->route('user-dashboard');
             }
         }

@@ -100,12 +100,14 @@
         <h2>Kegiatan</h2>
         <p>Kegiatan Yang Akan Datang</p>
     </div>
-    <div class="row mb-4">
+    <div class="row mb-4 justify-content-center">
         @foreach ($kegiatans as $kegiatan)
-            <div class="col-lg-4 col-md-6 mb-4">
-                <a href="{{route('kegiatan.detail',$kegiatan->id_kegiatan_warga)}}">
-                    <div class="card activity-card">
-                        <img src="{{ asset('assets/img/faq.jpg') }}" class="card-img-top" alt="Activity Image">
+        @if ($kegiatan)
+
+        <div class="col-lg-4 col-md-6 mb-4">
+            <a href="{{route('kegiatan.detail',$kegiatan->id_kegiatan_warga)}}">
+                <div class="card activity-card">
+                    <img src="{{ asset('assets/img/faq.jpg') }}" class="card-img-top" alt="Activity Image">
                         <div class="card-body">
                             <h5 class="card-title">{{ $kegiatan->nama_kegiatan }}</h5>
                             <div class="details">
@@ -117,7 +119,10 @@
                     </div>
                 </a>
             </div>
-        @endforeach
+            @else
+            <P class="text-center" style="color: white">Tidak Ada Kegiatan yang Akan Berlangsung</P>
+            @endif
+            @endforeach
     </div>
     <div class="">
         <div class="col-md-12 mt-4 text-center ">
@@ -135,7 +140,7 @@
             <h2 class="text-center">Daftar UMKM</h2>
             <p>Daftar UMKM Di Lingkungan RW</p>
         </div>
-        <div class="row">
+        <div class="row justify-content-center">
             @foreach ($umkms as $umkm)
                 <div class="col-md-6 col-6 mb-4">
                     <a href="{{ route('umkm.detail', $umkm->id_umkm) }}" class="article-link">

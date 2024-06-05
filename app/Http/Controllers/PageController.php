@@ -128,9 +128,9 @@ class PageController extends Controller
         $page = $request->input('page', 1); // Current page, default is 1
         $skip = ($page - 1) * $perPage;
 
-        $totalLaporan = LaporanMasalahModel::count(); // Total reports
+        $totalLaporan = LaporanMasalahModel::where('status_pengajuan','=','approved')->count(); // Total reports
         // Reports for the current page, sorted by date descending
-        $laporans = LaporanMasalahModel::with('warga')->orderBy('tanggal_laporan', 'desc')->skip($skip)->take($perPage)->get();
+        $laporans = LaporanMasalahModel::with('warga')->where('status_pengajuan','=','approved')->orderBy('tanggal_laporan', 'desc')->skip($skip)->take($perPage)->get();
 
         $totalPages = ceil($totalLaporan / $perPage); // Total pages
 
@@ -234,10 +234,17 @@ class PageController extends Controller
         $umkm->no_telepon = $request->no_telepon;
 
         if ($request->hasFile('gambar')) {
+
             $imageName = time().'.'.$request->gambar->extension();
-            $request->gambar->move(public_path('images'), $imageName);
-            $umkm['gambar'] = $imageName;
+            // Create the directory if it doesn't exist
+            if (!file_exists(public_path('images/umkm'))) {
+                mkdir(public_path('images/umkm'), 0777, true);
+            }
+            $request->gambar->move(public_path('images/umkm'), $imageName);
+            $umkm['gambar'] = 'umkm/'.$imageName;
         }
+
+
 
         $umkm->id_warga = Auth::user()->id_warga;
         $umkm->save();

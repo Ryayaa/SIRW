@@ -10,8 +10,8 @@
               <p>
                 JL. Senggani Barat No 07<br>
                 Jatimulyo, Lowokwaru<br>
-                Malang<br>br
-                <strong>Phone:</strong> +62 822-4156-2212<br>
+                Malang<br><br>
+                <strong>Phone:</strong> +62 820-0000-0000<br>
                 <strong>Email:</strong> funeraproject.id@gmail.com<br>
               </p>
             </div>

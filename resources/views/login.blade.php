@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-
+@stack('css')
     <title>Login Page</title>
 </head>
 <body>
@@ -21,7 +21,7 @@
             <!-- Left Box -->
             <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column login-left-box" style="background: #103cbe;">
                 <div class="featured-image mb-3">
-                    <img src="{{ asset('assets/img/faq.jpg') }}" class="img-fluid" style="width: 250px;">
+                    <img src="{{-- asset('assets/img/faq.jpg') --}}" class="img-fluid" style="width: 250px;">
                 </div>
                 {{-- <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Be Verified</p>
                 <small class="text-white text-wrap text-center" style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Join experienced Designers on this platform.</small> --}}
@@ -72,6 +72,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybA6YQ+eAq0h/Gy7I6UXAq74emZv5FjkTt4NfRTpV0eDUx9PX" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuH8co2/BrgWj6Ea9b6gtVd3flz2lcFNp2Y3GdO2zI5M8qJ9Hi9SLtVjEJHYbOuH" crossorigin="anonymous"></script>
     <script src="{{ asset('assets/js/login.js') }}"></script>
+@stack('js')
 
 </body>
 </html>
