@@ -28,8 +28,8 @@ class WelcomeController extends Controller
         $jumlah_tamu = Tamu::count();
         $jumlah_laki = WargaModel::where('jenis_kelamin', 'Laki-laki')->count();
         $jumlah_perempuan = WargaModel::where('jenis_kelamin', 'Perempuan')->count();
-        $jumlah_tamu_laki = WargaModel::where('jenis_kelamin', 'Laki-laki')->count();
-        $jumlah_tamu_perempuan = WargaModel::where('jenis_kelamin', 'Perempuan')->count();
+        $jumlah_tamu_laki = Tamu::where('jenis_kelamin', 'Laki-laki')->count();
+        $jumlah_tamu_perempuan = Tamu::where('jenis_kelamin', 'Perempuan')->count();
         $jumlah_bansos = Bansos::count();
         $jumlah_penerima_bansos = PenerimaBansosModel::count();
 
