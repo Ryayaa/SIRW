@@ -17,13 +17,13 @@ use App\Http\Controllers\UMKMController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\KasController;
 
-Route::get('/', [AuthController::class, 'index'])->name('login');
-Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
-Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/', [AuthController::class, 'index'])->name('login');
+    Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/index', function () {
-    return view('index');
-});
+    Route::get('/index', function () {
+        return view('index');
+    });
 
 
 
@@ -143,7 +143,7 @@ Route::group(['prefix' => 'tamu'], function () {
 });
 Route::group(['middleware' => ['auth']], function () {
     // Route Untuk RW
-    Route::group(['middleware' => ['roles:rw']], function () {
+    Route::group(['middleware' => ['roles:rw,rw','auth:rw']], function () {
         Route::get('/rw-dashboard', [Dashboard::class, 'DashboardRW'])->name('rw-dashboard');
     });
 
@@ -216,7 +216,7 @@ Route::group(['prefix' => 'kas'], function () {
     });
 
     //Route Untuk Warga
-    Route::group(['middleware' => ['roles:warga']], function () {
+    Route::group(['middleware' => ['roles:warga, warga_sementara']], function () {
         Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile');
         Route::get('/warga-dashboard', [Dashboard::class, 'DashboardWarga'])->name('user-dashboard');
         Route::post('/profile/change-password', [AuthController::class, 'changePassword'])->name('profile.change-password');
@@ -224,8 +224,9 @@ Route::group(['prefix' => 'kas'], function () {
 
 
         //surat
-        Route::get('/surat_pengantar/create', [PageController::class, 'showSuratForm'])->name('surat_pengantar.form');
-        Route::post('/surat_pengantar', [PageController::class, 'createSurat'])->name('surat_pengantar.create');
+        Route::get('/surat_pengantar-form', [PageController::class, 'showSuratForm'])->name('surat_pengantar-form.show');
+        Route::post('/surat_pengantar-form/create', [PageController::class, 'createSurat'])->name('surat_pengantar-form.create');
+        Route::get('/surat_pengantar-form/{id}', [PageController::class, 'printSurat'])->name('template-surat_pengantar.print');
         //pengumuman
         Route::get('/pengumuman-list', [PageController::class, 'showPengumuman'])->name('pengumuman');
         Route::get('/pengumuman-list/detail/{id_pengumuman}', [PageController::class, 'showDetailPengumuman'])->name('pengumuman.detail');

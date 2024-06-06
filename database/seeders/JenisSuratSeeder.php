@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class JenisSuratPengantarSeeder extends Seeder
+class JenisSuratSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,7 +18,8 @@ class JenisSuratPengantarSeeder extends Seeder
             ['nama_jenis' => 'Surat Pindah Tempat'],
             ['nama_jenis' => 'Surat Berkelakuan Baik'],
             ['nama_jenis' => 'Surat Pindah Tempat'],
-            ['nama_jenis' => 'Surat  Perlengkapan Nikah'],
+            ['nama_jenis' => 'Surat Perlengkapan Nikah'],
+            ['nama_jenis' => 'Lain - Lain'],
             // Tambahkan yang lainjika perlu
         ];
 

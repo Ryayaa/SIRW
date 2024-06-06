@@ -302,7 +302,7 @@ class WargaSeeder extends Seeder
                 'password' => Hash::make('password10'),
                 'id_keluarga' => 20,
             ],
-            
+
         ];
 
         foreach ($data as $item) {
