@@ -15,6 +15,7 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\UMKMController;
 use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\KasController;
 
 Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
@@ -182,6 +183,23 @@ Route::group(['prefix' => 'kegiatan'], function () {
     Route::delete('/{id}', [KegiatanController::class, 'destroy'])->name('kegiatan.destroy'); // Menghapus data kegiatan
 });
 
+Route::group(['prefix' => 'kas'], function () {
+    Route::get('/', [KasController::class, 'index'])->name('kas.index'); // Menampilkan daftar kas
+    Route::post('/list', [KasController::class, 'list'])->name('kas.list'); // Menampilkan data kas dalam bentuk JSON untuk DataTables
+    Route::get('/create', [KasController::class, 'create'])->name('kas.create'); // Menampilkan form tambah kas
+    Route::post('/', [KasController::class, 'store'])->name('kas.store'); // Menyimpan data kas
+    Route::get('/{id}', [KasController::class, 'show'])->name('kas.show'); // Menampilkan detail kas
+    Route::get('/{id}/edit', [KasController::class, 'edit'])->name('kas.edit'); // Menampilkan form edit kas
+    Route::put('/{id}', [KasController::class, 'update'])->name('kas.update'); // Mengupdate data kas
+    Route::delete('/{id}', [KasController::class, 'destroy'])->name('kas.destroy'); // Menghapus data kas
+    Route::get('/transaksi/create', [KasController::class, 'createTransaksi'])->name('kas.transaksi.create'); // Menampilkan form transaksi kas
+    Route::post('/transaksi', [KasController::class, 'storeTransaksi'])->name('kas.transaksi.store'); // Menyimpan data transaksi kas
+    Route::get('/kas/history', [KasController::class, 'history'])->name('kas.history');
+
+});
+
+
+
     //Route Untuk RT
     Route::group(['middleware' => ['roles:rt']], function () {
         Route::get('/rt-dashboard', [Dashboard::class, 'DashboardRT'])->name('rt-dashboard');
@@ -221,4 +239,7 @@ Route::group(['prefix' => 'kegiatan'], function () {
     Route::get('/warga-sementara-form', [PageController::class, 'showWargaSementaraForm'])->name('warga-sementara_form.show');
     Route::post('/warga-sementara-form/create', [PageController::class, 'createWargaSementaraForm'])->name('warga-sementara_form.create');
     });
+
+
+
 });

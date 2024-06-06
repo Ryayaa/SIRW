@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('kas', function (Blueprint $table) {
@@ -16,6 +13,7 @@ return new class extends Migration
             $table->integer('jumlah');
             $table->integer('jumlah_masuk');
             $table->integer('jumlah_keluar');
+            $table->string('keterangan');
             $table->date('tanggal');
             $table->unsignedBigInteger('id_rt');
             $table->timestamps();
@@ -23,9 +21,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('kas');
