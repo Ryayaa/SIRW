@@ -143,7 +143,7 @@ Route::group(['prefix' => 'tamu'], function () {
 });
 Route::group(['middleware' => ['auth']], function () {
     // Route Untuk RW
-    Route::group(['middleware' => ['roles:rw,rw','auth:rw']], function () {
+    Route::group(['middleware' => ['roles:rw']], function () {
         Route::get('/rw-dashboard', [Dashboard::class, 'DashboardRW'])->name('rw-dashboard');
     });
 
