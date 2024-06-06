@@ -77,13 +77,6 @@
                     </tr>
                 </table>
                 <br>
-                <form action="{{ route('sementara.accept', $wargaSementara->id_warga_sementara) }}" method="POST" style="display: inline;">
-                    @csrf
-                    <button type="submit" class="btn btn-success float-right">Terima</button>
-                </form>
-                <form action="{{ route('sementara.reject', $wargaSementara->id_warga_sementara) }}" method="POST" style="display: inline;">
-                    @csrf
-                    <button type="submit" class="btn btn-danger float-right">Tolak</button>
             @endempty
             <a href="{{ route('warga_sementara.index') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
         </div>
