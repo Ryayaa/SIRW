@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Bansos;
 use App\Models\JenisSuratModel;
 use App\Models\KegiatanModel;
+use App\Models\KriteriaBansosModel;
 use App\Models\LaporanMasalahModel;
+use App\Models\NilaiAlternatifModel;
+use App\Models\PenerimaBansosModel;
 use App\Models\PengumumanModel;
 use App\Models\RtModel;
 use App\Models\RwModel;
@@ -18,6 +21,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PageController extends Controller
 {
@@ -181,6 +185,97 @@ class PageController extends Controller
         return view('page.bansos.index', compact('bansosList'));
     }
 
+    public function detailBansos($id){
+        $bansos = Bansos::with('kriteria')->findOrFail($id);
+        return view('page.bansos.detail', compact('bansos'));
+    }
+    public function showPengajuan(){
+        $bansosList = Bansos::all();
+        return view('page.pengajuan.index', compact('bansosList'));
+    }
+
+    public function checkPengajuan($idBansos)
+    {
+        $user = Auth::user();
+        $idWarga = $user->id_warga;
+        $idKeluarga = $user->id_keluarga;
+
+        // Cek apakah user atau anggota keluarga sudah mengajukan atau diterima
+        $existingPengajuan = PenerimaBansosModel::where('id_bansos', $idBansos)
+            ->where(function ($query) use ($idWarga, $idKeluarga) {
+                $query->where('id_warga', $idWarga)
+                      ->orWhereHas('warga', function ($query) use ($idKeluarga) {
+                          $query->where('id_keluarga', $idKeluarga);
+                      });
+            })
+            ->first();
+
+        if ($existingPengajuan) {
+            return redirect()->route('pengajuan.detail', ['idBansos' => $idBansos, 'idPengajuan' => $existingPengajuan->id_penerima]);
+        } else {
+            return redirect()->route('pengajuan.form', ['idBansos' => $idBansos]);
+        }
+    }
+
+    public function detailPengajuan($idBansos, $idPengajuan)
+    {
+        $pengajuan = PenerimaBansosModel::with('nilaiA.kriteria.subkriteria')->findOrFail($idPengajuan);
+        return view('page.pengajuan.detail', compact('pengajuan'));
+    }
+
+    public function formPengajuan($idBansos){     
+        $kriteria = KriteriaBansosModel::where('id_bansos', $idBansos)->with(['subkriteria'])->get();
+
+        return view('page.pengajuan.form', compact('kriteria', 'idBansos'));
+    }
+
+    public function storePengajuan(Request $request)
+    {
+        // Validasi input
+        $validator = Validator::make($request->all(), [
+            'id_bansos' => 'required|exists:bansos,id_bansos',
+            'id_kriteria' => 'required|array',
+            'id_kriteria.*' => 'required|exists:nilai_kriteria,id_nilai',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $id_warga = Auth::user()->id_warga;
+
+        // Cek apakah warga sudah mengajukan sebelumnya
+        $existingPenerima = PenerimaBansosModel::where('id_warga', $request->id_warga)
+                                                ->where('id_bansos', $request->id_bansos)
+                                                ->exists();
+
+        if ($existingPenerima) {
+            return redirect()->back()->with('error', 'Warga ini sudah mengajukan atau telah menerima bantuan sosial.');
+        }
+
+        // Simpan data penerima dan nilai kriteria
+        try {
+            // Simpan data penerima
+            $penerima = PenerimaBansosModel::create([
+                'id_bansos' => $request->id_bansos,
+                'id_warga' => $id_warga,
+                'status' => 'pending',
+            ]);
+
+            // Simpan nilai kriteria ke dalam tabel nilai_alternatif
+            foreach ($request->id_kriteria as $id_kriteria => $id_nilai) {
+                NilaiAlternatifModel::create([
+                    'id_penerima' => $penerima->id_penerima,
+                    'id_kriteria' => $id_kriteria,
+                    'id_nilai' => $id_nilai,
+                ]);
+            }
+
+            return redirect('/pengajuan-list')->with('success', 'Data penerima bantuan sosial berhasil disimpan.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data.')->withInput();
+        }
+    }
 
 
     public function showLaporanForm()

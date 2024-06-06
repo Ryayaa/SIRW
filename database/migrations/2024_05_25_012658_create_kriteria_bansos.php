@@ -11,19 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail_penerima_bansos', function (Blueprint $table) {
-            $table->id('id_detail_penerima_bansos');
-            $table->date('periode_mulai');
-            $table->date('periode_selesai');
+        Schema::create('kriteria_bansos', function (Blueprint $table) {
+            $table->id('id_kriteria');
             $table->unsignedBigInteger('id_bansos');
-            $table->unsignedBigInteger('id_penerima_bansos');
+            $table->string('nama');
+            $table->double('bobot');
+            $table->enum('jenis', ['Cost', 'Benefit']);
             $table->timestamps();
-
+            
             $table->foreign('id_bansos')->references('id_bansos')->on('bansos');
-            $table->foreign('id_penerima_bansos')->references('id_penerima_bansos')->on('penerima_bansos');
-
         });
-
     }
 
     /**
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detail_penerima_bansos');
+        Schema::dropIfExists('kriteria_bansos');
     }
 };

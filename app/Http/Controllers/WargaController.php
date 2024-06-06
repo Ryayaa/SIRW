@@ -104,7 +104,7 @@ class WargaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'NIK' => 'required|string|max:20',
+            'NIK' => 'required|string|max:16',
             'nama_lengkap' => 'required|string|max:100',
             'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
@@ -112,7 +112,6 @@ class WargaController extends Controller
             'pekerjaan' => 'required|string|max:50',
             'status_perkawinan' => 'required|in:Kawin,Belum Kawin',
             'roles' => 'required|in:RT,RW,Warga,Warga Sementara',
-            'password' => 'required|min:5',
             'id_keluarga' => 'required|integer',
         ]);
 
@@ -125,8 +124,9 @@ class WargaController extends Controller
             'pekerjaan' => $request->pekerjaan,
             'status_perkawinan' => $request->status_perkawinan,
             'roles' => $request->roles,
-            'password' => bcrypt($request->password),
             'id_keluarga' => $request->id_keluarga,
+            'username' => $request->NIK,
+            'password' => Hash::make($request->NIK),
         ]);
 
         return redirect('/warga')->with('success', 'Data warga baru telah ditambahkan');
@@ -158,7 +158,7 @@ class WargaController extends Controller
 
     public function update(Request $request, string $id){
         $request->validate([
-            'NIK' => 'required|string|max:20',
+            'NIK' => 'required|string|max:16',
             'nama_lengkap' => 'required|string|max:100',
             'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
@@ -166,7 +166,6 @@ class WargaController extends Controller
             'pekerjaan' => 'required|string|max:50',
             'status_perkawinan' => 'required|in:Kawin,Belum Kawin',
             'roles' => 'required|in:RT,RW,Warga,Warga Sementara',
-            'password' => 'required|min:5',
             'id_keluarga' => 'required|integer',
         ]);
 
@@ -179,7 +178,6 @@ class WargaController extends Controller
             'pekerjaan' => $request->pekerjaan,
             'status_perkawinan' => $request->status_perkawinan,
             'roles' => $request->roles,
-            'password' => bcrypt($request->password),
             'id_keluarga' => $request->id_keluarga,
         ]);
 
