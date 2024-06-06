@@ -3,7 +3,7 @@
 @section('content')
     <section>
         <div class="container mt-5">
-            <h1>Tambah Tamu</h1>
+            <h1>Formulir Data Tamu </h1>
 
             @if (session('success'))
                 <div class="alert alert-success">

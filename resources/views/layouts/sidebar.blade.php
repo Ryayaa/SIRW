@@ -87,6 +87,12 @@
                 </a>
               </li>
             <li class="nav-item">
+                <a href="{{ url('/kas') }}" class="nav-link ">
+                    <i class="nav-icon far fa fa-file-medical"></i>
+                    <p>Pengelolaan Kas</p>
+                </a>
+              </li>
+            <li class="nav-item">
               <a href="{{ route('logout') }}" class="nav-link ">
                   <i class="nav-icon far fa fa-file-medical"></i>
                   <p>Logout</p>

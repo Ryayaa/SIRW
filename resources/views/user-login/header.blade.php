@@ -3,8 +3,8 @@
 
         <a href="{{route('user-dashboard')}}" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
             <!-- Uncomment the line below if you also wish to use an image logo -->
-            <!-- <img src="assets/img/faq.jpg" alt=""> -->
-            <h1>SIRW<span>.</span></h1>
+            {{-- <h1>SIRW<span>.</span></h1> --}}
+            <img src="assets/img/faq.jpg" alt="">
         </a>
 
         <nav id="navbar" class="navbar">
@@ -37,7 +37,7 @@
                 <li class="dropdown"><a href="#"><span>Pengajuan</span> <i
                             class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
-                        <li><a href="#">Surat Pengantar</a></li>
+                        <li><a href="{{route('surat_pengantar-form.show')}}">Surat Pengantar</a></li>
                         <li><a href="{{route('warga-sementara_form.show')}}">Warga Sementara</a></li>
                     </ul>
                 </li>
