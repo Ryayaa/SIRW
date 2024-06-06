@@ -151,6 +151,8 @@ Route::group(['prefix' => 'warga_sementara'], function () {
     Route::get('/{id}/edit', [WargaSementaraController::class, 'edit'])->name('warga_sementara.edit');
     Route::put('/{id}', [WargaSementaraController::class, 'update'])->name('warga_sementara.update');
     Route::delete('/{id}', [WargaSementaraController::class, 'destroy'])->name('warga_sementara.destroy');
+    Route::post('/{id}/accept', [WargaSementaraController::class, 'accept'])->name('sementara.accept');
+    Route::post('/{id}/reject', [WargaSementaraController::class, 'reject'])->name('sementara.reject');
 });
 
 Route::group(['middleware' => ['auth']],function(){

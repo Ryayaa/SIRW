@@ -11,6 +11,10 @@
                 <p>{{ $tamu->nama_lengkap }}</p>
             </div>
             <div class="form-group">
+                <label for="tempat_lahir">Tempat Lahir:</label>
+                <p>{{ $tamu->tempat_lahir }}</p>
+            </div>
+            <div class="form-group">
                 <label for="tanggal_lahir">Tanggal Lahir:</label>
                 <p>{{ $tamu->tanggal_lahir }}</p>
             </div>
@@ -37,6 +41,14 @@
             <div class="form-group">
                 <label for="tanggal_keluar">Tanggal Keluar:</label>
                 <p>{{ $tamu->tanggal_keluar }}</p>
+            </div>
+            <div class="form-group">
+                <label for="bukti_ktp">Bukti KTP:</label>
+                <p> @if ($tamu->bukti_ktp)
+                    <img src="{{ asset('images/' . $tamu->bukti_ktp) }}" alt="Bukti KTP" class="img-fluid" style="max-width: 300px;">
+                @else
+                    <p>Gambar tidak tersedia</p>
+                @endif
             </div>
             <a href="{{ route('tamu.index') }}" class="btn btn-default">Kembali</a>
         </div>

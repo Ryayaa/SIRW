@@ -211,5 +211,27 @@ class WargaSementaraController extends Controller
         }
         return $username;
     }
+
+    public function accept($id)
+    {
+        $sementara = WargaSementaraModel::find($id);
+        if ($sementara) {
+            $sementara->status_pengajuan = 'Approved';
+            $sementara->save();
+        }
+    
+        return redirect()->route('warga_sementara.index')->with('success', 'Warga Sementara diterima.');
+    }
+    
+    public function reject($id)
+    {
+        $sementara = WargaSementaraModel::find($id);
+        if ($sementara) {
+            $sementara->status_pengajuan = 'Rejected';
+            $sementara->save();
+        }
+    
+        return redirect()->route('warga_sementara.index')->with('success', 'Warga Sementara ditolak.');
+    }
 }
 
