@@ -24,7 +24,6 @@ class RWSeeder extends Seeder
             'status' => 'Aktif',
             'mulai_jabatan' => '2020-01-01',
             'akhir_jabatan' => '2025-01-01',
-            'username' => 'rwtiga',
             'password' => Hash::make('rwtiga'),
         ];
 
