@@ -1746,16 +1746,7 @@
     <div class="card-body">
         <p>Selamat Datang semua, ini adalah halaman utama aplikasi ini yang dibuat.</p>
         <div class="row">
-          <div class="col-md-3">
-            <div class="info-box bg-warning">
-                <span class="info-box-icon"><i class="fas fa-city"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Jumlah RW</span>
-                    <span class="info-box-number">{{ $jumlah_rw }}</span>
-                </div>
-            </div>
-        </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="info-box bg-success">
                     <span class="info-box-icon"><i class="fas fa-house-user"></i></span>
                     <div class="info-box-content">
@@ -1764,7 +1755,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="info-box bg-info">
                   <span class="info-box-icon"><i class="fas fa-users"></i></span>
                   <div class="info-box-content">
@@ -1773,7 +1764,7 @@
                   </div>
               </div>
           </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="info-box bg-info">
                   <span class="info-box-icon"><i class="fas fa-address-book"></i></span>
                   <div class="info-box-content">

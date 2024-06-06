@@ -24,7 +24,6 @@ class WelcomeController extends Controller
 
         $jumlah_warga = WargaModel::count();
         $jumlah_rt = RtModel::count();
-        $jumlah_rw = RwModel::count();
         $jumlah_sementara = WargaSementaraModel::count();
         $jumlah_laki = WargaModel::where('jenis_kelamin', 'Laki-laki')->count();
         $jumlah_perempuan = WargaModel::where('jenis_kelamin', 'Perempuan')->count();
@@ -40,7 +39,6 @@ class WelcomeController extends Controller
             'activeMenu' => $activeMenu,
             'jumlah_warga' => $jumlah_warga,
             'jumlah_rt' => $jumlah_rt,
-            'jumlah_rw' => $jumlah_rw,
             'jumlah_sementara' => $jumlah_sementara,
             'jumlah_laki' => $jumlah_laki,
             'jumlah_perempuan' => $jumlah_perempuan,
