@@ -17,13 +17,9 @@ class RWSeeder extends Seeder
     public function run()
     {
         $data = [
-            'nama_lengkap' => 'Test-RW',
-            'jenis_kelamin' => 'L',
-            'alamat' => 'Jalan Raya No. 123',
-            'no_telepon' => '08123456789',
+            'id_warga' => 1,
             'status' => 'Aktif',
             'mulai_jabatan' => '2020-01-01',
-            'akhir_jabatan' => '2025-01-01',
         ];
 
         // Tambahkan data lainnya sesuai kebutuhan

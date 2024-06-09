@@ -60,22 +60,75 @@ class KeluargaController extends Controller
 
     public function list(Request $request)
     {
-        $keluarga = KeluargaModel::select('id_keluarga','nomor_kk', 'alamat', 'id_rt')
-            ->with('rt');
-
-        return DataTables::of($keluarga)
-            ->addIndexColumn()
-            ->addColumn('aksi', function ($keluarga) {
-                $btn = '<a href="' . url('/keluarga/' . $keluarga->id_keluarga) . '" class="btn btn-info btn-sm">Detail</a> ';
-                $btn .= '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/keluarga/' . $keluarga->id_keluarga) . '">'
-                    . csrf_field() . method_field('DELETE') .
-                    '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
-                return $btn;
-            })
-            ->rawColumns(['aksi'])
-            ->make(true);
+        $columns = [
+            0 => 'id_keluarga',
+            1 => 'nomor_kk',
+            2 => 'alamat',
+            3 => 'rt.no_rt',
+        ];
+    
+        $totalData = KeluargaModel::count();
+        $totalFiltered = $totalData;
+    
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+    
+        if (empty($request->input('search.value'))) {
+            $keluargas = KeluargaModel::with(['rt', 'warga'])->offset($start)
+                ->limit($limit)
+                ->orderBy($order, $dir)
+                ->get();
+        } else {
+            $search = $request->input('search.value');
+    
+            $keluargas = KeluargaModel::with(['rt', 'warga'])
+                ->where('nomor_kk', 'LIKE', "%{$search}%")
+                ->orWhere('alamat', 'LIKE', "%{$search}%")
+                ->orWhereHas('rt', function($query) use ($search) {
+                    $query->where('no_rt', 'LIKE', "%{$search}%");
+                })
+                ->offset($start)
+                ->limit($limit)
+                ->orderBy($order, $dir)
+                ->get();
+    
+            $totalFiltered = KeluargaModel::with(['rt', 'warga'])
+                ->where('nomor_kk', 'LIKE', "%{$search}%")
+                ->orWhere('alamat', 'LIKE', "%{$search}%")
+                ->orWhereHas('rt', function($query) use ($search) {
+                    $query->where('no_rt', 'LIKE', "%{$search}%");
+                })
+                ->count();
+        }
+    
+        $data = [];
+        if (!empty($keluargas)) {
+            foreach ($keluargas as $keluarga) {
+                $nestedData['id_keluarga'] = $keluarga->id_keluarga;
+                $nestedData['nomor_kk'] = $keluarga->nomor_kk;
+                $nestedData['alamat'] = $keluarga->alamat;
+                $nestedData['rt'] = $keluarga->rt ? $keluarga->rt->no_rt : 'Tidak ada data RT';
+                $nestedData['aksi'] = '<a href="'.url('keluarga/'.$keluarga->id_keluarga.'/edit').'" class="btn btn-sm btn-warning">Edit</a>';
+                $nestedData['warga'] = $keluarga->warga;
+        
+                $data[] = $nestedData;
+            }
+        }
+    
+        $json_data = [
+            "draw"            => intval($request->input('draw')),
+            "recordsTotal"    => intval($totalData),
+            "recordsFiltered" => intval($totalFiltered),
+            "data"            => $data
+        ];
+    
+        return response()->json($json_data);
     }
+    
+    
+    
 
     public function create()
     {

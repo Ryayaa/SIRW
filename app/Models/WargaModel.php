@@ -15,7 +15,7 @@ class WargaModel extends Authenticable
     protected $table = 'warga';
     protected $primaryKey = 'id_warga';
     protected $fillable = [
-        'NIK',
+        'nik',
         'nama_lengkap',
         'tanggal_lahir',
         'jenis_kelamin',
@@ -37,5 +37,13 @@ class WargaModel extends Authenticable
     public function penerimas(): HasMany
     {
         return $this->hasMany(PenerimaBansosModel::class, 'id_warga', 'id_warga');
+    }
+
+    public function ketuaRt(): HasMany{
+        return $this->hasMany(KetuaRtModel::class, 'id_warga', 'id_warga');
+    }
+
+    public function rw(): HasMany{
+        return $this->hasMany(RwModel::class, 'id_warga', 'id_warga');
     }
 }
