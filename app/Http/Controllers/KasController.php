@@ -20,11 +20,26 @@ class KasController extends Controller
         ];
         $activeMenu = 'kas';
 
+        // Calculate saldo
+        $saldo = $this->getSaldo();
+
         return view('Kas.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
-            'activeMenu' => $activeMenu
+            'activeMenu' => $activeMenu,
+            'saldo' => $saldo
         ]);
+    }
+
+    // ... existing methods ...
+
+    public function getSaldo()
+    {
+        $jumlahMasuk = KasModel::sum('jumlah_masuk');
+        $jumlahKeluar = KasModel::sum('jumlah_keluar');
+        $saldo = $jumlahMasuk - $jumlahKeluar;
+
+        return $saldo;
     }
 
     public function list(Request $request)
@@ -72,7 +87,6 @@ class KasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'jumlah' => 'required|integer',
             'jumlah_masuk' => 'required|integer',
             'tanggal' => 'required|date',
             'keterangan' => 'nullable|string|max:255',
@@ -80,8 +94,9 @@ class KasController extends Controller
         ]);
     
         // Simpan data yang diperlukan
-        $data = $request->only(['jumlah', 'jumlah_masuk', 'tanggal', 'id_rt','keterangan']);
+        $data = $request->only(['jumlah_masuk', 'tanggal', 'id_rt','keterangan']);
         $data['jumlah_keluar'] = 0; // Nilai default
+        $data['jumlah'] = 0; // Nilai default
     
         KasModel::create($data);
     
@@ -184,7 +199,6 @@ class KasController extends Controller
     public function storeTransaksi(Request $request)
     {
         $request->validate([
-            'jumlah' => 'required|integer',
             'jumlah_keluar' => 'required|integer',
             'keterangan' => 'required|string',
             'tanggal' => 'required|date',
@@ -193,7 +207,7 @@ class KasController extends Controller
     
         // Create a new transaction entry in the KasModel
         KasModel::create([
-            'jumlah' => $request->jumlah,
+            'jumlah' => 0,
             'jumlah_keluar' => $request->jumlah_keluar,
             'jumlah_masuk' => 0, // Set jumlah_masuk to 0
             'keterangan' => $request->keterangan,
