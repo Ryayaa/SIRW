@@ -100,6 +100,51 @@ class AlternatifSeeder extends Seeder
             ['id_penerima' => 10, 'id_kriteria' => 5, 'id_nilai' => 19],
             ['id_penerima' => 10, 'id_kriteria' => 6, 'id_nilai' => 23],
             ['id_penerima' => 10, 'id_kriteria' => 7, 'id_nilai' => 27],
+
+            // Alternatif 11 (id_penerima 15)
+            ['id_penerima' => 11, 'id_kriteria' => 1, 'id_nilai' => 4],
+            ['id_penerima' => 11, 'id_kriteria' => 2, 'id_nilai' => 9],
+            ['id_penerima' => 11, 'id_kriteria' => 3, 'id_nilai' => 11],
+            ['id_penerima' => 11, 'id_kriteria' => 4, 'id_nilai' => 17],
+            ['id_penerima' => 11, 'id_kriteria' => 5, 'id_nilai' => 19],
+            ['id_penerima' => 11, 'id_kriteria' => 6, 'id_nilai' => 25],
+            ['id_penerima' => 11, 'id_kriteria' => 7, 'id_nilai' => 28],
+
+            // Alternatif 12 (id_penerima 16)
+            ['id_penerima' => 12, 'id_kriteria' => 1, 'id_nilai' => 3],
+            ['id_penerima' => 12, 'id_kriteria' => 2, 'id_nilai' => 8],
+            ['id_penerima' => 12, 'id_kriteria' => 3, 'id_nilai' => 11],
+            ['id_penerima' => 12, 'id_kriteria' => 4, 'id_nilai' => 15],
+            ['id_penerima' => 12, 'id_kriteria' => 5, 'id_nilai' => 20],
+            ['id_penerima' => 12, 'id_kriteria' => 6, 'id_nilai' => 25],
+            ['id_penerima' => 12, 'id_kriteria' => 7, 'id_nilai' => 29],
+
+            // Alternatif 13 (id_penerima 17)
+            ['id_penerima' => 13, 'id_kriteria' => 1, 'id_nilai' => 1],
+            ['id_penerima' => 13, 'id_kriteria' => 2, 'id_nilai' => 6],
+            ['id_penerima' => 13, 'id_kriteria' => 3, 'id_nilai' => 12],
+            ['id_penerima' => 13, 'id_kriteria' => 4, 'id_nilai' => 16],
+            ['id_penerima' => 13, 'id_kriteria' => 5, 'id_nilai' => 20],
+            ['id_penerima' => 13, 'id_kriteria' => 6, 'id_nilai' => 23],
+            ['id_penerima' => 13, 'id_kriteria' => 7, 'id_nilai' => 27],
+
+            // Alternatif 14 (id_penerima 18)
+            ['id_penerima' => 14, 'id_kriteria' => 1, 'id_nilai' => 3],
+            ['id_penerima' => 14, 'id_kriteria' => 2, 'id_nilai' => 7],
+            ['id_penerima' => 14, 'id_kriteria' => 3, 'id_nilai' => 12],
+            ['id_penerima' => 14, 'id_kriteria' => 4, 'id_nilai' => 14],
+            ['id_penerima' => 14, 'id_kriteria' => 5, 'id_nilai' => 19],
+            ['id_penerima' => 14, 'id_kriteria' => 6, 'id_nilai' => 22],
+            ['id_penerima' => 14, 'id_kriteria' => 7, 'id_nilai' => 27],
+
+            // Alternatif 15 (id_penerima 19)
+            ['id_penerima' => 15, 'id_kriteria' => 1, 'id_nilai' => 2],
+            ['id_penerima' => 15, 'id_kriteria' => 2, 'id_nilai' => 10],
+            ['id_penerima' => 15, 'id_kriteria' => 3, 'id_nilai' => 11],
+            ['id_penerima' => 15, 'id_kriteria' => 4, 'id_nilai' => 14],
+            ['id_penerima' => 15, 'id_kriteria' => 5, 'id_nilai' => 18],
+            ['id_penerima' => 15, 'id_kriteria' => 6, 'id_nilai' => 23],
+            ['id_penerima' => 15, 'id_kriteria' => 7, 'id_nilai' => 26],
         ]);
     }
 }
