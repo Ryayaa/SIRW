@@ -5,7 +5,7 @@
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
         <div class="card-tools">
-            <a href="{{ route('rt.index') }}" class="btn btn-sm btn-primary mt-1">Kembali</a>
+            <a href="{{ route('rw.index') }}" class="btn btn-sm btn-primary mt-1">Kembali</a>
         </div>
     </div>
 

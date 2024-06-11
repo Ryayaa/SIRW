@@ -86,7 +86,9 @@ Route::group(['prefix' => 'warga'], function () {
     Route::get('/{id}', [WargaController::class, 'show'])->name('warga.show'); // Menampilkan detail warga
     Route::get('/{id}/edit', [WargaController::class, 'edit'])->name('warga.edit'); // Menampilkan form edit warga
     Route::put('/{id}', [WargaController::class, 'update'])->name('warga.update'); // Mengupdate data warga
-    Route::delete('/{id}', [WargaController::class, 'destroy'])->name('warga.destroy'); // Menghapus data warga
+    Route::delete('/{id}', [WargaController::class, 'destroy'])->name('warga.destroy');
+    Route::post('/{id}/accept', [WargaController::class, 'accept'])->name('warga.accept');
+    Route::post('/{id}/reject', [WargaController::class, 'reject'])->name('warga.reject');
 });
 
 // Bansos Routes
@@ -203,10 +205,10 @@ Route::group(['prefix' => 'umkm'], function () {
     Route::get('/create', [UMKMController::class, 'create'])->name('umkm.create'); // Display form to add UMKM
     Route::post('/', [UMKMController::class, 'store'])->name('umkm.store'); // Store UMKM data
     Route::get('/{id}', [UMKMController::class, 'show'])->name('umkm.show'); // Display UMKM details
-    // Route::get('/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit'); // Display form to edit UMKM
+    Route::get('/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit'); // Display form to edit UMKM
     Route::put('/{id}', [UMKMController::class, 'update'])->name('umkm.update'); // Update UMKM data
     Route::delete('/{id}', [UMKMController::class, 'destroy'])->name('umkm.destroy'); // Delete UMKM data
-    Route::get('umkm/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit');
+    // Route::get('umkm/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit');
 });
 
 Route::group(['prefix' => 'kegiatan'], function () {

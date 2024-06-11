@@ -44,7 +44,7 @@ class RtController extends Controller
             'title' => 'Detail Ketua RT'
         ];
 
-        $activeMenu = 'rt';
+        $activeMenu = 'rw';
 
         $rt = RtModel::with(['ketuaRt.warga'])->findOrFail($id);
 
@@ -67,7 +67,7 @@ class RtController extends Controller
             'title' => 'Tambah Ketua RT Baru',
         ];
 
-        $activeMenu = 'rt';
+        $activeMenu = 'rw';
 
         return view('RT.create', [
             'breadcrumb' => $breadcrumb,
@@ -83,7 +83,7 @@ class RtController extends Controller
             'id_rw' => 1,
         ]);
     
-        return redirect('/rt')->with('success', 'RT baru berhasil ditambahkan');
+        return redirect('/rw')->with('success', 'RT baru berhasil ditambahkan');
     }
 
     public function edit($id){
@@ -97,7 +97,7 @@ class RtController extends Controller
         ];
 
         $rt = RtModel::find($id);
-        $activeMenu = 'rt';
+        $activeMenu = 'rw';
         $wargas = WargaModel::whereNotIn('roles', ['rt','rw'])
             ->with('keluarga.rt')
             ->get();
@@ -153,23 +153,23 @@ class RtController extends Controller
             ]);
         }
 
-        return redirect('/rt')->with('success', 'Data RT berhasil diubah');
+        return redirect('/rw')->with('success', 'Data RT berhasil diubah');
     }
 
     public function destroy(string $id){
         $check = RtModel::find($id);
         if (!$check){
-            return redirect('/rt')->with('error', 'Data rt tidak ditemukan');
+            return redirect('/rw')->with('error', 'Data rt tidak ditemukan');
         }
 
         try{
             RtModel::destroy($id);
 
-            return redirect('/rt')->with('success', 'Data RT berhasil dihapus');
+            return redirect('/rw')->with('success', 'Data RT berhasil dihapus');
         }catch(\Illuminate\Database\QueryException $e){
 
             // jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
-            return redirect('/rt')->with('error', 'Data RT gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            return redirect('/rw')->with('error', 'Data RT gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
 
     }
