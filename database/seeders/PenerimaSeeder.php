@@ -24,6 +24,12 @@ class PenerimaSeeder extends Seeder
             ['id_warga' => 10, 'id_bansos' => 1, 'status' => 'pending'],
             ['id_warga' => 11, 'id_bansos' => 1, 'status' => 'pending'],
             ['id_warga' => 12, 'id_bansos' => 1, 'status' => 'pending'],
+            ['id_warga' => 13, 'id_bansos' => 1, 'status' => 'pending'],
+            ['id_warga' => 14, 'id_bansos' => 1, 'status' => 'pending'],
+            ['id_warga' => 15, 'id_bansos' => 1, 'status' => 'pending'],
+            ['id_warga' => 16, 'id_bansos' => 1, 'status' => 'pending'],
+            ['id_warga' => 17, 'id_bansos' => 1, 'status' => 'pending'],
+            
         ]);
     }
 

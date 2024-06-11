@@ -81,7 +81,7 @@ class PenerimaBansosController extends Controller
         foreach ($normalization as $id_penerima => $norm) {
             foreach ($norm as $id_kriteria => $value) {
                 $kriteriaItem = $kriteria->where('id_kriteria', $id_kriteria)->first();
-                $weighted[$id_penerima][$id_kriteria] = $value * $kriteriaItem->bobot;
+                $weighted[$id_penerima][$id_kriteria] = $value * ($kriteriaItem->bobot/100);
             }
         }
 
