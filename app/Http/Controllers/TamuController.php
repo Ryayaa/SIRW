@@ -167,9 +167,9 @@ class TamuController extends Controller
         }
 
         if ($tamu->delete()) {
-            return redirect()->route('Tamu.index')->with('success', 'Data tamu berhasil dihapus.');
+            return redirect('/tamu')->with('success', 'Data tamu berhasil dihapus.');
         } else {
-            return redirect()->route('Tamu.index')->with('error', 'Gagal menghapus data tamu.');
+            return redirect('/tamu')->with('error', 'Gagal menghapus data tamu.');
         }
     }
 }

@@ -146,6 +146,7 @@ Route::group(['prefix' => 'tamu'], function () {
     Route::get('/{id}/edit', [TamuController::class, 'edit'])->name('tamu.edit');
     Route::put('/{id}', [TamuController::class, 'update'])->name('tamu.update');
     Route::delete('/{id}', [TamuController::class, 'destroy'])->name('tamu.destroy');
+    Route::get('/tamu', [TamuController::class, 'index'])->name('tamu.index');
 });
 
 Route::group(['prefix' => 'warga_sementara'], function () {
