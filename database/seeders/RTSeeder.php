@@ -15,26 +15,10 @@ class RTSeeder extends Seeder
     {
         $data = [
             [
-                'no_rt' => 'RT-Test',
-                'nama_lengkap' => 'Test-RT',
-                'jenis_kelamin' => 'L',
-                'alamat' => 'Jalan Raya No. 123',
-                'no_telepon' => '08123456789',
-                'id_rw' => 1,
-                'status' => 'Aktif',
-                'mulai_jabatan' => '2020-01-01',
-                'akhir_jabatan' => '2025-01-01',
+                'no_rt' => 'RT-1',
             ],
             [
                 'no_rt' => 'RT-2',
-                'nama_lengkap' => 'Test-RT 2',
-                'jenis_kelamin' => 'P',
-                'alamat' => 'Jalan Raya No. 124',
-                'no_telepon' => '08123456789',
-                'id_rw' => 1,
-                'status' => 'Aktif',
-                'mulai_jabatan' => '2020-01-01',
-                'akhir_jabatan' => '2025-01-01',
             ]
         ];
 

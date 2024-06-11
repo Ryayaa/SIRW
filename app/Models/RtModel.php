@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class RtModel extends Model
 {
@@ -14,22 +16,13 @@ class RtModel extends Model
     protected $primaryKey = 'id_rt';
     protected $fillable = [
         'no_rt',
-        'nama_lengkap',
-        'jenis_kelamin',
-        'alamat',
-        'no_telepon',
-        'status',
-        'mulai_jabatan',
-        'akhir_jabatan'
     ];
 
     public function keluargas(): HasMany{
-        return $this->hasMany(KeluargaModel::class, 'id_keluarga', 'id_keluarga');
+        return $this->hasMany(KeluargaModel::class, 'id_rt', 'id_rt');
     }
 
-    // Relationship dengan tabel rw
-    public function rw()
-    {
-        return $this->belongsTo(RwModel::class, 'id_rw', 'id_rw');
+    public function ketuaRt(): HasOne{
+        return $this->hasOne(KetuaRtModel::class, 'id_rt', 'id_rt')->where('status', 'aktif');
     }
 }

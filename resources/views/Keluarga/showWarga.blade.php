@@ -1,3 +1,5 @@
+<!-- resources/views/warga/show.blade.php -->
+
 @extends('layouts.template')
 
 @section('content')
@@ -68,14 +70,14 @@
                     <th>Bukti KTP</th>
                     <td>
                         @if($warga->bukti_ktp)
-                            <img src="{{ asset('images/warga/ktp/'.$warga->bukti_ktp) }}" alt="Bukti KTP" width="150">
+                            <img src="{{ asset('images/warga/ktp/'.$warga->bukti_ktp) }}" alt="Bukti KTP" width="500">
                         @else
                             Data tidak tersedia
                         @endif
                     </td>
                 </tr>
             </table>
-            <a href="{{ route('warga.index') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
+            <a href="{{ route('keluarga.index') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
         </div>
     </div>
 @endsection
