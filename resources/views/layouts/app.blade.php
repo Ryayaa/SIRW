@@ -6,7 +6,9 @@
         | @yield('subtitle')
     @endif
 @stop
+
 @vite('resources/js/app.js')
+
 {{-- Extend and customize the page content header --}}
 @section('content_header')
     @hasSection('content_header_title')
@@ -21,10 +23,12 @@
         </h1>
     @endif
 @stop
+
 {{-- Rename section content to content_body --}}
 @section('content')
     @yield('content_body')
 @stop
+
 {{-- Create a common footer --}}
 @section('footer')
     <div class="float-right">
@@ -36,23 +40,32 @@
         </a>
     </strong>
 @stop
+
 {{-- Add common Javascript/Jquery code --}}
 @push('js')
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+    <script src="{{ asset('plugins/ekko-lightbox/ekko-lightbox.min.js') }}"></script>
+    <script>
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });
+    </script>
 @endpush
-@stack('scripts')
+
 {{-- Add common CSS customizations --}}
 @push('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
+    <link rel="stylesheet" href="{{ asset('plugins/ekko-lightbox/ekko-lightbox.css') }}">
     <style type="text/css">
         {{-- You can add AdminLTE customizations here --}}
         /*
-     .card-header {
-     border-bottom: none;
-     }
-     .card-title {
-     font-weight: 600;
-     }
-     */
+         .card-header {
+             border-bottom: none;
+         }
+         .card-title {
+             font-weight: 600;
+         }
+         */
     </style>
 @endpush

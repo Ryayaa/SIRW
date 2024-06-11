@@ -36,7 +36,7 @@ class PenerimaBansosController extends Controller
             }
         ])->get();
 
-        return view('penerima.index', [
+        return view('Penerima.index', [
 
             'breadcrumb' => $breadcrumb,
             'page' => $page,
@@ -151,7 +151,7 @@ class PenerimaBansosController extends Controller
         $moora = $result['moora'];
 
 
-        return view('penerima.pengajuan', [
+        return view('Penerima.pengajuan', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -212,7 +212,7 @@ class PenerimaBansosController extends Controller
 
 
 
-        return view('penerima.create', [
+        return view('Penerima.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -285,7 +285,7 @@ class PenerimaBansosController extends Controller
         if (!$penerima) {
             return redirect()->back()->withErrors(['Penerima tidak ditemukan']);
         }
-        return view('penerima.show', [
+        return view('Penerima.show', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -329,7 +329,7 @@ class PenerimaBansosController extends Controller
         if (!$penerima) {
             return redirect()->back()->withErrors(['Penerima tidak ditemukan']);
         }
-        return view('penerima.detail', [
+        return view('Penerima.detail', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,

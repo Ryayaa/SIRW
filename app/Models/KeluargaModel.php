@@ -17,13 +17,14 @@ class KeluargaModel extends Model
         'nomor_kk',
         'alamat',
         'id_rt',
+        'bukti_kk',
     ];
 
     public function rt(): BelongsTo{
         return $this->belongsTo(RtModel::class, 'id_rt', 'id_rt');
     }
 
-    public function wargas(): HasMany{
-        return $this->hasMany(WargaModel::class, 'id_warga', 'id_warga');
+    public function warga(): HasMany{
+        return $this->hasMany(WargaModel::class, 'id_keluarga', 'id_keluarga');
     }
 }

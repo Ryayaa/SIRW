@@ -33,31 +33,31 @@ class WargaController extends Controller
     }
 
     public function show($id){
-    // Mengambil data warga berdasarkan ID
-    $warga = WargaModel::findOrFail($id);
+        // Mengambil data warga berdasarkan ID
+        $warga = WargaModel::findOrFail($id);
 
-    // Membuat objek breadcrumb
-    $breadcrumb = (object) [
-        'title' => 'Detail Warga',
-        'list' => ['Home', 'Warga', 'Detail']
-    ];
+        // Membuat objek breadcrumb
+        $breadcrumb = (object) [
+            'title' => 'Detail Warga',
+            'list' => ['Home', 'Warga', 'Detail']
+        ];
 
-    // Membuat objek page
-    $page = (object) [
-        'title' => 'Detail Warga'
-    ];
+        // Membuat objek page
+        $page = (object) [
+            'title' => 'Detail Warga'
+        ];
 
-    // Menentukan active menu
-    $activeMenu = 'warga';
+        // Menentukan active menu
+        $activeMenu = 'warga';
 
-    // Mengirim data ke view
-    return view('Warga.show', [
-        'breadcrumb' => $breadcrumb,
-        'page' => $page,
-        'warga' => $warga,
-        'activeMenu' => $activeMenu
-    ]);
-}
+        // Mengirim data ke view
+        return view('Warga.show', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'warga' => $warga,
+            'activeMenu' => $activeMenu
+        ]);
+    }
 
 
     public function list(Request $request)
@@ -104,36 +104,46 @@ class WargaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'NIK' => 'required|string|max:16',
-            'nama_lengkap' => 'required|string|max:100',
-            'tanggal_lahir' => 'required',
-            'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
-            'alamat_domisili' => 'required|string|max:255',
-            'pekerjaan' => 'required|string|max:50',
-            'status_perkawinan' => 'required|in:Kawin,Belum Kawin',
-            'roles' => 'required|in:RT,RW,Warga,Warga Sementara',
-            'id_keluarga' => 'required|integer',
+            'nik' => 'required|numeric',
+            'nama_lengkap' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|string|max:1',
+            'alamat_domisili' => 'required|string',
+            'pekerjaan' => 'required|string',
+            'status_perkawinan' => 'required|string',
+            'id_keluarga' => 'required|exists:keluarga,id_keluarga',
+            'no_telepon' => 'required|string',
+            'tempat_lahir' => 'required|string',
+            'status_hubungan' => 'required|string',
+            'bukti_ktp' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        WargaModel::create([
-            'NIK' => $request->NIK,
-            'nama_lengkap' => $request->nama_lengkap,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'alamat_domisili' => $request->alamat_domisili,
-            'pekerjaan' => $request->pekerjaan,
-            'status_perkawinan' => $request->status_perkawinan,
-            'roles' => $request->roles,
-            'id_keluarga' => $request->id_keluarga,
-            'username' => $request->NIK,
-            'password' => Hash::make($request->NIK),
-        ]);
+        $data = $request->all();
+        $data['roles'] = 'warga';
+        $data['password'] = bcrypt($request->nik);
+        $data['username'] = $request->nik;
 
-        return redirect('/warga')->with('success', 'Data warga baru telah ditambahkan');
+        if ($request->hasFile('bukti_ktp')) {
+            $extension = $request->bukti_ktp->extension();
+            $imageName = $request->nik.'.'.$extension;
+            // Create the directory if it doesn't exist
+            if (!file_exists(public_path('images/warga/ktp'))) {
+                mkdir(public_path('images/warga/ktp'), 0777, true);
+            }
+            $request->bukti_ktp->move(public_path('images/warga/ktp'), $imageName);
+            $data['bukti_ktp'] = $imageName;
+        }
+
+        $data['password'] = bcrypt($request->password);
+
+        WargaModel::create($data);
+
+        return redirect('/warga')->with('success', 'Warga berhasil ditambahkan');
     }
 
-    public function edit(string $id){
-        $warga = WargaModel::find($id);
+    public function edit($id)
+    {
+        $warga = WargaModel::findOrFail($id);
         $keluarga = KeluargaModel::all();
 
         $breadcrumb = (object) [
@@ -142,46 +152,46 @@ class WargaController extends Controller
         ];
 
         $page = (object) [
-            'title' => 'Edit Warga'
+            'title' => 'Edit Data Warga',
         ];
 
-        $activeMenu = 'warga';
-
-        return view('Warga.edit', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'warga' => $warga,
-            'activeMenu' => $activeMenu,
-            'keluarga' => $keluarga
-        ]);
+        return view('warga.edit', compact('warga', 'breadcrumb', 'page', 'keluarga'));
     }
 
-    public function update(Request $request, string $id){
+    public function update(Request $request, $id)
+    {
         $request->validate([
-            'NIK' => 'required|string|max:16',
-            'nama_lengkap' => 'required|string|max:100',
-            'tanggal_lahir' => 'required',
-            'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
+            'nik' => 'required',
+            'nama_lengkap' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|string|max:10',
             'alamat_domisili' => 'required|string|max:255',
-            'pekerjaan' => 'required|string|max:50',
-            'status_perkawinan' => 'required|in:Kawin,Belum Kawin',
-            'roles' => 'required|in:RT,RW,Warga,Warga Sementara',
-            'id_keluarga' => 'required|integer',
+            'pekerjaan' => 'required|string|max:255',
+            'status_perkawinan' => 'required|string|max:20',
+            'username' => 'required|string|max:50',
+            'no_telepon' => 'required|string|max:15',
+            'tempat_lahir' => 'required|string|max:50',
+            'status_hubungan' => 'required|string|max:50',
+            'id_keluarga' => 'required',
+            'bukti_ktp' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        WargaModel::find($id)->update([
-            'NIK' => $request->NIK,
-            'nama_lengkap' => $request->nama_lengkap,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'alamat_domisili' => $request->alamat_domisili,
-            'pekerjaan' => $request->pekerjaan,
-            'status_perkawinan' => $request->status_perkawinan,
-            'roles' => $request->roles,
-            'id_keluarga' => $request->id_keluarga,
-        ]);
+        $data = $request->except(['_token', '_method', 'password']);
+        $data['roles'] = 'warga'; // Ensure 'roles' is always set to 'warga'
 
-        return redirect('/warga')->with('success', 'Data warga berhasil diubah');
+        if ($request->hasFile('bukti_ktp')) {
+            $extension = $request->bukti_ktp->extension();
+            $imageName = $request->nik.'.'.$extension;
+            if (!file_exists(public_path('images/warga/ktp'))) {
+                mkdir(public_path('images/warga/ktp'), 0777, true);
+            }
+            $request->bukti_ktp->move(public_path('images/warga/ktp'), $imageName);
+            $data['bukti_ktp'] = $imageName;
+        }
+
+        WargaModel::where('id_warga', $id)->update($data);
+
+        return redirect()->route('warga.show', $id)->with('success', 'Data Warga telah diperbarui');
     }
 
     public function destroy(string $id){

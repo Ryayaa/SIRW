@@ -37,6 +37,10 @@
                         <td>{{ $kegiatan->waktu }}</td>
                     </tr>
                     <tr>
+                        <th>Gambar</th>
+                        <td>{{ $kegiatan->gambar }}</td>
+                    </tr>
+                    <tr>
                         <th>ID RT</th>
                         <td>{{ $kegiatan->id_rt }}</td>
                     </tr>

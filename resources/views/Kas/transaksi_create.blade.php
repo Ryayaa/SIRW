@@ -19,10 +19,6 @@
             <form action="{{ route('kas.transaksi.store') }}" method="POST">
                 @csrf
                 <div class="form-group">
-                    <label for="jumlah">Jumlah</label>
-                    <input type="number" name="jumlah" id="jumlah" class="form-control" value="{{ old('jumlah') }}" required>
-                </div>
-                <div class="form-group">
                     <label for="jumlah">Jumlah Keluar</label>
                     <input type="number" name="jumlah_keluar" id="jumlah_keluar" class="form-control" value="{{ old('jumlah') }}" required>
                 </div>

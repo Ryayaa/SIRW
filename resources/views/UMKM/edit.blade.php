@@ -42,6 +42,15 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Deskripsi</label>
+                    <div class="col-11">
+                        <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required>{{ old('deskripsi', $umkm->deskripsi) }}</textarea>
+                        @error('deskripsi')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-1 control-label col-form-label">No Telepon</label>
                     <div class="col-11">
                         <input type="text" class="form-control" id="no_telepon" name="no_telepon"
@@ -71,13 +80,15 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Status UMKM</label>
+                    <label class="col-1 control-label col-form-label">Status Pengajuan</label>
                     <div class="col-11">
-                        <select name="status_umkm" class="form-control">
-                            <option value="1" {{ old('status_umkm', $umkm->status_umkm) == 1 ? 'selected' : '' }}>Aktif</option>
-                            <option value="0" {{ old('status_umkm', $umkm->status_umkm) == 0 ? 'selected' : '' }}>Non-Aktif</option>
+                        <select name="status_pengajuan" class="form-control">
+                            <option value="1" {{ old('status_pengajuan', $umkm->status_pengajuan) == 1 ? 'selected' : '' }}>Disetujui</option>
+                            <option value="0" {{ old('status_pengajuan', $umkm->status_pengajuan) == 0 ? 'selected' : '' }}>Ditolak</option>
+                            <option value="2" {{ old('status_pengajuan', $umkm->status_pengajuan) == 2 ? 'selected' : '' }}>Pending</option>
                         </select>
                     </div>
+                </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label"></label>

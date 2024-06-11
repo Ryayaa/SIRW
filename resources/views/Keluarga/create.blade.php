@@ -16,7 +16,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('keluarga.store') }}" method="POST">
+            <form action="{{ route('keluarga.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="nomor_kk">Nomor Kartu Keluarga (NKK)</label>
@@ -39,6 +39,10 @@
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="bukti_kk">Bukti KK</label>
+                    <input type="file" name="bukti_kk" class="form-control" id="bukti_kk">
                 </div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <a href="{{ url('keluarga') }}" class="btn btn-default">Kembali</a>
