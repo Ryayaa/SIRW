@@ -16,7 +16,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('kegiatan.store') }}" method="POST">
+            <form action="{{ route('kegiatan.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="nama_kegiatan">Nama Kegiatan</label>
