@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('umkm', function (Blueprint $table) {
-            $table->enum('status_pengajuan', ['pending', 'approved', 'rejected'])->default('pending');
+        Schema::table('kegiatan_warga', function (Blueprint $table) {
+            $table->string('gambar');
+
         });
     }
 
@@ -21,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('umkm', function (Blueprint $table) {
-            $table->dropColumn('status_pengajuan');
+        Schema::table('kegiatan_warga', function (Blueprint $table) {
+            $table->dropColumn('gambar');
         });
     }
 };

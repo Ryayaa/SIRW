@@ -75,6 +75,7 @@ class BansosController extends Controller
         return redirect()->route('bansos.index')->with('success', 'Data Bantuan Sosial baru telah ditambahkan');
     }
 
+
     public function createKriteria(Request $request)
     {
         $breadcrumb = (object)[
