@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class KasModel extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
+    protected $dates = ['deleted_at'];
     protected $table = 'kas';
 
     protected $primaryKey = 'id_kas';
@@ -20,6 +22,8 @@ class KasModel extends Model
         'tanggal',
         'id_rt',
         'keterangan'
+
+        
     ];
 
     public function rt()

@@ -21,12 +21,12 @@
                     <table class="table table-bordered table-striped table-hover table-sm mt-3">
                         <thead>
                             <tr>
-                                <th>ID Kas</th>
+                                <th>No</th>
                                 <th>Jumlah</th>
                                 <th>Jumlah Masuk</th>
                                 <th>Keterangan</th>
                                 <th>Tanggal</th>
-                                <th>ID RT</th>
+                                <th>No RT</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,12 +47,12 @@
                     <table class="table table-bordered table-striped table-hover table-sm mt-3">
                         <thead>
                             <tr>
-                                <th>ID Kas</th>
+                                <th>No</th>
                                 <th>Jumlah</th>
                                 <th>Jumlah Keluar</th>
                                 <th>Keterangan</th>
                                 <th>Tanggal</th>
-                                <th>ID RT</th>
+                                <th>No RT</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,6 +70,7 @@
                     </table>
                 </div>
             </div>
+            <a href="{{ route('kas.index') }}" class="btn btn-default mt-3">Kembali</a>
         </div>
     </div>
 @endsection
