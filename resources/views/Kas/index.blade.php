@@ -23,11 +23,11 @@
             <table class="table table-bordered table-striped table-hover table-sm" id="table_kas">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>No</th>
                         <th>Jumlah Keluar</th>
                         <th>Jumlah Masuk</th>
                         <th>Tanggal</th>
-                        <th>ID RT</th>
+                        <th>No RT</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
