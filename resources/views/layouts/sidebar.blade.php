@@ -32,26 +32,20 @@
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="{{ url('/rw') }}" class="nav-link {{ $activeMenu == 'rw' ? 'active' : '' }}">
-                            <i class="nav-icon far fa-user-tie"></i>
-                            <p>Ketua RW</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ url('/rt') }}" class="nav-link {{ $activeMenu == 'rt' ? 'active' : '' }}">
-                            <i class="nav-icon far fa-user-tie"></i>
-                            <p>Ketua RT</p>
+                            <i class="nav-icon fa fa-user-tie"></i>
+                            <p>Jabatan</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ url('/keluarga') }}" class="nav-link {{ $activeMenu == 'keluarga' ? 'active' : '' }}">
-                            <i class="nav-icon far fa-house-user"></i>
+                            <i class="nav-icon fa fa-house-user"></i>
                             <p>Keluarga</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ url('/warga') }}" class="nav-link {{ $activeMenu == 'warga' ? 'active' : '' }}">
                             <i class="nav-icon far fa-address-card"></i>
-                            <p>Kelola Warga</p>
+                            <p>Warga Sementara</p>
                         </a>
                     </li>
                     <li class="nav-item">

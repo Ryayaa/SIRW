@@ -1,3 +1,4 @@
+<title>Detail Pengajuan Bantuan Sosial</title>
 @extends('user-login.index')
 
 @section('content')
@@ -14,7 +15,7 @@
                     <p class="card-text">Status: {{ $pengajuan->status }}</p>
                     @foreach($pengajuan->nilaiA as $nilai)
                         <p>{{ $nilai->kriteria->nama }}: {{ $nilai->kriteria->subkriteria->find($nilai->id_nilai)->subkriteria }}</p>
-                    @endforeach                  
+                    @endforeach
                     <a href="/pengajuan-list" class="btn btn-secondary">Kembali</a>
                 </div>
             </div>

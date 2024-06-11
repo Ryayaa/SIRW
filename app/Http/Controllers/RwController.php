@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RtModel;
 use App\Models\RwModel;
+use App\Models\WargaModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -19,32 +22,32 @@ class RwController extends Controller
         ];
         $activeMenu = 'rw';
 
+        $rw = RwModel::with('warga')->where('status', 'Aktif')->first();
+        $rts = RtModel::with('ketuaRt.warga')->get();
+
         return view('RW.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
-            'activeMenu' => $activeMenu
+            'activeMenu' => $activeMenu,
+            'rw' => $rw,
+            'rts' => $rts
         ]);
     }
 
     public function show($id){
-        // Mengambil data warga berdasarkan ID
-        $rw = RwModel::findOrFail($id);
-
-        // Membuat objek breadcrumb
         $breadcrumb = (object) [
             'title' => 'Detail Ketua RW',
             'list' => ['Home', 'RW', 'Detail']
         ];
 
-        // Membuat objek page
         $page = (object) [
             'title' => 'Detail Ketua RW'
         ];
 
-        // Menentukan active menu
         $activeMenu = 'rw';
 
-        // Mengirim data ke view
+        $rw = RwModel::with('warga')->findOrFail($id);
+
         return view('RW.show', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
@@ -53,106 +56,61 @@ class RwController extends Controller
         ]);
     }
 
-
-    public function list(Request $request)
-    {
-        $rw = RwModel::select('id_rw', 'nama_lengkap', 'jenis_kelamin', 'alamat', 'no_telepon', 'status', 'mulai_jabatan', 'akhir_jabatan');
-
-        return DataTables::of($rw)
-            ->addIndexColumn()
-            ->addColumn('aksi', function ($rw) {
-                $btn = '<a href="' . url('/rw/' . $rw->id_rw) . '" class="btn btn-info btn-sm">Detail</a> ';
-                $btn .= '<a href="' . url('/rw/' . $rw->id_rw . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/rw/' . $rw->id_rw) . '">'
-                    . csrf_field() . method_field('DELETE') .
-                    '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
-                return $btn;
-            })
-            ->rawColumns(['aksi'])
-            ->make(true);
-    }
-
-    public function create()
-    {
+    public function edit($id){
         $breadcrumb = (object) [
-            'title' => 'Tambah Ketua RW',
-            'list' => ['Home', 'RW', 'Tambah']
-        ];
-
-        $page = (object) [
-            'title' => 'Tambah Ketua RW Baru',
-        ];
-
-        $activeMenu = 'rw';
-
-        return view('RW.create', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'activeMenu' => $activeMenu
-        ]);
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nama_lengkap' => 'required|string|max:100',
-            'jenis_kelamin' => 'required|in:L,P',
-            'alamat' => 'required|string|max:255',
-            'no_telepon' => 'required',
-        ]);
-
-        RwModel::where('status', 'Aktif')->update(['status' => 'Pensiun', 'akhir_jabatan' => now()]);
-
-        RwModel::create([
-            'nama_lengkap' => $request->nama_lengkap,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'alamat' => $request->alamat,
-            'no_telepon' => $request->no_telepon,
-            'status' => 'Aktif',
-            'mulai_jabatan' => now(),
-        ]);
-
-        return redirect('/rw')->with('success', 'Data ketua RW baru telah ditambahkan');
-    }
-
-    public function edit(string $id){
-        $rw = RwModel::find($id);
-
-        $breadcrumb = (object) [
-            'title' => 'Edit Ketua RW',
+            'title' => 'Rubah Ketua RW',
             'list' => ['Home', 'RW', 'Edit']
         ];
 
         $page = (object) [
-            'title' => 'Edit Ketua RW'
+            'title' => 'Rubah Ketua RW'
         ];
 
         $activeMenu = 'rw';
-
+        $rw = RwModel::with('warga')->findOrFail($id);
+        $wargas = WargaModel::whereNotIn('roles', ['rw'])->get();
+    
         return view('RW.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
+            'activeMenu' => $activeMenu,
             'rw' => $rw,
-            'activeMenu' => $activeMenu
+            'wargas' => $wargas
         ]);
     }
 
-    public function update(Request $request, string $id){
+    public function update(Request $request, $id){
         $request->validate([
-            'nama_lengkap' => 'required|string|max:100',
-            'jenis_kelamin' => 'required|in:L,P',
-            'alamat' => 'required|string|max:255',
-            'no_telepon' => 'required',
+            'id_warga' => 'required|exists:warga,id_warga'
         ]);
-
-        RwModel::find($id)->update([
-            'nama_lengkap' => $request->nama_lengkap,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'alamat' => $request->alamat,
-            'no_telepon' => $request->no_telepon,
+    
+        $now = Carbon::now();
+    
+        $currentRw = RwModel::findOrFail($id);
+        if ($currentRw) {
+            $currentRw->update([
+                'status' => 'Pensiun',
+                'akhir_jabatan' => $now
+            ]);
+    
+            $oldRw = WargaModel::find($currentRw->id_warga);
+            if ($oldRw) {
+                $oldRw->roles = 'warga';
+                $oldRw->save();
+            }
+        }
+    
+        RwModel::create([
+            'id_warga' => $request->id_warga,
+            'status' => 'Aktif',
+            'mulai_jabatan' => $now
         ]);
-
-        return redirect('/rw')->with('success', 'Data RW berhasil diubah');
+    
+        $newRw = WargaModel::find($request->id_warga);
+        $newRw->roles = 'rw';
+        $newRw->save();
+    
+        return redirect('/rw')->with('success', 'Ketua RW berhasil diubah');
     }
 
     public function destroy(string $id){

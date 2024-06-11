@@ -1,56 +1,51 @@
 @extends('layouts.template')
 
 @section('content')
-    <div class="card card-outline card-primary">
-        <div class="card-header">
-            <h3 class="card-title">{{ $page->title }}</h3>
-            <div class="card-tools">
-                <a class="btn btn-sm btn-primary mt-1" href="{{ url('rt/create') }}">Tambah</a>
-            </div>
-        </div>
-        <div class="card-body">
-            @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-            @if (session('error'))
-                <div class="alert alert-danger">{{ session('error') }}</div>
-            @endif
-            {{-- Filter --}}
-            <table class="table table-bordered table-striped table-hover table-sm" id="table_rt">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nomor RT</th>
-                        <th>Nama Lengkap</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-            </table>
+<div class="card card-outline card-primary">
+    <div class="card-header">
+        <h3 class="card-title">{{ $page->title }}</h3>
+        <div class="card-tools">
+            <form action="{{ route('rt.store') }}" method="POST" style="display: inline;">
+                @csrf
+                <button type="submit" class="btn btn-sm btn-primary mt-1">Tambah RT</button>
+            </form>
         </div>
     </div>
+
+    <div class="card-body">
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>No RT</th>
+                <th>Ketua</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($rts as $rt)
+                <tr>
+                    <td>{{ $rt->no_rt }}</td>
+                    <td>
+                        @if ($rt->ketuaRt)
+                            {{ $rt->ketuaRt->warga->nama_lengkap }}
+                        @else
+                            <span class="text-danger">Belum ada ketua</span>
+                        @endif
+                    </td>
+                    <td>
+                        <a href="{{ route('rt.edit', $rt->id_rt) }}" class="btn btn-warning">Edit</a>
+                        <a href="{{ route('rt.show', $rt->id_rt) }}" class="btn btn-warning">Detail</a>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+    </div>
+</div>
 @endsection
-
-@push('css')
-@endpush
-
-@push('js')
-    <script>
-        $(document).ready(function() {
-            var dataTable = $('#table_rt').DataTable({
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('rt.list') }}",
-                    type: 'POST',
-                },
-                columns: [
-                    { data: 'id_rt', name: 'id_rt' },
-                    { data: 'no_rt', name: 'no_rt' },
-                    { data: 'nama_lengkap', name: 'nama_lengkap' },
-                    { data: 'status', name: 'status' },
-                    { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
-                ]
-            });
-        });
-    </script>
-@endpush

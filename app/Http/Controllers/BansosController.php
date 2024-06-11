@@ -48,33 +48,33 @@ class BansosController extends Controller
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'nama_bansos' => 'required|string|max:255',
-        'deskripsi' => 'required|string',
-        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'jumlah_kriteria' => 'required|integer|min:1',
-    ]);
+    {
+        $request->validate([
+            'nama_bansos' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'jumlah_kriteria' => 'required|integer|min:1',
 
-    $data = $request->all();
-    
-    if ($request->hasFile('gambar')) {
-        $imageName = time() . '.' . $request->gambar->extension();
+        ]);
 
-        // Create the directory if it doesn't exist
-        if (!file_exists(public_path('images/bansos'))) {
-            mkdir(public_path('images/bansos'), 0777, true);
+        $data = $request->all();
+
+        if ($request->hasFile('gambar')) {
+            $extension = $request->gambar->extension();
+            $imageName = time().'.'.$extension;
+            // Create the directory if it doesn't exist
+            if (!file_exists(public_path('images/bansos'))) {
+                mkdir(public_path('images/bansos'), 0777, true);
+            }
+            $request->gambar->move(public_path('images/bansos'), $imageName);
+            $data['gambar'] = $imageName;
         }
 
-        $request->gambar->move(public_path('images/bansos'), $imageName);
-        $data['gambar'] = 'bansos/' . $imageName;
+        Bansos::create($data);
+
+        return redirect()->route('bansos.index')->with('success', 'Data Bantuan Sosial baru telah ditambahkan');
     }
 
-    $bansos = Bansos::create($data);
-
-    return redirect()->route('bansos.createKriteria', ['id_bansos' => $bansos->id_bansos, 'jumlah_kriteria' => $request->jumlah_kriteria])
-                     ->with('success', 'Bansos berhasil disimpan');
-}
 
     public function createKriteria(Request $request)
     {
@@ -102,37 +102,41 @@ class BansosController extends Controller
 
     public function storeKriteria(Request $request)
     {
-        
         $request->validate([
             'id_bansos' => 'required|exists:bansos,id_bansos',
+            'kriteria' => 'required|array',
             'kriteria.*.nama' => 'required|string|max:255',
             'kriteria.*.bobot' => 'required|numeric|min:0',
-            'kriteria.*.jenis' => 'required|string|in:Benefit,Cost',
+            'kriteria.*.jenis' => 'required|in:Benefit,Cost',
+            'kriteria.*.subkriteria' => 'required|array',
             'kriteria.*.subkriteria.*' => 'required|string|max:255',
+            'kriteria.*.nilai' => 'required|array',
             'kriteria.*.nilai.*' => 'required|numeric|min:0',
         ]);
 
-        $id_bansos = $request->input('id_bansos');
-        $kriteriaList = $request->input('kriteria');
+        $totalBobot = array_sum(array_column($request->input('kriteria'), 'bobot'));
+        if ($totalBobot != 100) {
+            return back()->withErrors(['Total bobot harus 100.'])->withInput();
+        }
 
-        foreach ($kriteriaList as $kriteriaData) {
-            $kriteria = KriteriaBansosModel::create([
-                'id_bansos' => $id_bansos,
-                'nama' => $kriteriaData['nama'],
-                'bobot' => $kriteriaData['bobot'],
-                'jenis' => $kriteriaData['jenis'],
+        foreach ($request->input('kriteria') as $kriteria) {
+            $kriteriaModel = new KriteriaBansosModel([
+                'id_bansos' => $request->input('id_bansos'),
+                'nama' => $kriteria['nama'],
+                'bobot' => $kriteria['bobot'],
+                'jenis' => $kriteria['jenis'],
             ]);
+            $kriteriaModel->save();
 
-            foreach ($kriteriaData['subkriteria'] as $index => $subkriteria) {
-                NilaiKriteriaModel::create([
-                    'id_kriteria' => $kriteria->id_kriteria,
-                    'subkriteria' => $subkriteria,
-                    'nilai' => $kriteriaData['nilai'][$index],
+            foreach ($kriteria['subkriteria'] as $index => $subkriteria) {
+                $kriteriaModel->subkriteria()->create([
+                    'nama' => $subkriteria,
+                    'nilai' => $kriteria['nilai'][$index],
                 ]);
             }
         }
 
-        return redirect()->route('bansos.index')->with('success', 'Bantuan sosial dan kriteria berhasil disimpan');
+        return redirect()->route('bansos.index')->with('success', 'Kriteria Bantuan Sosial berhasil ditambahkan.');
     }
 
     public function show($id)
@@ -258,4 +262,5 @@ class BansosController extends Controller
             return redirect()->route('bansos.index')->with('error', 'Failed to delete Bansos.');
         }
     }
+
 }
