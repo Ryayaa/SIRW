@@ -58,7 +58,17 @@
                     { data: 'nomor_kk', name: 'nomor_kk' },
                     { data: 'alamat', name: 'alamat' },
                     { data: 'rt', name: 'rt' },
-                    { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
+                    { data: 'aksi', name: 'aksi', orderable: false, searchable: false, render: function(data, type, row) {
+                        return `
+                            <a href="{{ url('keluarga/${row.id_keluarga}') }}" class="btn btn-sm btn-primary">Detail</a>
+                            <a href="{{ url('keluarga/${row.id_keluarga}/edit') }}" class="btn btn-sm btn-warning">Edit</a>
+                            <form action="{{ url('keluarga/${row.id_keluarga}') }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin?')">Hapus</button>
+                            </form>
+                        `;
+                    }},
                 ],
                 order: [[1, 'asc']],
             });
@@ -85,15 +95,30 @@
             // `d` is the original data object for the row
             var wargaHtml = '<table class="table table-bordered table-striped table-hover table-sm">';
             if(d.warga.length > 0) {
-                wargaHtml += '<thead><tr><th>NIK</th><th>Nama Lengkap</th><th>Tanggal Lahir</th><th>Jenis Kelamin</th></tr></thead><tbody>';
+                wargaHtml += '<thead><tr><th>NIK</th><th>Nama Lengkap</th><th>Tanggal Lahir</th><th>Jenis Kelamin</th><th>Aksi</th></tr></thead><tbody>';
                 d.warga.forEach(function(warga) {
-                    wargaHtml += '<tr><td>' + warga.nik + '</td><td>' + warga.nama_lengkap + '</td><td>' + warga.tanggal_lahir + '</td><td>' + warga.jenis_kelamin + '</td></tr>';
+                    wargaHtml += `<tr>
+                        <td>${warga.nik}</td>
+                        <td>${warga.nama_lengkap}</td>
+                        <td>${warga.tanggal_lahir}</td>
+                        <td>${warga.jenis_kelamin}</td>
+                        <td>
+                            <a href="{{ url('keluarga/showWarga/${warga.id_warga}') }}" class="btn btn-sm btn-primary">Detail</a>
+                            <a href="{{ url('keluarga/${warga.id_warga}/editWarga') }}" class="btn btn-sm btn-warning">Edit</a>
+                            <form action="{{ url('warga/${warga.id_warga}') }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin?')">Hapus</button>
+                            </form>
+                        </td>
+                    </tr>`;
                 });
                 wargaHtml += '</tbody>';
             } else {
-                wargaHtml += '<tr><td colspan="4">Tidak ada data warga</td></tr>';
+                wargaHtml += '<tr><td colspan="5">Tidak ada data warga</td></tr>';
             }
             wargaHtml += '</table>';
+            wargaHtml += `<a href="{{ url('keluarga/createWarga?keluarga_id=${d.id_keluarga}') }}" class="btn btn-sm btn-success mt-2">Tambah Anggota Keluarga</a>`;
             return wargaHtml;
         }
     </script>

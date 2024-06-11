@@ -120,14 +120,19 @@ Route::group(['prefix' => 'rt'], function () {
 });
 
 Route::group(['prefix' => 'keluarga'], function () {
-    Route::get('/', [KeluargaController::class, 'index'])->name('keluarga.index'); // Menampilkan data warga
-    Route::post('/list', [KeluargaController::class, 'list'])->name('keluarga.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
-    Route::get('/create', [KeluargaController::class, 'create'])->name('keluarga.create'); // Menampilkan form tambah warga
-    Route::post('/', [KeluargaController::class, 'store'])->name('keluarga.store'); // Menyimpan data warga
-    Route::get('/{id}', [KeluargaController::class, 'show'])->name('keluarga.show'); // Menampilkan detail warga
-    Route::get('/{id}/edit', [KeluargaController::class, 'edit'])->name('keluarga.edit'); // Menampilkan form edit warga
-    Route::put('/{id}', [KeluargaController::class, 'update'])->name('keluarga.update'); // Mengupdate data warga
-    Route::delete('/{id}', [KeluargaController::class, 'destroy'])->name('keluarga.destroy'); // Menghapus data warga
+    Route::get('/', [KeluargaController::class, 'index'])->name('keluarga.index');
+    Route::post('/list', [KeluargaController::class, 'list'])->name('keluarga.list');
+    Route::get('/create', [KeluargaController::class, 'create'])->name('keluarga.create');
+    Route::post('/', [KeluargaController::class, 'store'])->name('keluarga.store');
+    Route::get('/createWarga', [KeluargaController::class, 'createWarga'])->name('keluarga.createWarga');
+    Route::post('/storeWarga', [KeluargaController::class, 'storeWarga'])->name('keluarga.storeWarga');
+    Route::get('/{id}', [KeluargaController::class, 'show'])->name('keluarga.show');
+    Route::get('/showWarga/{id}', [KeluargaController::class, 'showWarga'])->name('keluarga.showWarga');
+    Route::get('/{id}/edit', [KeluargaController::class, 'edit'])->name('keluarga.edit');
+    Route::put('/{id}', [KeluargaController::class, 'update'])->name('keluarga.update');
+    Route::get('/{id}/editWarga', [KeluargaController::class, 'editWarga'])->name('keluarga.editWarga');
+    Route::put('/{id}/updateWarga', [KeluargaController::class, 'updateWarga'])->name('keluarga.updateWarga');
+    Route::delete('/{id}', [KeluargaController::class, 'destroy'])->name('keluarga.destroy');
 });
 
 Route::group(['prefix' => 'tamu'], function () {
@@ -228,7 +233,8 @@ Route::group(['prefix' => 'kegiatan'], function () {
     Route::get('/tamu-form', [PageController::class, 'showTamuForm'])->name('tamu_form.show');
     Route::post('/tamu-form/create', [PageController::class, 'createTamuForm'])->name('tamu_form.create');
 
-    Route::get('/warga-sementara-form', [PageController::class, 'showWargaSementaraForm'])->name('warga-sementara_form.show');
+    Route::post('/warga-sementara-form/list', [PageController::class, 'listWargaSementara'])->name('warga-sementara_form.show');
+    Route::get('/warga-sementara-form/form', [PageController::class, 'showWargaSementaraForm'])->name('warga-sementara_form.form');
     Route::post('/warga-sementara-form/create', [PageController::class, 'createWargaSementaraForm'])->name('warga-sementara_form.create');
     });
 });

@@ -17,6 +17,7 @@ class KeluargaModel extends Model
         'nomor_kk',
         'alamat',
         'id_rt',
+        'bukti_kk',
     ];
 
     public function rt(): BelongsTo{

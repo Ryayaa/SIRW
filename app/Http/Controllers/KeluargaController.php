@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\KeluargaModel;
 use App\Models\RtModel;
+use App\Models\WargaModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -141,8 +142,8 @@ class KeluargaController extends Controller
             'title' => 'Tambah Keluarga Baru',
         ];
 
-        $rt = RtModel::all();
         $activeMenu = 'keluarga';
+        $rt = RtModel::all();
 
         return view('Keluarga.create', [
             'breadcrumb' => $breadcrumb,
@@ -158,20 +159,28 @@ class KeluargaController extends Controller
             'nomor_kk' => 'required',
             'alamat' => 'required|string|max:255',
             'id_rt' => 'required',
+            'bukti_kk' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        KeluargaModel::create([
-            'nomor_kk' => $request->nomor_kk,
-            'alamat' => $request->alamat,
-            'id_rt' => $request->id_rt,
-        ]);
+        $data = $request->all();
+
+        if ($request->hasFile('bukti_kk')) {
+            $extension = $request->bukti_kk->extension();
+            $imageName = $request->nomor_kk.'.'.$extension;
+            // Create the directory if it doesn't exist
+            if (!file_exists(public_path('images/warga/kk'))) {
+                mkdir(public_path('images/warga/kk'), 0777, true);
+            }
+            $request->bukti_kk->move(public_path('images/warga/kk'), $imageName);
+            $data['bukti_kk'] = $imageName;
+        }
+        KeluargaModel::create($data);
 
         return redirect('/keluarga')->with('success', 'Data Keluarga baru telah ditambahkan');
     }
 
-    public function edit(string $id){
-        $keluarga = KeluargaModel::find($id);
-        $rt = RtModel::all();
+    public function edit($id){
+        $keluarga = KeluargaModel::findOrFail($id);
 
         $breadcrumb = (object) [
             'title' => 'Edit Keluarga',
@@ -189,25 +198,34 @@ class KeluargaController extends Controller
             'page' => $page,
             'keluarga' => $keluarga,
             'activeMenu' => $activeMenu,
-            'rt' => $rt
         ]);
     }
 
-    public function update(Request $request, string $id){
+    public function update(Request $request, $id){
         $request->validate([
-            'nomor_kk' => 'required',
-            'alamat' => 'required|string|max:255',
-            'id_rt' => 'required',
+            'nomor_kk' => 'required|string|max:255',
+            'alamat' => 'required|string',
+            'id_rt' => 'required|exists:rt,id_rt',
+            'bukti_kk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        KeluargaModel::find($id)->update([
-            'nomor_kk' => $request->nomor_kk,
-            'alamat' => $request->alamat,
-            'id_rt' => $request->id_rt,
-        ]);
+        $keluarga = KeluargaModel::findOrFail($id);
+        $data = $request->all();
 
-        return redirect('/keluarga')->with('success', 'Data keluarga berhasil diubah');
-    }
+        if ($request->hasFile('bukti_kk')) {
+            $imageName = $data['nomor_kk'] . '.' . $request->bukti_kk->extension();
+            // Create the directory if it doesn't exist
+            if (!file_exists(public_path('images/warga/kk'))) {
+                mkdir(public_path('images/warga/kk'), 0777, true);
+            }
+            $request->bukti_kk->move(public_path('images/warga/kk'), $imageName);
+            $data['bukti_kk'] = $imageName;
+        }
+
+        $keluarga->update($data);
+
+            return redirect('/keluarga')->with('success', 'Data keluarga berhasil diubah');
+        }
 
     public function destroy(string $id){
         $check = KeluargaModel::find($id);
@@ -225,5 +243,135 @@ class KeluargaController extends Controller
             return redirect('/keluarga')->with('error', 'Data Keluarga gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
 
+    }
+
+    public function createWarga(Request $request)
+    {
+        $breadcrumb = (object) [
+            'title' => 'Tambah Warga Baru',
+            'list' => ['Home', 'Warga', 'Tambah']
+        ];
+
+        $page = (object) [
+            'title' => 'Tambah Keluarga Baru',
+        ];
+
+        $activeMenu = 'keluarga';
+
+        $keluargaId = $request->query('keluarga_id');
+        $keluarga = KeluargaModel::find($keluargaId);
+        return view('keluarga.createWarga', compact('keluargaId', 'keluarga', 'breadcrumb', 'page', 'activeMenu'));
+    }
+
+    public function storeWarga(Request $request)
+    {
+        $request->validate([
+            'nik' => 'required|numeric',
+            'nama_lengkap' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|string',
+            'alamat_domisili' => 'required|string',
+            'pekerjaan' => 'required|string',
+            'status_perkawinan' => 'required|string',
+            'id_keluarga' => 'required|exists:keluarga,id_keluarga',
+            'no_telepon' => 'required|string',
+            'tempat_lahir' => 'required|string',
+            'status_hubungan' => 'required|string',
+            'bukti_ktp' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $data = $request->all();
+        $data['roles'] = 'warga';
+        $data['password'] = bcrypt($request->nik);
+        $data['username'] = $request->nik;
+
+        if ($request->hasFile('bukti_ktp')) {
+            $extension = $request->bukti_ktp->extension();
+            $imageName = $request->nik.'.'.$extension;
+            // Create the directory if it doesn't exist
+            if (!file_exists(public_path('images/warga/ktp'))) {
+                mkdir(public_path('images/warga/ktp'), 0777, true);
+            }
+            $request->bukti_ktp->move(public_path('images/warga/ktp'), $imageName);
+            $data['bukti_ktp'] = $imageName;
+        }
+
+        WargaModel::create($data);
+
+        return redirect('/warga')->with('success', 'Warga berhasil ditambahkan');
+    }
+
+    public function showWarga($id)
+    {
+        $warga = WargaModel::with('keluarga')->findOrFail($id);
+
+        $breadcrumb = (object) [
+            'title' => 'Detail Warga',
+            'list' => ['Home', 'Warga', 'Detail']
+        ];
+
+        $page = (object) [
+            'title' => 'Detail Warga',
+        ];
+
+        $activeMenu = 'keluarga';
+
+        return view('keluarga.showWarga', compact('warga', 'breadcrumb', 'page', 'activeMenu'));
+    }
+
+
+    public function editWarga($id)
+    {
+        $warga = WargaModel::findOrFail($id);
+        $keluarga = KeluargaModel::all();
+
+        $breadcrumb = (object) [
+            'title' => 'Edit Warga',
+            'list' => ['Home', 'Warga', 'Edit']
+        ];
+
+        $page = (object) [
+            'title' => 'Edit Data Warga',
+        ];
+
+        $activeMenu = 'keluarga';
+
+        return view('keluarga.editWarga', compact('warga', 'breadcrumb', 'page','activeMenu', 'keluarga'));
+    }
+
+    public function updateWarga(Request $request, $id)
+    {
+        $request->validate([
+            'nik' => 'required',
+            'nama_lengkap' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|string|max:10',
+            'alamat_domisili' => 'required|string|max:255',
+            'pekerjaan' => 'required|string|max:255',
+            'status_perkawinan' => 'required|string|max:20',
+            'username' => 'required|string|max:50',
+            'no_telepon' => 'required|string|max:15',
+            'tempat_lahir' => 'required|string|max:50',
+            'status_hubungan' => 'required|string|max:50',
+            'id_keluarga' => 'required',
+            'bukti_ktp' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $data = $request->except(['_token', '_method', 'password']);
+        $data['roles'] = 'warga'; // Ensure 'roles' is always set to 'warga'
+
+        if ($request->hasFile('bukti_ktp')) {
+            $extension = $request->bukti_ktp->extension();
+            $imageName = $request->nik.'.'.$extension;
+            if (!file_exists(public_path('images/warga/ktp'))) {
+                mkdir(public_path('images/warga/ktp'), 0777, true);
+            }
+            $request->bukti_ktp->move(public_path('images/warga/ktp'), $imageName);
+            $data['bukti_ktp'] = $imageName;
+        }
+
+        WargaModel::where('id_warga', $id)->update($data);
+
+        return redirect()->route('keluarga.showWarga', $id)->with('success', 'Data Warga telah diperbarui');
     }
 }

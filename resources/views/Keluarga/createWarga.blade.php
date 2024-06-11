@@ -6,22 +6,10 @@
             <h3 class="card-title">Tambah Warga</h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('warga.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('keluarga.storeWarga') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Keluarga</label>
-                    <div class="col-11">
-                        <select class="form-control" id="id_keluarga" name="id_keluarga" required>
-                            <option value="">- Pilih Keluarga -</option>
-                            @foreach($keluarga as $item)
-                                <option value="{{ $item->id_keluarga }}">{{ $item->nomor_kk }}</option>
-                            @endforeach
-                            </select>
-                        @error('id_keluarga')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                </div>
+                <input type="hidden" name="id_keluarga" value="{{ $keluargaId }}">
+
                 <div class="form-group">
                     <label for="nik">NIK</label>
                     <input type="text" name="nik" class="form-control" required>
@@ -38,10 +26,15 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="tempat_lahir">Tempat Lahir</label>
+                    <input type="text" name="tempat_lahir" class="form-control" required>
+                </div>
+
+                <div class="form-group">
                     <label for="jenis_kelamin">Jenis Kelamin</label>
                     <select name="jenis_kelamin" class="form-control" required>
-                        <option value="L">Laki-laki</option>
-                        <option value="P">Perempuan</option>
+                        <option value="Laki-Laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
                     </select>
                 </div>
 
@@ -69,11 +62,6 @@
                     <label for="no_telepon">No Telepon</label>
                     <input type="text" name="no_telepon" class="form-control" required>
                 </div>
-
-                <div class="form-group">
-                    <label for="tempat_lahir">Tempat Lahir</label>
-                    <input type="text" name="tempat_lahir" class="form-control" required>
-                </div>
                 <div class="form-group">
                     <label for="status_hubungan">Status Hubungan</label>
                     <select name="status_hubungan" class="form-control" required>
@@ -87,6 +75,17 @@
                         <option value="Mertua">Mertua</option>
                         <option value="Famili Lain">Famili Lain</option>
                         <option value="Lainnya">Lainnya</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="agama">Agama</label>
+                    <select name="agama" class="form-control" required>
+                        <option value="islam">Islam</option>
+                        <option value="protestan">Protestan</option>
+                        <option value="katolik">Katolik</option>
+                        <option value="budha">Budha</option>
+                        <option value="hindu">Hindu</option>
+                        <option value="khonghucu">Khonghucu</option>
                     </select>
                 </div>
 

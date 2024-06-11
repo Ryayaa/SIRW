@@ -25,7 +25,11 @@ class WargaModel extends Authenticable
         'roles',
         'password',
         'id_keluarga',
-        'username'
+        'username',
+        'no_telepon',
+        'tempat_lahir',
+        'status_hubungan',
+        'bukti_ktp',
     ];
 
     // Relationship dengan tabel kategori_warga
