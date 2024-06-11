@@ -38,7 +38,7 @@
                     <label for="id_rt">RT</label>
                     <select name="id_rt" id="id_rt" class="form-control" required>
                         @foreach($rts as $rt)
-                            <option value="{{ $rt->id_rt }}" {{ old('id_rt') == $rt->id_rt ? 'selected' : '' }}>{{ $rt->name }}</option>
+                            <option value="{{ $rt->id_rt }}" {{ old('id_rt') == $rt->id_rt ? 'selected' : '' }}>{{ $rt->no_rt }}</option>
                         @endforeach
                     </select>
                 </div>
