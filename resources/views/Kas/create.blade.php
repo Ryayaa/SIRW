@@ -31,11 +31,11 @@
                     <input type="date" name="tanggal" id="tanggal" class="form-control" value="{{ old('tanggal') }}" required>
                 </div>
                 <div class="form-group">
-                    <label for="id_rt">ID RT</label>
+                    <label for="id_rt">No RT</label>
                     <select name="id_rt" id="id_rt" class="form-control" required>
                         <option value="">Pilih RT</option>
                         @foreach ($rt as $rtItem)
-                            <option value="{{ $rtItem->id_rt }}">{{ $rtItem->nama_rt }}</option>
+                            <option value="{{ $rtItem->id_rt }}">{{ $rtItem->no_rt }}</option>
                         @endforeach
                     </select>
                 </div>

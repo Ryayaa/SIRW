@@ -35,12 +35,13 @@ class KasController extends Controller
 
     public function getSaldo()
     {
-        $jumlahMasuk = KasModel::sum('jumlah_masuk');
-        $jumlahKeluar = KasModel::sum('jumlah_keluar');
+        $jumlahMasuk = KasModel::whereNull('deleted_at')->sum('jumlah_masuk');
+        $jumlahKeluar = KasModel::whereNull('deleted_at')->sum('jumlah_keluar');
         $saldo = $jumlahMasuk - $jumlahKeluar;
-
+    
         return $saldo;
     }
+    
 
     public function list(Request $request)
     {
@@ -220,26 +221,26 @@ class KasController extends Controller
     }
 
     public function history()
-{
-    $breadcrumb = (object) [
-        'title' => 'History Kas',
-        'list' => ['Home', 'Kas', 'History']
-    ];
-    $page = (object) [
-        'title' => 'History Kas',
-    ];
-    $activeMenu = 'kas';
-
-    $kasMasuk = KasModel::where('jumlah_masuk', '>', 0)->orderBy('tanggal', 'desc')->get();
-    $kasKeluar = KasModel::where('jumlah_keluar', '>', 0)->orderBy('tanggal', 'desc')->get();
-
-    return view('Kas.history', [
-        'breadcrumb' => $breadcrumb,
-        'page' => $page,
-        'activeMenu' => $activeMenu,
-        'kasMasuk' => $kasMasuk,
-        'kasKeluar' => $kasKeluar
-    ]);
-}
+    {
+        $breadcrumb = (object) [
+            'title' => 'History Kas',
+            'list' => ['Home', 'Kas', 'History']
+        ];
+        $page = (object) [
+            'title' => 'History Kas',
+        ];
+        $activeMenu = 'kas';
+    
+        $kasMasuk = KasModel::withTrashed()->where('jumlah_masuk', '>', 0)->orderBy('tanggal', 'desc')->get();
+        $kasKeluar = KasModel::withTrashed()->where('jumlah_keluar', '>', 0)->orderBy('tanggal', 'desc')->get();
+    
+        return view('Kas.history', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu,
+            'kasMasuk' => $kasMasuk,
+            'kasKeluar' => $kasKeluar
+        ]);
+    }
     
 }
