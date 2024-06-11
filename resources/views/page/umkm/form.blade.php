@@ -31,6 +31,15 @@
             </div>
 
             <div class="mb-3">
+                <label for="deskripsi" class="form-label">Deskripsi</label>
+                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="4" placeholder="Masukkan Deskripsi UMKM" required>{{ old('deskripsi') }}</textarea>
+                @error('deskripsi')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+
+            <div class="mb-3">
                 <label for="no_telepon" class="form-label">No Telepon</label>
                 <input type="number" class="form-control" id="no_telepon" name="no_telepon" placeholder="Masukkan Nomor Telepon" value="{{ old('no_telepon') }}" required>
                 @error('no_telepon')

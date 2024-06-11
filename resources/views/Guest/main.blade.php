@@ -9,7 +9,7 @@
             <div class="items">
                 <h2 class="welcome">Website RW 03 Jatimulyo</h2>
                 <h2><span>Selamat Datang</span></h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis fugiat temporibus</p>
+                <p>Sistem Informasi Pendataan Warga dan Penyaluran Informasi di Lingkungan Rukun Warga</p>
                 <div class="d-flex">
                     {{-- <a href="#pengumuman" class="btn-get-started scrollto">Get Started</a> --}}
                     {{-- <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a> --}}

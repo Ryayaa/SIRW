@@ -1,6 +1,7 @@
 <title>Pengajuan Penerima Bantuan Sosial</title>
 @extends('user-login.index')
 @section('content')
+
 <section class="container mt-5">
     <h1>Pengajuan Bantuan Sosial</h1>
 
@@ -34,4 +35,5 @@
         <button type="submit" class="btn btn-primary float-right">Submit</button>
     </form>
 </section>
+{{-- <section></section> --}}
 @endsection
