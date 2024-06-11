@@ -19,6 +19,7 @@ class KegiatanModel extends Model
         'tanggal',
         'waktu',
         'id_rt',
+        'gambar',
     ];
 
     public function rt()

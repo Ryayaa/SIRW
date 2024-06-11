@@ -21,6 +21,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class PageController extends Controller
@@ -66,7 +67,7 @@ class PageController extends Controller
     public function showKegiatan(Request $request)
     {
         $currentDateTime = Carbon::now();
-        $perPage = 2; // Jumlah kegiatan per halaman
+        $perPage = 6; // Jumlah kegiatan per halaman
 
         // Get current page or default to 1
         $pageUpcoming = $request->input('page_upcoming', 1);
@@ -132,9 +133,9 @@ class PageController extends Controller
         $page = $request->input('page', 1); // Current page, default is 1
         $skip = ($page - 1) * $perPage;
 
-        $totalLaporan = LaporanMasalahModel::where('status_pengajuan','=','approved')->count(); // Total reports
+        $totalLaporan = LaporanMasalahModel::where('status_pengajuan', '=', 'approved')->count(); // Total reports
         // Reports for the current page, sorted by date descending
-        $laporans = LaporanMasalahModel::with('warga')->where('status_pengajuan','=','approved')->orderBy('tanggal_laporan', 'desc')->skip($skip)->take($perPage)->get();
+        $laporans = LaporanMasalahModel::with('warga')->where('status_pengajuan', '=', 'approved')->orderBy('tanggal_laporan', 'desc')->skip($skip)->take($perPage)->get();
 
         $totalPages = ceil($totalLaporan / $perPage); // Total pages
 
@@ -160,14 +161,22 @@ class PageController extends Controller
         $perPage = 6; // Number of UMKM per page
         $page = $request->input('page', 1); // Current page, default is 1
         $skip = ($page - 1) * $perPage;
+        $search = $request->input('search', ''); // Search query
 
-        $totalUmkm = UMKMModel::where('status_pengajuan','=','approved')->count(); // Total UMKM
-        $umkms = UMKMModel::where('status_pengajuan','=','approved')->orderBy('nama_umkm')->skip($skip)->take($perPage)->get(); // UMKM for current page
+        $query = UMKMModel::where('status_pengajuan', '=', 'approved');
+
+        if ($search) {
+            $query->where('nama_umkm', 'like', '%' . $search . '%');
+        }
+
+        $totalUmkm = $query->count(); // Total UMKM
+        $umkms = $query->orderBy('nama_umkm')->skip($skip)->take($perPage)->get(); // UMKM for current page
 
         $totalPages = ceil($totalUmkm / $perPage); // Total pages
 
-        return view('page.umkm.index', compact('umkms', 'totalUmkm', 'totalPages', 'page'));
+        return view('page.umkm.index', compact('umkms', 'totalUmkm', 'totalPages', 'page', 'search'));
     }
+
 
     /**
      * Display the specified UMKM.
@@ -185,11 +194,13 @@ class PageController extends Controller
         return view('page.bansos.index', compact('bansosList'));
     }
 
-    public function detailBansos($id){
+    public function detailBansos($id)
+    {
         $bansos = Bansos::with('kriteria')->findOrFail($id);
         return view('page.bansos.detail', compact('bansos'));
     }
-    public function showPengajuan(){
+    public function showPengajuan()
+    {
         $bansosList = Bansos::all();
         return view('page.pengajuan.index', compact('bansosList'));
     }
@@ -204,9 +215,9 @@ class PageController extends Controller
         $existingPengajuan = PenerimaBansosModel::where('id_bansos', $idBansos)
             ->where(function ($query) use ($idWarga, $idKeluarga) {
                 $query->where('id_warga', $idWarga)
-                      ->orWhereHas('warga', function ($query) use ($idKeluarga) {
-                          $query->where('id_keluarga', $idKeluarga);
-                      });
+                    ->orWhereHas('warga', function ($query) use ($idKeluarga) {
+                        $query->where('id_keluarga', $idKeluarga);
+                    });
             })
             ->first();
 
@@ -223,7 +234,8 @@ class PageController extends Controller
         return view('page.pengajuan.detail', compact('pengajuan'));
     }
 
-    public function formPengajuan($idBansos){     
+    public function formPengajuan($idBansos)
+    {
         $kriteria = KriteriaBansosModel::where('id_bansos', $idBansos)->with(['subkriteria'])->get();
 
         return view('page.pengajuan.form', compact('kriteria', 'idBansos'));
@@ -246,8 +258,8 @@ class PageController extends Controller
 
         // Cek apakah warga sudah mengajukan sebelumnya
         $existingPenerima = PenerimaBansosModel::where('id_warga', $request->id_warga)
-                                                ->where('id_bansos', $request->id_bansos)
-                                                ->exists();
+            ->where('id_bansos', $request->id_bansos)
+            ->exists();
 
         if ($existingPenerima) {
             return redirect()->back()->with('error', 'Warga ini sudah mengajukan atau telah menerima bantuan sosial.');
@@ -298,9 +310,13 @@ class PageController extends Controller
         $laporan->tanggal_laporan = Carbon::today()->toDateString();
 
         if ($request->hasFile('gambar')) {
-            $imageName = time().'.'.$request->gambar->extension();
-            $request->gambar->move(public_path('images/umkm'), $imageName);
-            $laporan['gambar'] = $imageName;
+            $imageName = 'laporan_masalah_' . time() . '.' . $request->gambar->extension();
+            // Create the directory if it doesn't exist
+            if (!file_exists(public_path('images/laporan_masalah'))) {
+                mkdir(public_path('images/laporan_masalah'), 0777, true);
+            }
+            $request->gambar->move(public_path('images/laporan_masalah'), $imageName);
+            $laporan['gambar'] = 'laporan_masalah/' . $imageName;
         }
 
         $laporan->id_warga = Auth::user()->id_warga;
@@ -330,13 +346,13 @@ class PageController extends Controller
 
         if ($request->hasFile('gambar')) {
 
-            $imageName = time().'.'.$request->gambar->extension();
+            $imageName = time() . '.' . $request->gambar->extension();
             // Create the directory if it doesn't exist
             if (!file_exists(public_path('images/umkm'))) {
                 mkdir(public_path('images/umkm'), 0777, true);
             }
             $request->gambar->move(public_path('images/umkm'), $imageName);
-            $umkm['gambar'] = 'umkm/'.$imageName;
+            $umkm['gambar'] = 'umkm/' . $imageName;
         }
 
 
@@ -344,7 +360,7 @@ class PageController extends Controller
         $umkm->id_warga = Auth::user()->id_warga;
         $umkm->save();
 
-        return redirect()->route('umkm.user-login')->with('success', 'UMKM berhasil ditambahkan.');
+        return redirect()->route('umkm.user-login')->with('success', 'UMKM berhasil diajukan.');
     }
 
     public function showTamuForm()
@@ -360,7 +376,7 @@ class PageController extends Controller
             'jenis_kelamin' => 'required|in:L,P',
             'alamat_ktp' => 'required|string',
             'alamat_menetap' => 'required|string',
-            'no_telepon' => 'required|string|max:15',
+            'no_telepon' => 'required|string|max:13|min:10',
             'tanggal_masuk' => 'required|date',
             'tanggal_keluar' => 'required|date',
             'bukti_ktp' => 'required|image',
@@ -378,14 +394,19 @@ class PageController extends Controller
         $tamu->tanggal_keluar = $request->tanggal_keluar;
 
         if ($request->hasFile('bukti_ktp')) {
-            $imageName = time().'.'.$request->gambar->extension();
-            $request->gambar->move(public_path('images'), $imageName);
-            $tamu['gambar'] = $imageName;
+
+            $imageName = 'tamu_' . time() . '.' . $request->bukti_ktp->extension();
+            // Create the directory if it doesn't exist
+            if (!file_exists(public_path('images/tamu'))) {
+                mkdir(public_path('images/tamu'), 0777, true);
+            }
+            $request->bukti_ktp->move(public_path('images/tamu'), $imageName);
+            $tamu['bukti_ktp'] = 'tamu/' . $imageName;
         }
 
         $tamu->save();
 
-        return redirect()->route('tamu_form.show')->with('success', 'Tamu berhasil ditambahkan.');
+        return redirect()->route('tamu_form.show')->with('success', 'Tamu berhasil diajukan.');
     }
 
     public function showWargaSementaraForm()
@@ -397,7 +418,7 @@ class PageController extends Controller
     {
         $request->validate([
             'bukti_ktp' => 'required|image',
-            'nik' => 'required|string|max:20',
+            'nik' => 'required|string|max:16|min:16',
             'tanggal_lahir' => 'required|date',
             'nama_lengkap' => 'required|string|max:100',
             'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
@@ -406,7 +427,6 @@ class PageController extends Controller
             'pekerjaan' => 'required|string|max:50',
             'status_perkawinan' => 'required|in:Kawin,Belum Kawin,Cerai Mati,Cerai Hidup',
             'tanggal_masuk' => 'required|date',
-            'password' => 'required|string',
         ]);
 
         $warga_sementara = new WargaSementaraModel();
@@ -419,18 +439,22 @@ class PageController extends Controller
         $warga_sementara->pekerjaan = $request->pekerjaan;
         $warga_sementara->status_perkawinan = $request->status_perkawinan;
         $warga_sementara->tanggal_masuk = $request->tanggal_masuk;
-        $warga_sementara->password = $request->password;
+        $warga_sementara->password = Hash::make($request->nik);
         $warga_sementara->username = $request->nik;
         $warga_sementara->id_warga = Auth::user()->id_warga;;
 
         if ($request->hasFile('bukti_ktp')) {
-            $imageName = time().'.'.$request->gambar->extension();
-            $request->gambar->move(public_path('images'), $imageName);
-            $warga_sementara['gambar'] = $imageName;
+            $imageName = 'warga-sementara_' . time() . '.' . $request->bukti_ktp->extension();
+            // Create the directory if it doesn't exist
+            if (!file_exists(public_path('images/warga_sementara'))) {
+                mkdir(public_path('images/warga_sementara'), 0777, true);
+            }
+            $request->bukti_ktp->move(public_path('images/warga_sementara'), $imageName);
+            $warga_sementara['bukti_ktp'] = 'warga_sementara/' . $imageName;
         }
         $warga_sementara->save();
 
-        return redirect()->route('warga-sementara_form.show')->with('success', 'Warga Sementara berhasil ditambahkan.');
+        return redirect()->route('warga-sementara_form.show')->with('success', 'Warga Sementara berhasil diajukan.');
     }
 
     public function showSuratForm()
@@ -456,10 +480,11 @@ class PageController extends Controller
             ->with('success', 'Surat pengantar berhasil dibuat.');
     }
 
-    public function printSurat($id){
+    public function printSurat($id)
+    {
         $surat_pengantar = SuratModel::with(['warga', 'jenisSurat'])->findOrFail($id);
         $pdf = Pdf::loadView('page.surat.templateSurat', compact('surat_pengantar'));
 
-        return $pdf->stream('surat_pengantar.pdf');
+        return $pdf->stream('Surat_Pengantar.pdf');
     }
 }

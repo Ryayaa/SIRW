@@ -1,3 +1,4 @@
+<title>Pengajuan Penerima Bantuan Sosial</title>
 @extends('user-login.index')
 @section('content')
 <section class="container mt-5">

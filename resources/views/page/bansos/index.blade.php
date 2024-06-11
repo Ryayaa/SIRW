@@ -1,3 +1,4 @@
+<title>Informasi Bansos Bansos</title>
 @extends('user-login.index')
 
 @section('content')
@@ -33,8 +34,8 @@
 
 <div id="daftar-bansos" class="daftar-bansos">
     <div class="container">
-        <div class="card" id="bansos-card">
-            <h3 class="mb-4 section-title">Pertanyaan Yang Sering Ditanyakan</h3>
+        <h3 class="mb-4 section-title">Pertanyaan Yang Sering Ditanyakan</h3>
+            <div class="card" id="bansos-card">
             <div class="card-header" id="headingOne">
                 <h5 class="mb-0">
                     <button class="btn btn-link" type="button">
