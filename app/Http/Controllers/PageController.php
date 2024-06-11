@@ -165,7 +165,7 @@ class PageController extends Controller
         $skip = ($page - 1) * $perPage;
         $search = $request->input('search', ''); // Search query
 
-        $query = UMKMModel::where('status_pengajuan', '=', 'approved');
+        $query = UMKMModel::where('status_pengajuan', 1);
 
         if ($search) {
             $query->where('nama_umkm', 'like', '%' . $search . '%');
