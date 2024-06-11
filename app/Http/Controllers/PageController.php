@@ -30,7 +30,7 @@ class PageController extends Controller
     public function showPengurusRW()
     {
         // Retrieve RW data
-        $rw = RwModel::with('warga')->first();
+        $rw = RwModel::with('warga')->where('status', 'Aktif')->first();
 
         // Retrieve RT data associated with the RW
         $rts = KetuaRtModel::with('warga')->where('status', 'aktif')->get();
@@ -147,7 +147,7 @@ class PageController extends Controller
 
     public function showDetailLaporan($id)
     {
-        $laporan = LaporanMasalahModel::with('warga')
+        $laporan = LaporanMasalahModel::with(['warga', 'feedback'])
             ->where('id_laporan_masalah', $id)
             ->first();
 
@@ -302,8 +302,8 @@ class PageController extends Controller
         $request->validate([
             'judul_laporan' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image',
-            'status_hide' => 'required|in:y,t',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'status_hide' => 'in:y,t',
         ]);
 
         $laporan = new LaporanMasalahModel();
@@ -337,18 +337,20 @@ class PageController extends Controller
         $request->validate([
             'nama_umkm' => 'required|string|max:255',
             'alamat' => 'required|string',
+            'deskripsi' => 'required|string',
             'no_telepon' => 'required|string|min:10|max:13',
-            'gambar' => 'nullable|image',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $umkm = new UMKMModel();
         $umkm->nama_umkm = $request->nama_umkm;
         $umkm->alamat = $request->alamat;
         $umkm->no_telepon = $request->no_telepon;
+        $umkm->deskripsi = $request->deskripsi;
 
         if ($request->hasFile('gambar')) {
 
-            $imageName = time() . '.' . $request->gambar->extension();
+            $imageName = 'umkm_'.time() . '.' . $request->gambar->extension();
             // Create the directory if it doesn't exist
             if (!file_exists(public_path('images/umkm'))) {
                 mkdir(public_path('images/umkm'), 0777, true);
@@ -381,7 +383,7 @@ class PageController extends Controller
             'no_telepon' => 'required|string|max:13|min:10',
             'tanggal_masuk' => 'required|date',
             'tanggal_keluar' => 'required|date',
-            'bukti_ktp' => 'required|image',
+            'bukti_ktp' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $tamu = new Tamu();
@@ -460,7 +462,7 @@ class PageController extends Controller
         return redirect()->route('warga-sementara_form.show')->with('success', 'Pengajuan data warga sementara berhasil disimpan.');
     }
 
-    
+
 
     public function showSuratForm()
     {

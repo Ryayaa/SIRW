@@ -23,10 +23,10 @@
         </div>
     @endif
 
-        <div class="row my-2" id="umkmList">
+        <div class="row my-2 justify-content-center" id="umkmList">
             @foreach($umkms as $umkm)
-            <div class="col-md-6 col-lg-4 col-sm-12 mb-4">
-                <div class="card h-100 shadow-sm umkm-card" onclick="location.href='{{ route('umkm.detail', $umkm->id_umkm) }}'" style="cursor: pointer;">
+            <div class="col-md-6 col-lg-4 col-sm-12 mb-4 ">
+                <div class="card h-100 shadow-sm umkm-card " onclick="location.href='{{ route('umkm.detail', $umkm->id_umkm) }}'" style="cursor: pointer;">
                     @if($umkm->gambar)
                     <img src="{{ asset('images/'.$umkm->gambar) }}" class="card-img-top custom-img" alt="{{ $umkm->nama_umkm }}">
                     @else
@@ -125,6 +125,15 @@
         height: auto;
         aspect-ratio: 16 / 9;
         object-fit: cover;
+    }
+
+    @media(max-width:576px){
+
+        .umkm-card{
+            margin-left: 20px;
+            margin-right: 20px;
+
+        }
     }
 </style>
 @endpush

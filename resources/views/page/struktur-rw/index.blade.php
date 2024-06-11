@@ -18,13 +18,13 @@
                     </div>
                     <div class="card-body d-flex flex-column">
                         <div class="">
-                            <p><strong>Nama:</strong> {{ $rw->nama_lengkap }}</p>
-                            <p><strong>Alamat:</strong> {{ $rw->alamat }}</p>
+                            <p><strong>Nama:</strong> {{ $rw->warga->nama_lengkap }}</p>
+                            <p><strong>Alamat:</strong> {{ $rw->warga->alamat_domisili }}</p>
                         </div>
                         <div class="">
-                            <p><strong>Telepon:</strong> {{ $rw->no_telepon }}</p>
+                            <p><strong>Telepon:</strong> {{ $rw->warga->no_telepon }}</p>
                             @php
-                                $rw_phone_number = $rw->no_telepon;
+                                $rw_phone_number = $rw->warga->no_telepon;
                                 if (substr($rw_phone_number, 0, 1) == '0') {
                                     $rw_phone_number = '62' . substr($rw_phone_number, 1);
                                 }
@@ -54,14 +54,14 @@
                     </div>
                     <div class="card-body d-flex flex-column">
                         <div class="">
-                            <p><strong>Nama:</strong> {{ $rt->nama_lengkap }}</p>
-                            <p><strong>Alamat:</strong> {{ $rt->alamat }}</p>
+                            <p><strong>Nama:</strong> {{ $rt->warga->nama_lengkap }}</p>
+                            <p><strong>Alamat:</strong> {{ $rt->warga->alamat_domisili }}</p>
                         </div>
                         <div class="mt-auto">
-                            <p><strong>Telepon:</strong> {{ $rt->no_telepon }}</p>
+                            <p><strong>Telepon:</strong> {{ $rt->warga->no_telepon }}</p>
 
                             @php
-                                $rt_phone_number = $rt->no_telepon;
+                                $rt_phone_number = $rt->warga->no_telepon;
                                 if (substr($rt_phone_number, 0, 1) == '0') {
                                     $rt_phone_number = '62' . substr($rt_phone_number, 1);
                                 }

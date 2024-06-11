@@ -18,6 +18,7 @@ use App\Http\Controllers\UMKMController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\KasController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\SuratController;
 
 Route::get('/',[Dashboard::class,'DashboardGuest'])->name('LandingPage');
 Route::get('/login', [AuthController::class, 'index'])->name('login');
@@ -57,6 +58,13 @@ Route::group(['prefix' => 'laporan'], function () {
     Route::delete('/{id}', [LaporanController::class, 'destroy'])->name('laporan.destroy'); // Menghapus Feedback
 });
 
+Route::group(['prefix' => 'surat'], function () {
+    Route::get('/', [SuratController::class, 'index'])->name('surat.index'); // Menampilkan daftar surat
+    Route::post('/list', [SuratController::class, 'list'])->name('surat.list'); // Menampilkan data surat dalam format JSON untuk DataTables
+    Route::get('/create', [SuratController::class, 'create'])->name('surat.create'); // Menampilkan formulir untuk menambah surat
+    Route::post('/', [SuratController::class, 'store'])->name('surat.store'); // Menyimpan data surat
+    Route::delete('/{id}', [SuratController::class, 'destroy'])->name('surat.destroy'); // Menghapus data surat
+});
 
 // Route::group(['prefix' => 'rw'], function () {
 //     Route::get('/', [RwController::class, 'index'])->name('rw.index'); // Menampilkan data warga
