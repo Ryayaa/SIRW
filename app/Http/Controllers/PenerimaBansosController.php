@@ -98,7 +98,7 @@ class PenerimaBansosController extends Controller
                     $cost += $value;
                 }
             }
-            $moora[$id_penerima] = $benefit - $cost;
+            $moora[$id_penerima] = round($benefit - $cost, 3);
         }
 
         // Step 4: Ranking
