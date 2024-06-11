@@ -124,31 +124,39 @@ class UMKMController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama_umkm' => 'required|string|max:100',
-            'alamat' => 'required|string|max:200',
-            'no_telepon' => 'required|string|max:15',
-            'deskripsi' => 'required',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'id_warga' => 'required|exists:warga,id_warga',
-            'status_pengajuan' => 'required|boolean'
-        ]);
-
         $umkm = UMKMModel::findOrFail($id);
-        $data = $request->all();
-
+        $request->validate([
+            'nama_umkm' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'no_telepon' => 'required|string|max:15',
+            'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'id_warga' => 'required|string|max:255',
+            'status_pengajuan' => 'required|integer',
+        ]);
+    
+        $umkm->nama_umkm = $request->nama_umkm;
+        $umkm->alamat = $request->alamat;
+        $umkm->deskripsi = $request->deskripsi;
+        $umkm->no_telepon = $request->no_telepon;
+        $umkm->id_warga = $request->id_warga;
+        $umkm->status_pengajuan = $request->status_pengajuan;
+    
         if ($request->hasFile('gambar')) {
-            if ($umkm->gambar) {
-                Storage::delete('public/images/' . $umkm->gambar);
+            // Delete old image if exists
+            if ($umkm->gambar && file_exists(public_path('images/' . $umkm->gambar))) {
+                unlink(public_path('images/' . $umkm->gambar));
             }
-            $imageName = time().'.'.$request->gambar->extension();
-            $request->gambar->move(public_path('images'), $imageName);
-            $data['gambar'] = $imageName;
+    
+            $file = $request->file('gambar');
+            $filename = 'umkm/' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images/umkm'), $filename);
+            $umkm->gambar = $filename;
         }
-
-        $umkm->update($data);
-
-        return redirect('/umkm')->with('success', 'UMKM berhasil diupdate');
+    
+        $umkm->save();
+    
+        return redirect()->route('umkm.index')->with('success', 'UMKM updated successfully.');
     }
 
     public function destroy($id)
