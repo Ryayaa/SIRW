@@ -71,6 +71,28 @@ class KegiatanController extends Controller
         ]);
     }
 
+    public function create()
+{
+    $breadcrumb = (object) [
+        'title' => 'Tambah Kegiatan',
+        'list' => ['Home', 'Kegiatan', 'Tambah']
+    ];
+
+    $page = (object) [
+        'title' => 'Tambah Kegiatan'
+    ];
+
+    $activeMenu = 'kegiatan';
+    $rt = RtModel::all();
+
+    return view('Kegiatan.create', [
+        'breadcrumb' => $breadcrumb,
+        'page' => $page,
+        'activeMenu' => $activeMenu,
+        'rt' => $rt
+    ]);
+}
+
     public function store(Request $request)
     {
         $request->validate([

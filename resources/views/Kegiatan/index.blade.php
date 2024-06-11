@@ -18,12 +18,11 @@
             <table class="table table-bordered table-striped table-hover table-sm" id="table_kegiatan">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Nama Kegiatan</th>
-                        <th>Deskripsi</th>
                         <th>Lokasi</th>
                         <th>Tanggal</th>
                         <th>Waktu</th>
+                        <th>Gambar</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -43,12 +42,11 @@
                 type: 'POST',
             },
             columns: [
-                { data: 'id_kegiatan_warga', name: 'id_kegiatan_warga' },
                 { data: 'nama_kegiatan', name: 'nama_kegiatan' },
-                { data: 'deskripsi', name: 'deskripsi' },
                 { data: 'lokasi', name: 'lokasi' },
                 { data: 'tanggal', name: 'tanggal' },
                 { data: 'waktu', name: 'waktu' },
+                { data: 'gambar', name: 'gambar' },
                 { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
             ]
         });

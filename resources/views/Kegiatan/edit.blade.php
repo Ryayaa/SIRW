@@ -3,53 +3,96 @@
 @section('content')
     <div class="card card-outline card-primary">
         <div class="card-header">
-            <h3 class="card-title">Edit Data Kegiatan</h3>
+            <h3 class="card-title">{{ $page->title }}</h3>
+            <div class="card-tools"></div>
         </div>
         <div class="card-body">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            @if (session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
             @endif
-
-            <form method="POST" action="{{ route('kegiatan.update', $kegiatan->id_kegiatan_warga) }}" enctype="multipart/form-data">
+            @if (session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
+            <form method="POST" action="{{ route('kegiatan.store') }}" class="form-horizontal" enctype="multipart/form-data">
                 @csrf
-                @method('PUT')
-                <div class="form-group">
-                    <label for="nama_kegiatan">Nama Kegiatan</label>
-                    <input type="text" name="nama_kegiatan" id="nama_kegiatan" class="form-control" value="{{ old('nama_kegiatan', $kegiatan->nama_kegiatan) }}" required>
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Nama Kegiatan</label>
+                    <div class="col-11">
+                        <input type="text" class="form-control" id="nama_kegiatan" name="nama_kegiatan"
+                            value="{{ old('nama_kegiatan') }}" required>
+                        @error('nama_kegiatan')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="deskripsi">Deskripsi</label>
-                    <textarea name="deskripsi" id="deskripsi" class="form-control" required>{{ old('deskripsi', $kegiatan->deskripsi) }}</textarea>
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Deskripsi</label>
+                    <div class="col-11">
+                        <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required>{{ old('deskripsi') }}</textarea>
+                        @error('deskripsi')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="lokasi">Lokasi</label>
-                    <input type="text" name="lokasi" id="lokasi" class="form-control" value="{{ old('lokasi', $kegiatan->lokasi) }}" required>
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Lokasi</label>
+                    <div class="col-11">
+                        <input type="text" class="form-control" id="lokasi" name="lokasi"
+                            value="{{ old('lokasi') }}" required>
+                        @error('lokasi')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="tanggal">Tanggal</label>
-                    <input type="date" name="tanggal" id="tanggal" class="form-control" value="{{ old('tanggal', $kegiatan->tanggal) }}" required>
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Tanggal</label>
+                    <div class="col-11">
+                        <input type="date" class="form-control" id="tanggal" name="tanggal"
+                            value="{{ old('tanggal') }}" required>
+                        @error('tanggal')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="waktu">Waktu</label>
-                    <input type="time" name="waktu" id="waktu" class="form-control" value="{{ old('waktu', $kegiatan->waktu) }}" required>
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Waktu</label>
+                    <div class="col-11">
+                        <input type="time" class="form-control" id="waktu" name="waktu"
+                            value="{{ old('waktu') }}" required>
+                        @error('waktu')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="id_rt">ID RT</label>
-                    <select name="id_rt" id="id_rt" class="form-control" required>
-                        <option value="">Pilih RT</option>
-                        @foreach ($rt as $rtItem)
-                            <option value="{{ $rtItem->id_rt }}" {{ $rtItem->id_rt == $kegiatan->id_rt ? 'selected' : '' }}>{{ $rtItem->nama_rt }}</option>
-                        @endforeach
-                    </select>
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">RT</label>
+                    <div class="col-11">
+                        <select name="id_rt" id="id_rt" class="form-control" required>
+                            @foreach($rt as $rt)
+                                <option value="{{ $rt->id_rt }}">{{ $rt->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('id_rt')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Simpan</button>
-                <a href="{{ route('kegiatan.index') }}" class="btn btn-default">Kembali</a>
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Gambar</label>
+                    <div class="col-11">
+                        <input type="file" class="form-control-file" id="gambar" name="gambar">
+                        @error('gambar')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label"></label>
+                    <div class="col-11">
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                        <a class="btn btn-sm btn-default ml-1" href="{{ route('kegiatan.index') }}">Kembali</a>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

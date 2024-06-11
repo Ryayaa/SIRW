@@ -42,6 +42,15 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Deskripsi</label>
+                    <div class="col-11">
+                        <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required>{{ old('deskripsi', $umkm->deskripsi) }}</textarea>
+                        @error('deskripsi')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-1 control-label col-form-label">No Telepon</label>
                     <div class="col-11">
                         <input type="text" class="form-control" id="no_telepon" name="no_telepon"

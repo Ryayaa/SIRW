@@ -29,21 +29,26 @@ class UMKMController extends Controller
 
     public function list(Request $request)
     {
-        $umkm = UMKMModel::select('id_umkm', 'nama_umkm', 'alamat', 'no_telepon', 'gambar', 'id_warga', 'status_pengajuan');
-
-        return DataTables::of($umkm)
-            ->addIndexColumn()
+        $status_pengajuan = $request->input('status_pengajuan');
+    
+        $query = UMKMModel::query();
+    
+        if ($status_pengajuan === '1') {
+            $query->where('status_pengajuan', 1);
+        } elseif ($status_pengajuan === '0') {
+            $query->where('status_pengajuan', 0);
+        } elseif ($status_pengajuan === 'null') {
+            $query->whereNull('status_pengajuan');
+        }
+    
+        return DataTables::of($query)
             ->addColumn('aksi', function ($umkm) {
-                $btn = '<a href="' . url('/umkm/' . $umkm->id_umkm) . '" class="btn btn-info btn-sm">Detail</a> ';
-                $btn .= '<a href="' . url('/umkm/' . $umkm->id_umkm . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/umkm/' . $umkm->id_umkm) . '">'
-                    . csrf_field() . method_field('DELETE') .
-                    '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
-                return $btn;
+                return '<a href="'.route('umkm.edit', ['id' => $umkm->id_umkm]).'" class="btn btn-sm btn-warning">Edit</a>';
             })
-            ->rawColumns(['aksi'])
             ->make(true);
     }
+    
+    
 
     public function store(Request $request)
     {
@@ -51,6 +56,7 @@ class UMKMController extends Controller
             'nama_umkm' => 'required|string|max:100',
             'alamat' => 'required|string|max:200',
             'no_telepon' => 'required|string|max:15',
+            'deskripsi' => 'required',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'id_warga' => 'required|exists:warga,id_warga',
             'status_pengajuan' => 'required|boolean'
@@ -122,6 +128,7 @@ class UMKMController extends Controller
             'nama_umkm' => 'required|string|max:100',
             'alamat' => 'required|string|max:200',
             'no_telepon' => 'required|string|max:15',
+            'deskripsi' => 'required',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'id_warga' => 'required|exists:warga,id_warga',
             'status_pengajuan' => 'required|boolean'
@@ -158,4 +165,6 @@ class UMKMController extends Controller
             return redirect()->route('umkm.index')->with('error', 'Gagal menghapus UMKM.');
         }
     }
+
+    
 }
