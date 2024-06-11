@@ -171,19 +171,6 @@ Route::group(['prefix' => 'tamu'], function () {
     Route::delete('/{id}', [TamuController::class, 'destroy'])->name('tamu.destroy');
 });
 
-Route::group(['prefix' => 'warga_sementara'], function () {
-    Route::get('/', [WargaSementaraController::class, 'index'])->name('warga_sementara.index');
-    Route::post('/list', [WargaSementaraController::class, 'list'])->name('warga_sementara.list');
-    Route::get('/create', [WargaSementaraController::class, 'create'])->name('warga_sementara.create');
-    Route::post('/', [WargaSementaraController::class, 'store'])->name('warga_sementara.store');
-    Route::get('/{id}', [WargaSementaraController::class, 'show'])->name('warga_sementara.show');
-    Route::get('/{id}/edit', [WargaSementaraController::class, 'edit'])->name('warga_sementara.edit');
-    Route::put('/{id}', [WargaSementaraController::class, 'update'])->name('warga_sementara.update');
-    Route::delete('/{id}', [WargaSementaraController::class, 'destroy'])->name('warga_sementara.destroy');
-    Route::post('/{id}/accept', [WargaSementaraController::class, 'accept'])->name('sementara.accept');
-    Route::post('/{id}/reject', [WargaSementaraController::class, 'reject'])->name('sementara.reject');
-});
-
 Route::group(['middleware' => ['auth']],function(){
     // Route Untuk RW
     Route::group(['middleware' => ['roles:rw']], function () {
