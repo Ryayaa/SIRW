@@ -19,7 +19,6 @@ return new class extends Migration
             $table->dropColumn('id_warga');
             $table->dropColumn('tanggal_masuk');
             $table->dropColumn('status_pengajuan');
-            $table->dropColumn('username');
             $table->dropColumn('password');
             $table->enum('status_hubungan', ['Kepala Keluarga', 'Suami', 'Istri', 'Anak', 'Menantu', 'Cucu', 'Orang Tua', 'Mertua', 'Famili Lain', 'Lainnya'])->nullable();
             $table->enum('agama', ['islam', 'protestan', 'katolik', 'budha', 'hindu', 'khonghucu'])->nullable();
@@ -40,7 +39,6 @@ return new class extends Migration
             $table->foreign('id_warga')->references('id_warga')->on('warga');
             $table->date('tanggal_masuk');
             $table->enum('status_pengajuan', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->string('username');
             $table->string('password');
             $table->dropColumn('status_hubungan');
             $table->dropColumn('agama');
