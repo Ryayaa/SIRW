@@ -77,7 +77,7 @@ class TamuController extends Controller
 
         if ($request->hasFile('bukti_ktp')) {
             $imageName = time() . '.' . $request->bukti_ktp->extension();
-            $request->bukti_ktp->move(public_path('images'), $imageName);
+            $request->bukti_ktp->move(public_path('images/tamu'), $imageName);
             $data['bukti_ktp'] = $imageName;
         }
 
@@ -101,7 +101,12 @@ class TamuController extends Controller
 
         $activeMenu = 'tamu';
 
-        return view('Tamu.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'tamu' => $tamu, 'activeMenu' => $activeMenu]);
+        return view('Tamu.show', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'tamu' => $tamu,
+            'activeMenu' => $activeMenu
+        ]);
     }
 
     public function edit(string $id)
@@ -143,17 +148,23 @@ class TamuController extends Controller
         ]);
 
         $tamu = Tamu::findOrFail($id);
-        if ($request->hasFile('bukti_ktp')) {
-            if ($tamu->bukti_ktp && file_exists(public_path('images/' . $tamu->bukti_ktp))) {
-                unlink(public_path('images/' . $tamu->bukti_ktp));
-            }
+        $data = $request->all();
 
+        if ($request->hasFile('bukti_ktp')) {
             $imageName = time() . '.' . $request->bukti_ktp->extension();
-            $request->bukti_ktp->move(public_path('images'), $imageName);
-            $tamu->bukti_ktp = $imageName;
+            if (!file_exists(public_path('images/tamu/'))) {
+                mkdir(public_path('images/tamu/ktp'), 0777, true);
+            }
+            $request->bukti_ktp->move(public_path('images/tamu/'), $imageName);
+            $data['bukti_ktp'] = $imageName;
+
+            // Delete old image if exists
+            if ($tamu->bukti_ktp && file_exists(public_path('images/tamu/' . $tamu->bukti_ktp))) {
+                unlink(public_path('images/tamu/' . $tamu->bukti_ktp));
+            }
         }
 
-        $tamu->update($validatedData);
+        $tamu->update($data);
 
         return redirect('/tamu')->with('success', 'Data tamu berhasil diperbarui');
     }
@@ -162,8 +173,8 @@ class TamuController extends Controller
     {
         $tamu = Tamu::findOrFail($id);
 
-        if ($tamu->bukti_ktp && file_exists(public_path('images/' . $tamu->bukti_ktp))) {
-            unlink(public_path('images/' . $tamu->bukti_ktp));
+        if ($tamu->bukti_ktp && file_exists(public_path('images/tamu/' . $tamu->bukti_ktp))) {
+            unlink(public_path('images/tamu/' . $tamu->bukti_ktp));
         }
 
         if ($tamu->delete()) {
