@@ -24,11 +24,11 @@ class Dashboard extends Controller
 
     $activeMenu='dashboard';
 
-    $jumlah_warga = WargaModel::where('roles', 'warga')->count();
+    $jumlah_warga = WargaModel::where('roles', '!=', 'warga sementara')->count();
     $jumlah_rt = RtModel::count();
     $jumlah_sementara = WargaModel::where('roles', 'warga sementara')->count();
-    $jumlah_laki = WargaModel::where('jenis_kelamin', 'Laki-laki')->where('roles', 'warga')->count();
-    $jumlah_perempuan = WargaModel::where('jenis_kelamin', 'Perempuan')->where('roles', 'warga')->count();
+    $jumlah_laki = WargaModel::where('jenis_kelamin', 'Laki-laki')->where('roles', '!=', 'warga sementara')->count();
+    $jumlah_perempuan = WargaModel::where('jenis_kelamin', 'Perempuan')->where('roles', '!=', 'warga sementara')->count();
     $jumlah_sementara_laki = WargaModel::where('jenis_kelamin', 'Laki-laki')->where('roles', 'warga sementara')->count();
     $jumlah_sementara_perempuan = WargaModel::where('jenis_kelamin', 'Perempuan')->where('roles', 'warga sementara')->count();
     $jumlah_bansos = Bansos::count();
