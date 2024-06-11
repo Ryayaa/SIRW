@@ -74,7 +74,7 @@
 
         jenisSuratDropdown.addEventListener('change', function() {
             const selectedOption = jenisSuratDropdown.options[jenisSuratDropdown.selectedIndex].text;
-            if (selectedOption === 'Lain-lain') {
+            if (selectedOption === 'Lain - Lain') {
                 keteranganInput.disabled = false;
             } else {
                 keteranganInput.disabled = true;

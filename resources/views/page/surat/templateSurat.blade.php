@@ -136,7 +136,7 @@
                 <p>Jenis Kelamin: {{ $surat_pengantar->warga->jenis_kelamin }}</p>
                 <p>Status Perkawinan: {{ $surat_pengantar->warga->status_perkawinan }}</p>
                 <p>Agama: {{ $surat_pengantar->warga->agama }}</p>
-                @if ($surat_pengantar->jenisSurat->nama_jenis == 'Lain-lain')
+                @if ($surat_pengantar->jenisSurat->nama_jenis == 'Lain - Lain')
                 <p>Keterangan: {{ $surat_pengantar->keterangan }}</p>
                 @else
                 <p>Keterangan: {{ $surat_pengantar->jenisSurat->nama_jenis }}</p>

@@ -28,7 +28,7 @@
                             @endif
                             @if ($laporan->status_pengajuan == 'approved')
                                 <span class="badge bg-success text-white">Selesai</span>
-                            @elseif($laporan->status_pengajuan == 'pending')
+                            @elseif($laporan->status_pengajuan == 'wait')
                                 <span class="badge bg-warning text-white">Menunggu</span>
                             @else
                             @endif

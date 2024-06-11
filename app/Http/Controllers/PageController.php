@@ -133,9 +133,10 @@ class PageController extends Controller
         $page = $request->input('page', 1); // Current page, default is 1
         $skip = ($page - 1) * $perPage;
 
-        $totalLaporan = LaporanMasalahModel::where('status_pengajuan', '=', 'approved')->count(); // Total reports
+        $totalLaporan = LaporanMasalahModel::whereIn('status_pengajuan', ['approved', 'wait'])->count();
+// Total reports
         // Reports for the current page, sorted by date descending
-        $laporans = LaporanMasalahModel::with('warga')->where('status_pengajuan', '=', 'approved')->orderBy('tanggal_laporan', 'desc')->skip($skip)->take($perPage)->get();
+        $laporans = LaporanMasalahModel::with('warga')->whereIn('status_pengajuan',[ 'approved','wait'])->orderBy('tanggal_laporan', 'desc')->skip($skip)->take($perPage)->get();
 
         $totalPages = ceil($totalLaporan / $perPage); // Total pages
 
