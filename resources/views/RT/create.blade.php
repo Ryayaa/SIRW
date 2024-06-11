@@ -42,7 +42,7 @@
                     <input type="text" name="no_telepon" id="no_telepon" class="form-control" value="{{ old('no_telepon') }}" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <a href="{{ url('rt') }}" class="btn btn-default">Kembali</a>
+                <a href="{{ url('rw') }}" class="btn btn-default">Kembali</a>
             </form>
         </div>
     </div>
