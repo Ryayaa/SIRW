@@ -22,7 +22,6 @@
                         <th>Lokasi</th>
                         <th>Tanggal</th>
                         <th>Waktu</th>
-                        <th>Gambar</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -46,7 +45,6 @@
                 { data: 'lokasi', name: 'lokasi' },
                 { data: 'tanggal', name: 'tanggal' },
                 { data: 'waktu', name: 'waktu' },
-                { data: 'gambar', name: 'gambar' },
                 { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
             ]
         });

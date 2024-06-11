@@ -22,6 +22,7 @@ class KegiatanSeeder extends Seeder
                 'tanggal' => '2024-06-01',
                 'waktu' => '07:00:00',
                 'id_rt' => 1,
+                'gambar' => 'kegiatan/kerjabakti.jpg',
             ],
             [
                 'nama_kegiatan' => 'Musyawarah',
@@ -29,7 +30,8 @@ class KegiatanSeeder extends Seeder
                 'lokasi' => 'Balai Warga RT 01',
                 'tanggal' => '2024-06-05',
                 'waktu' => '18:00:00',
-                
+                'id_rt' => 1,
+                'gambar' => 'kegiatan/musyawarah.jpg',
             ],
             [
                 'nama_kegiatan' => 'Pemilihan RW',
@@ -37,7 +39,17 @@ class KegiatanSeeder extends Seeder
                 'lokasi' => 'Balai Warga RW 01',
                 'tanggal' => '2024-06-10',
                 'waktu' => '09:00:00',
-                
+                'id_rt' => 1,
+                'gambar' => 'kegiatan/th.jpg',
+            ],
+            [
+                'nama_kegiatan' => 'Pernikahan',
+                'deskripsi' => 'Pernikahan Warga.',
+                'lokasi' => 'Balai Warga RT 02',
+                'tanggal' => '2024-06-09',
+                'waktu' => '09:00:00',
+                'id_rt' => 1,
+                'gambar' => 'kegiatan/nikah.jpg',
             ],
             [
                 'nama_kegiatan' => 'Hut RI',
@@ -45,22 +57,24 @@ class KegiatanSeeder extends Seeder
                 'lokasi' => 'Lapangan Utama',
                 'tanggal' => '2024-08-17',
                 'waktu' => '08:00:00',
-                
+                'id_rt' => 1,
+                'gambar' => 'kegiatan/hutri.jpg',
+            ],
+            [
+                'nama_kegiatan' => 'Makan Bersama Bobon Santosa',
+                'deskripsi' => 'Perayaan Makan Besar-Besaran Bersama Bobon Santoso.',
+                'lokasi' => 'Lapangan Utama',
+                'tanggal' => '2024-08-17',
+                'waktu' => '08:00:00',
+                'id_rt' => 1,
+                'gambar' => 'kegiatan/madang.jpg',
             ],
         ];
 
         foreach ($kegiatan as $item) {
             DB::table('kegiatan_warga')->updateOrInsert(
-                [
-                    'nama_kegiatan' => $item['nama_kegiatan'],
-                    'tanggal' => $item['tanggal'],
-                    'deskripsi' => $item['deskripsi'],
-                    'lokasi' => $item['lokasi'],
-                    'waktu' => $item['waktu'],
-                    'id_rt' => 1,
-                    'updated_at' => Carbon::now(),
-                    'created_at' => Carbon::now(),
-                ]
+                ['nama_kegiatan' => $item['nama_kegiatan']],
+                $item
             );
         }
 

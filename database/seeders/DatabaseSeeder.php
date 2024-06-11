@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             AlternatifSeeder::class,
             JenisSuratSeeder::class,
             TamuSeeder::class,
+            KegiatanSeeder::class,
         ]);
     }
 }
