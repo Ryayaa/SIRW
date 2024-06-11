@@ -65,13 +65,15 @@ class Dashboard extends Controller
     ]);
 }
 
-public function DashboardRW(){
-    return $this->index('rw');
-}
+    public function DashboardRW()
+    {
+        return $this->index('rw');
+    }
 
-public function DashboardRT(){
-    return $this->index('rt');
-}
+    public function DashboardRT()
+    {
+        return $this->index('rt');
+    }
 
     public function DashboardWarga(){
         $currentDateTime = Carbon::now();
