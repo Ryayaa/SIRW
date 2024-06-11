@@ -448,8 +448,8 @@ class PageController extends Controller
             if (!file_exists(public_path('images/warga_sementara'))) {
                 mkdir(public_path('images/warga_sementara'), 0777, true);
             }
-            $request->gambar->move(public_path('images/warga_sementara'), $fileName);
-            $validatedData['bukti_ktp'] = $fileName;
+            $request->bukti_ktp->move(public_path('images/warga_sementara'), $fileName);
+            $validatedData['bukti_ktp'] = 'warga_sementara/'.$fileName;
         }
         $validatedData['pengaju'] = Auth::user()->nik;
 
