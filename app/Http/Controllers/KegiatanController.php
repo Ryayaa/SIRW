@@ -71,28 +71,6 @@ class KegiatanController extends Controller
         ]);
     }
 
-    public function create()
-    {
-        $breadcrumb = (object) [
-            'title' => 'Tambah Kegiatan',
-            'list' => ['Home', 'Kegiatan', 'Tambah']
-        ];
-
-        $page = (object) [
-            'title' => 'Tambah Kegiatan Baru',
-        ];
-
-        $rt = RtModel::all();
-        $activeMenu = 'kegiatan';
-
-        return view('Kegiatan.create', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'activeMenu' => $activeMenu,
-            'rt' => $rt
-        ]);
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -102,12 +80,28 @@ class KegiatanController extends Controller
             'tanggal' => 'required|date',
             'waktu' => 'required|date_format:H:i',
             'id_rt' => 'required|integer',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi untuk gambar
         ]);
-
-        KegiatanModel::create($request->all());
-
+    
+        $data = $request->all();
+        // Proses penyimpanan gambar
+        if ($request->hasFile('gambar')) {
+            $imageName = time().'.'.$request->gambar->extension();
+            // Buat direktori jika belum ada
+            if (!file_exists(public_path('images/kegiatan'))) {
+                mkdir(public_path('images/kegiatan'), 0777, true);
+            }
+            // Pindahkan gambar ke folder kegiatan
+            $request->gambar->move(public_path('images/kegiatan'), $imageName);
+            // Ubah nama gambar dalam data menjadi path lengkap
+            $data['gambar'] = 'kegiatan/'.$imageName;
+        }
+    
+        KegiatanModel::create($data);
+    
         return redirect()->route('kegiatan.index')->with('success', 'Kegiatan baru telah ditambahkan');
     }
+    
 
     public function edit($id)
     {

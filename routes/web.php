@@ -15,14 +15,15 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\UMKMController;
 use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\KasController;
 
-Route::get('/', [AuthController::class, 'index'])->name('login');
-Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
-Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/', [AuthController::class, 'index'])->name('login');
+    Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/index', function () {
-    return view('index');
-});
+    Route::get('/index', function () {
+        return view('index');
+    });
 
 
 
@@ -197,13 +198,30 @@ Route::group(['prefix' => 'kegiatan'], function () {
     Route::delete('/{id}', [KegiatanController::class, 'destroy'])->name('kegiatan.destroy'); // Menghapus data kegiatan
 });
 
+Route::group(['prefix' => 'kas'], function () {
+    Route::get('/', [KasController::class, 'index'])->name('kas.index'); // Menampilkan daftar kas
+    Route::post('/list', [KasController::class, 'list'])->name('kas.list'); // Menampilkan data kas dalam bentuk JSON untuk DataTables
+    Route::get('/create', [KasController::class, 'create'])->name('kas.create'); // Menampilkan form tambah kas
+    Route::post('/', [KasController::class, 'store'])->name('kas.store'); // Menyimpan data kas
+    Route::get('/{id}', [KasController::class, 'show'])->name('kas.show'); // Menampilkan detail kas
+    Route::get('/{id}/edit', [KasController::class, 'edit'])->name('kas.edit'); // Menampilkan form edit kas
+    Route::put('/{id}', [KasController::class, 'update'])->name('kas.update'); // Mengupdate data kas
+    Route::delete('/{id}', [KasController::class, 'destroy'])->name('kas.destroy'); // Menghapus data kas
+    Route::get('/transaksi/create', [KasController::class, 'createTransaksi'])->name('kas.transaksi.create'); // Menampilkan form transaksi kas
+    Route::post('/transaksi', [KasController::class, 'storeTransaksi'])->name('kas.transaksi.store'); // Menyimpan data transaksi kas
+    Route::get('/kas/history', [KasController::class, 'history'])->name('kas.history');
+
+});
+
+
+
     //Route Untuk RT
     Route::group(['middleware' => ['roles:rt']], function () {
         Route::get('/rt-dashboard', [Dashboard::class, 'DashboardRT'])->name('rt-dashboard');
     });
 
     //Route Untuk Warga
-    Route::group(['middleware' => ['roles:warga']], function () {
+    Route::group(['middleware' => ['roles:warga, warga_sementara']], function () {
         Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile');
         Route::get('/warga-dashboard', [Dashboard::class, 'DashboardWarga'])->name('user-dashboard');
         Route::post('/profile/change-password', [AuthController::class, 'changePassword'])->name('profile.change-password');
@@ -211,8 +229,9 @@ Route::group(['prefix' => 'kegiatan'], function () {
 
 
         //surat
-        Route::get('/surat_pengantar/create', [PageController::class, 'showSuratForm'])->name('surat_pengantar.form');
-        Route::post('/surat_pengantar', [PageController::class, 'createSurat'])->name('surat_pengantar.create');
+        Route::get('/surat_pengantar-form', [PageController::class, 'showSuratForm'])->name('surat_pengantar-form.show');
+        Route::post('/surat_pengantar-form/create', [PageController::class, 'createSurat'])->name('surat_pengantar-form.create');
+        Route::get('/surat_pengantar-form/{id}', [PageController::class, 'printSurat'])->name('template-surat_pengantar.print');
         //pengumuman
         Route::get('/pengumuman-list', [PageController::class, 'showPengumuman'])->name('pengumuman');
         Route::get('/pengumuman-list/detail/{id_pengumuman}', [PageController::class, 'showDetailPengumuman'])->name('pengumuman.detail');
@@ -223,6 +242,13 @@ Route::group(['prefix' => 'kegiatan'], function () {
         Route::get('/umkm.-list', [PageController::class, 'showUMKM'])->name('umkm.user-login');
         Route::get('/umkm-list/detail/{id}', [PageController::class, 'showDetailUMKM'])->name('umkm.detail');
         Route::get('/bansos-list', [PageController::class, 'showBansos'])->name('bansos.user-login');
+        Route::get('/bansos-list/detail/{id}', [PageController::class, 'detailBansos'])->name('bansos.detail');
+        Route::get('/pengajuan-list', [PageController::class, 'showPengajuan'])->name('pengajuan.user-login');
+        Route::get('/pengajuan-list/form/{idBansos}', [PageController::class, 'formPengajuan'])->name('pengajuan.form');
+        Route::post('/pengajuan-list/store', [PageController::class, 'storePengajuan'])->name('pengajuan.store');
+        Route::get('/pengajuan-list/check/{id}', [PageController::class, 'checkPengajuan'])->name('pengajuan.check');
+        Route::get('/pengajuan-list/detail/{idBansos}/{idPengajuan}', [PageController::class, 'detailPengajuan'])->name('pengajuan.detail');
+
 
     Route::get('/laporan_masalah', [PageController::class, 'showLaporanForm'])->name('laporan_masalah_form.show');
     Route::post('/laporan_masalah/create', [PageController::class, 'createLaporanForm'])->name('laporan_masalah_form.create');
@@ -238,4 +264,7 @@ Route::group(['prefix' => 'kegiatan'], function () {
     Route::get('/warga-sementara-form/detail/{id}', [PageController::class, 'detailWargaSementara'])->name('warga-sementara_form.detail');
     Route::post('/warga-sementara-form/create', [PageController::class, 'createWargaSementaraForm'])->name('warga-sementara_form.create');
     });
+
+
+
 });

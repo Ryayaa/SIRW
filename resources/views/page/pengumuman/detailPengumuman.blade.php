@@ -1,24 +1,28 @@
 @extends('user-login.index')
 
 @section('content')
-<section></section>
-<div class="container mt-5">
-    <div class="section-header text-center">
-        <h1 class="mb-4">Detail Pengumuman</h1>
-    </div>
-    <div class="card mx-auto w-75">
-        <div class="card-body ">
-            <div class="d-flex justify-content-between align-items-center">
-                <small class="text-muted"><i class="bi bi-person"></i> Pembuat: {{ $pengumuman->rt->nama_lengkap }}</small>
-                <small class="text-muted"><i class="bi bi-calendar"></i> {{ $pengumuman->tanggal }}</small>
+<section>
+
+    <div class="container mt-5">
+        <div class="card mx-auto w-75 shadow-lg border-0">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <small class="text-muted"><i class="bi bi-person me-1"></i> Pembuat: {{ $pengumuman->rt->nama_lengkap }}</small>
+                    <small class="text-muted"><i class="bi bi-calendar me-1"></i> {{ $pengumuman->tanggal }}</small>
+                </div>
+                <h3 class="card-title text-center my-4">{{ $pengumuman->judul_pengumuman }}</h3>
+                @if($pengumuman->gambar)
+                <div class="text-center mb-4">
+                    <img src="{{ asset('storage/' . $pengumuman->gambar) }}" class="img-fluid rounded" alt="Gambar Pengumuman">
+                </div>
+                @endif
+                <p class="card-text mx-4">{{ $pengumuman->deskripsi }}</p>
             </div>
-            <h3 class="card-title text-center my-4">{{ $pengumuman->judul_pengumuman }}</h3>
-            @if($pengumuman->gambar)
-            <img src="{{ asset('storage/' . $pengumuman->gambar) }}" class="card-img-top mx-4 mb-4" alt="Gambar Pengumuman">
-            @endif
-            <p class="card-text mx-4">{{ $pengumuman->deskripsi }}</p>
         </div>
     </div>
-</div>
-<section></section>
+</section>
+
+<style>
+    
+</style>
 @endsection

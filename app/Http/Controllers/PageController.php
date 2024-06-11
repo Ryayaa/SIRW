@@ -3,17 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bansos;
+use App\Models\JenisSuratModel;
 use App\Models\KegiatanModel;
+use App\Models\KriteriaBansosModel;
 use App\Models\LaporanMasalahModel;
+use App\Models\NilaiAlternatifModel;
+use App\Models\PenerimaBansosModel;
 use App\Models\PengumumanModel;
 use App\Models\RtModel;
 use App\Models\RwModel;
+use App\Models\SuratModel;
 use App\Models\Tamu;
 use App\Models\UMKMModel;
 use App\Models\WargaSementaraModel;
+// use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PageController extends Controller
 {
@@ -29,43 +37,22 @@ class PageController extends Controller
         return view('page.struktur-rw.index', compact('rw', 'rts'));
     }
 
-    public function showSuratForm()
-    {
-        // $jenis_surat_pengantar = JenisSuratPengantar::all();
-        return view('surat_pengantar.create', compact('jenis_surat_pengantar'));
-    }
-    public function createSurat(Request $request)
-    {
-        $request->validate([
-            'tanggal' => 'required|date',
-            'keterangan' => 'required|string|max:255',
-            'id_jenis_surat' => 'required|exists:jenis_surat_pengantar,id_jenis_surat',
-        ]);
-        // SuratPengantar::create([ // Model Belum dibuat
-        //     'tanggal' => $request->tanggal,
-        //     'keterangan' => $request->keterangan,
-        //     'id_warga' => Auth::user()->id_warga,
-        //     'id_jenis_surat' => $request->id_jenis_surat,
-        // ]);
-
-        return redirect()->route('surat_pengantar.create')->with('success', 'Surat Pengantar created successfully.');
-    }
 
 
     public function showPengumuman(Request $request)
-{
-    $perPage = 6; // Jumlah pengumuman per halaman
-    $page = $request->input('page', 1); // Halaman saat ini, default adalah 1
-    $skip = ($page - 1) * $perPage;
+    {
+        $perPage = 6; // Jumlah pengumuman per halaman
+        $page = $request->input('page', 1); // Halaman saat ini, default adalah 1
+        $skip = ($page - 1) * $perPage;
 
-    $totalPengumuman = PengumumanModel::count(); // Total pengumuman
-    // Pengumuman untuk halaman saat ini, sorted by date descending
-    $pengumumans = PengumumanModel::orderBy('tanggal', 'desc')->skip($skip)->take($perPage)->get();
+        $totalPengumuman = PengumumanModel::count(); // Total pengumuman
+        // Pengumuman untuk halaman saat ini, sorted by date descending
+        $pengumumans = PengumumanModel::orderBy('tanggal', 'desc')->skip($skip)->take($perPage)->get();
 
-    $totalPages = ceil($totalPengumuman / $perPage); // Total halaman
+        $totalPages = ceil($totalPengumuman / $perPage); // Total halaman
 
-    return view('page.pengumuman.index', compact('pengumumans', 'totalPengumuman', 'totalPages', 'page'));
-}
+        return view('page.pengumuman.index', compact('pengumumans', 'totalPengumuman', 'totalPages', 'page'));
+    }
 
 
     public function showDetailPengumuman($id_pengumuman)
@@ -77,67 +64,67 @@ class PageController extends Controller
 
 
     public function showKegiatan(Request $request)
-{
-    $currentDateTime = Carbon::now();
-    $perPage = 2; // Jumlah kegiatan per halaman
+    {
+        $currentDateTime = Carbon::now();
+        $perPage = 2; // Jumlah kegiatan per halaman
 
-    // Get current page or default to 1
-    $pageUpcoming = $request->input('page_upcoming', 1);
-    $pagePast = $request->input('page_past', 1);
+        // Get current page or default to 1
+        $pageUpcoming = $request->input('page_upcoming', 1);
+        $pagePast = $request->input('page_past', 1);
 
-    // Calculate skip
-    $skipUpcoming = ($pageUpcoming - 1) * $perPage;
-    $skipPast = ($pagePast - 1) * $perPage;
+        // Calculate skip
+        $skipUpcoming = ($pageUpcoming - 1) * $perPage;
+        $skipPast = ($pagePast - 1) * $perPage;
 
-    // Get upcoming activities
-    $totalUpcomingActivities = KegiatanModel::where('tanggal', '>', $currentDateTime->toDateString())
-        ->orWhere(function ($query) use ($currentDateTime) {
-            $query->where('tanggal', '=', $currentDateTime->toDateString())
-                ->where('waktu', '>=', $currentDateTime->toTimeString());
-        })
-        ->count();
+        // Get upcoming activities
+        $totalUpcomingActivities = KegiatanModel::where('tanggal', '>', $currentDateTime->toDateString())
+            ->orWhere(function ($query) use ($currentDateTime) {
+                $query->where('tanggal', '=', $currentDateTime->toDateString())
+                    ->where('waktu', '>=', $currentDateTime->toTimeString());
+            })
+            ->count();
 
-    $upcomingActivities = KegiatanModel::where('tanggal', '>', $currentDateTime->toDateString())
-        ->orWhere(function ($query) use ($currentDateTime) {
-            $query->where('tanggal', '=', $currentDateTime->toDateString())
-                ->where('waktu', '>=', $currentDateTime->toTimeString());
-        })
-        ->orderBy('tanggal', 'asc')
-        ->orderBy('waktu', 'asc')
-        ->skip($skipUpcoming)
-        ->take($perPage)
-        ->get();
+        $upcomingActivities = KegiatanModel::where('tanggal', '>', $currentDateTime->toDateString())
+            ->orWhere(function ($query) use ($currentDateTime) {
+                $query->where('tanggal', '=', $currentDateTime->toDateString())
+                    ->where('waktu', '>=', $currentDateTime->toTimeString());
+            })
+            ->orderBy('tanggal', 'asc')
+            ->orderBy('waktu', 'asc')
+            ->skip($skipUpcoming)
+            ->take($perPage)
+            ->get();
 
-    // Get past activities
-    $totalPastActivities = KegiatanModel::where('tanggal', '<', $currentDateTime->toDateString())
-        ->orWhere(function ($query) use ($currentDateTime) {
-            $query->where('tanggal', '=', $currentDateTime->toDateString())
-                ->where('waktu', '<', $currentDateTime->toTimeString());
-        })
-        ->count();
+        // Get past activities
+        $totalPastActivities = KegiatanModel::where('tanggal', '<', $currentDateTime->toDateString())
+            ->orWhere(function ($query) use ($currentDateTime) {
+                $query->where('tanggal', '=', $currentDateTime->toDateString())
+                    ->where('waktu', '<', $currentDateTime->toTimeString());
+            })
+            ->count();
 
-    $pastActivities = KegiatanModel::where('tanggal', '<', $currentDateTime->toDateString())
-        ->orWhere(function ($query) use ($currentDateTime) {
-            $query->where('tanggal', '=', $currentDateTime->toDateString())
-                ->where('waktu', '<', $currentDateTime->toTimeString());
-        })
-        ->orderBy('tanggal', 'desc')
-        ->orderBy('waktu', 'desc')
-        ->skip($skipPast)
-        ->take($perPage)
-        ->get();
+        $pastActivities = KegiatanModel::where('tanggal', '<', $currentDateTime->toDateString())
+            ->orWhere(function ($query) use ($currentDateTime) {
+                $query->where('tanggal', '=', $currentDateTime->toDateString())
+                    ->where('waktu', '<', $currentDateTime->toTimeString());
+            })
+            ->orderBy('tanggal', 'desc')
+            ->orderBy('waktu', 'desc')
+            ->skip($skipPast)
+            ->take($perPage)
+            ->get();
 
-    $totalPagesUpcoming = ceil($totalUpcomingActivities / $perPage);
-    $totalPagesPast = ceil($totalPastActivities / $perPage);
+        $totalPagesUpcoming = ceil($totalUpcomingActivities / $perPage);
+        $totalPagesPast = ceil($totalPastActivities / $perPage);
 
-    return view('page.kegiatan.index', compact('upcomingActivities', 'pastActivities', 'pageUpcoming', 'pagePast', 'totalPagesUpcoming', 'totalPagesPast'));
-}
+        return view('page.kegiatan.index', compact('upcomingActivities', 'pastActivities', 'pageUpcoming', 'pagePast', 'totalPagesUpcoming', 'totalPagesPast'));
+    }
 
 
     public function showDetailKegiatan($id)
     {
         $kegiatan = KegiatanModel::findOrFail($id);
-    return view('page.kegiatan.detailKegiatan', compact('kegiatan'));
+        return view('page.kegiatan.detailKegiatan', compact('kegiatan'));
     }
     public function showLaporan(Request $request)
     {
@@ -145,9 +132,9 @@ class PageController extends Controller
         $page = $request->input('page', 1); // Current page, default is 1
         $skip = ($page - 1) * $perPage;
 
-        $totalLaporan = LaporanMasalahModel::count(); // Total reports
+        $totalLaporan = LaporanMasalahModel::where('status_pengajuan','=','approved')->count(); // Total reports
         // Reports for the current page, sorted by date descending
-        $laporans = LaporanMasalahModel::with('warga')->orderBy('tanggal_laporan', 'desc')->skip($skip)->take($perPage)->get();
+        $laporans = LaporanMasalahModel::with('warga')->where('status_pengajuan','=','approved')->orderBy('tanggal_laporan', 'desc')->skip($skip)->take($perPage)->get();
 
         $totalPages = ceil($totalLaporan / $perPage); // Total pages
 
@@ -156,26 +143,26 @@ class PageController extends Controller
 
 
     public function showDetailLaporan($id)
-{
-    $laporan = LaporanMasalahModel::with('warga')
-        ->where('id_laporan_masalah', $id)
-        ->first();
+    {
+        $laporan = LaporanMasalahModel::with('warga')
+            ->where('id_laporan_masalah', $id)
+            ->first();
 
-    if (!$laporan) {
-        abort(404);
+        if (!$laporan) {
+            abort(404);
+        }
+
+        return view('page.laporan.detail', compact('laporan'));
     }
 
-    return view('page.laporan.detail', compact('laporan'));
-}
-
-public function showUMKM(Request $request)
+    public function showUMKM(Request $request)
     {
         $perPage = 6; // Number of UMKM per page
         $page = $request->input('page', 1); // Current page, default is 1
         $skip = ($page - 1) * $perPage;
 
-        $totalUmkm = UMKMModel::count(); // Total UMKM
-        $umkms = UMKMModel::orderBy('nama_umkm')->skip($skip)->take($perPage)->get(); // UMKM for current page
+        $totalUmkm = UMKMModel::where('status_pengajuan','=','approved')->count(); // Total UMKM
+        $umkms = UMKMModel::where('status_pengajuan','=','approved')->orderBy('nama_umkm')->skip($skip)->take($perPage)->get(); // UMKM for current page
 
         $totalPages = ceil($totalUmkm / $perPage); // Total pages
 
@@ -192,18 +179,112 @@ public function showUMKM(Request $request)
     }
 
 
-    public function showBansos(){
+    public function showBansos()
+    {
         $bansosList = Bansos::all();
         return view('page.bansos.index', compact('bansosList'));
     }
 
+    public function detailBansos($id){
+        $bansos = Bansos::with('kriteria')->findOrFail($id);
+        return view('page.bansos.detail', compact('bansos'));
+    }
+    public function showPengajuan(){
+        $bansosList = Bansos::all();
+        return view('page.pengajuan.index', compact('bansosList'));
+    }
+
+    public function checkPengajuan($idBansos)
+    {
+        $user = Auth::user();
+        $idWarga = $user->id_warga;
+        $idKeluarga = $user->id_keluarga;
+
+        // Cek apakah user atau anggota keluarga sudah mengajukan atau diterima
+        $existingPengajuan = PenerimaBansosModel::where('id_bansos', $idBansos)
+            ->where(function ($query) use ($idWarga, $idKeluarga) {
+                $query->where('id_warga', $idWarga)
+                      ->orWhereHas('warga', function ($query) use ($idKeluarga) {
+                          $query->where('id_keluarga', $idKeluarga);
+                      });
+            })
+            ->first();
+
+        if ($existingPengajuan) {
+            return redirect()->route('pengajuan.detail', ['idBansos' => $idBansos, 'idPengajuan' => $existingPengajuan->id_penerima]);
+        } else {
+            return redirect()->route('pengajuan.form', ['idBansos' => $idBansos]);
+        }
+    }
+
+    public function detailPengajuan($idBansos, $idPengajuan)
+    {
+        $pengajuan = PenerimaBansosModel::with('nilaiA.kriteria.subkriteria')->findOrFail($idPengajuan);
+        return view('page.pengajuan.detail', compact('pengajuan'));
+    }
+
+    public function formPengajuan($idBansos){     
+        $kriteria = KriteriaBansosModel::where('id_bansos', $idBansos)->with(['subkriteria'])->get();
+
+        return view('page.pengajuan.form', compact('kriteria', 'idBansos'));
+    }
+
+    public function storePengajuan(Request $request)
+    {
+        // Validasi input
+        $validator = Validator::make($request->all(), [
+            'id_bansos' => 'required|exists:bansos,id_bansos',
+            'id_kriteria' => 'required|array',
+            'id_kriteria.*' => 'required|exists:nilai_kriteria,id_nilai',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $id_warga = Auth::user()->id_warga;
+
+        // Cek apakah warga sudah mengajukan sebelumnya
+        $existingPenerima = PenerimaBansosModel::where('id_warga', $request->id_warga)
+                                                ->where('id_bansos', $request->id_bansos)
+                                                ->exists();
+
+        if ($existingPenerima) {
+            return redirect()->back()->with('error', 'Warga ini sudah mengajukan atau telah menerima bantuan sosial.');
+        }
+
+        // Simpan data penerima dan nilai kriteria
+        try {
+            // Simpan data penerima
+            $penerima = PenerimaBansosModel::create([
+                'id_bansos' => $request->id_bansos,
+                'id_warga' => $id_warga,
+                'status' => 'pending',
+            ]);
+
+            // Simpan nilai kriteria ke dalam tabel nilai_alternatif
+            foreach ($request->id_kriteria as $id_kriteria => $id_nilai) {
+                NilaiAlternatifModel::create([
+                    'id_penerima' => $penerima->id_penerima,
+                    'id_kriteria' => $id_kriteria,
+                    'id_nilai' => $id_nilai,
+                ]);
+            }
+
+            return redirect('/pengajuan-list')->with('success', 'Data penerima bantuan sosial berhasil disimpan.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data.')->withInput();
+        }
+    }
 
 
-    public function showLaporanForm(){
+    public function showLaporanForm()
+    {
         return view('page.laporan.form');
     }
 
-    public function createLaporanForm(Request $request){
+    public function createLaporanForm(Request $request)
+    {
         $request->validate([
             'judul_laporan' => 'required|string|max:255',
             'deskripsi' => 'required|string',
@@ -217,7 +298,9 @@ public function showUMKM(Request $request)
         $laporan->tanggal_laporan = Carbon::today()->toDateString();
 
         if ($request->hasFile('gambar')) {
-            $laporan->gambar = $request->file('gambar')->store('gambar');
+            $imageName = time().'.'.$request->gambar->extension();
+            $request->gambar->move(public_path('images/umkm'), $imageName);
+            $laporan['gambar'] = $imageName;
         }
 
         $laporan->id_warga = Auth::user()->id_warga;
@@ -227,10 +310,12 @@ public function showUMKM(Request $request)
         return redirect()->route('laporanMasalah')->with('success', 'Laporan berhasil dibuat.');
     }
 
-    public function showPengajuanUMKMForm(){
+    public function showPengajuanUMKMForm()
+    {
         return view('page.umkm.form');
     }
-    public function createPengajuanUMKMForm(Request $request){
+    public function createPengajuanUMKMForm(Request $request)
+    {
         $request->validate([
             'nama_umkm' => 'required|string|max:255',
             'alamat' => 'required|string',
@@ -244,8 +329,17 @@ public function showUMKM(Request $request)
         $umkm->no_telepon = $request->no_telepon;
 
         if ($request->hasFile('gambar')) {
-            $umkm->gambar = $request->file('gambar')->store('gambar_umkm');
+
+            $imageName = time().'.'.$request->gambar->extension();
+            // Create the directory if it doesn't exist
+            if (!file_exists(public_path('images/umkm'))) {
+                mkdir(public_path('images/umkm'), 0777, true);
+            }
+            $request->gambar->move(public_path('images/umkm'), $imageName);
+            $umkm['gambar'] = 'umkm/'.$imageName;
         }
+
+
 
         $umkm->id_warga = Auth::user()->id_warga;
         $umkm->save();
@@ -253,11 +347,13 @@ public function showUMKM(Request $request)
         return redirect()->route('umkm.user-login')->with('success', 'UMKM berhasil ditambahkan.');
     }
 
-    public function showTamuForm(){
+    public function showTamuForm()
+    {
         return view('page.tamu.form');
     }
 
-    public function createTamuForm(Request $request){
+    public function createTamuForm(Request $request)
+    {
         $request->validate([
             'nama_lengkap' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
@@ -282,13 +378,16 @@ public function showUMKM(Request $request)
         $tamu->tanggal_keluar = $request->tanggal_keluar;
 
         if ($request->hasFile('bukti_ktp')) {
-            $tamu->bukti_ktp = $request->file('bukti_ktp')->store('bukti_ktp');
+            $imageName = time().'.'.$request->gambar->extension();
+            $request->gambar->move(public_path('images'), $imageName);
+            $tamu['gambar'] = $imageName;
         }
 
         $tamu->save();
 
         return redirect()->route('tamu_form.show')->with('success', 'Tamu berhasil ditambahkan.');
     }
+
 
     public function listWargaSementara(){
         $wargaSementaraList = WargaSementaraModel::where('pengaju', Auth::user()->nik)->get();
@@ -306,7 +405,8 @@ public function showUMKM(Request $request)
         return view('page.WargaSementara.form');
     }
 
-    public function createWargaSementaraForm(Request $request){
+    public function createWargaSementaraForm(Request $request)
+    {
         $request->validate([
             'bukti_ktp' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048',
             'nik' => 'required|string|max:16|unique:warga_sementara,nik',
@@ -323,11 +423,13 @@ public function showUMKM(Request $request)
         $validatedData = $request->all();
         if ($request->hasFile('bukti_ktp')) {
             $file = $request->file('bukti_ktp');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/bukti_ktp'), $filename);
-            $validatedData['bukti_ktp'] = $filename;
+            $filename = $request->nik . '.' . $file->getClientOriginalExtension();
+            if (!file_exists(public_path('images/warga_sementara'))) {
+                mkdir(public_path('images/warga_sementara'), 0777, true);
+            }
+            $request->gambar->move(public_path('images/warga_sementara'), $fileName);
+            $validatedData['bukti_ktp'] = $fileName;
         }
-
         $validatedData['pengaju'] = Auth::user()->nik;
 
         WargaSementaraModel::create($validatedData);
@@ -335,4 +437,33 @@ public function showUMKM(Request $request)
         return redirect()->route('warga-sementara_form.show')->with('success', 'Pengajuan data warga sementara berhasil disimpan.');
     }
 
+    public function showSuratForm()
+    {
+        $jenis_surat_pengantar = JenisSuratModel::all();
+        return view('page.surat.index', compact('jenis_surat_pengantar'));
+    }
+    public function createSurat(Request $request)
+    {
+        $request->validate([
+            'id_jenis_surat' => 'required|integer',
+            'keterangan' => 'nullable|string|max:255',
+        ]);
+
+        $surat = SuratModel::create([
+            'tanggal' => now(),
+            'keterangan' => $request->id_jenis_surat == 6 ? $request->keterangan : '',
+            'id_warga' => Auth::user()->id_warga,
+            'id_jenis_surat' => $request->id_jenis_surat,
+        ]);
+
+        return redirect()->route('template-surat_pengantar.print', $surat->id_surat_pengantar)
+            ->with('success', 'Surat pengantar berhasil dibuat.');
+    }
+
+    public function printSurat($id){
+        $surat_pengantar = SuratModel::with(['warga', 'jenisSurat'])->findOrFail($id);
+        $pdf = Pdf::loadView('page.surat.templateSurat', compact('surat_pengantar'));
+
+        return $pdf->stream('surat_pengantar.pdf');
+    }
 }

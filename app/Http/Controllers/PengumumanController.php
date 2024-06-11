@@ -78,18 +78,23 @@ class PengumumanController extends Controller
             'tanggal' => 'required|date',
             'id_rt' => 'required|exists:rt,id_rt'
         ]);
-
+    
         $data = $request->all();
         if ($request->hasFile('gambar')) {
             $imageName = time().'.'.$request->gambar->extension();
-            $request->gambar->move(public_path('images'), $imageName);
-            $data['gambar'] = $imageName;
+            // Create the directory if it doesn't exist
+            if (!file_exists(public_path('images/pengumuman'))) {
+                mkdir(public_path('images/pengumuman'), 0777, true);
+            }
+            $request->gambar->move(public_path('images/pengumuman'), $imageName);
+            $data['gambar'] = 'pengumuman/'.$imageName;
         }
-
+    
         PengumumanModel::create($data);
-
+    
         return redirect('/pengumuman')->with('success', 'Pengumuman berhasil disimpan');
     }
+    
 
     public function show($id)
     {

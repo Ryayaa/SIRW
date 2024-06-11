@@ -32,7 +32,7 @@
             text-align: center;
         }
         .signature-space {
-            margin-top: 80px; /* Adjust the height as needed for the signature space */
+            margin-top: 80px;
         }
     </style>
 </head>
@@ -40,36 +40,28 @@
     <div class="container">
         <div class="header">
             <h2>KELURAHAN JATIMULYO</h2>
-            <p>KETUA RT ............ RW 03<p>
+            <p>KETUA RT ............ RW 03</p>
             <p>KECAMATAN LOWOKWARU KOTA MALANG</p>
             <hr>
             <h3>SURAT PENGANTAR</h3>
-            <p>No. ......................................</p>
+            <p>No. {{ $surat_pengantar->id_surat_pengantar }}</p>
         </div>
         <div class="content">
             <p>Yang bertanda tangan di bawah ini kami Ketua RT / RW Kelurahan Jatimulyo menerangkan bahwa :</p>
-            <p>Nama Lengkap: ...............................................................</p>
-            <p>Tempat Tgl. Lahir: ...............................................................</p>
-            <p>Pekerjaan: ...............................................................</p>
-            <p>Jenis Kelamin: <input type="checkbox"> Laki-laki <input type="checkbox"> Perempuan</p>
-            <p>Status Perkawinan: <input type="checkbox"> Kawin <input type="checkbox"> Tidak Kawin <input type="checkbox"> Cerai Hidup <input type="checkbox"> Cerai Mati</p>
-            <p>Agama: <input type="checkbox"> Islam <input type="checkbox"> Kristen <input type="checkbox"> Katholik <input type="checkbox"> Hindu <input type="checkbox"> Budha</p>
-            <p>Keterangan: Orang tersebut mohon surat:</p>
-            <ol>
-                <li><input type="checkbox"> Surat KTP</li>
-                <li><input type="checkbox"> Surat Keterangan Kelahiran</li>
-                <li><input type="checkbox"> Surat Keterangan Bepergian</li>
-                <li><input type="checkbox"> Surat Keterangan Berkelakuan Baik</li>
-                <li><input type="checkbox"> Surat Pindah Tempat</li>
-                <li><input type="checkbox"> Surat Perlengkapan Nikah</li>
-                <li><input type="checkbox"> Surat Kartu Keluarga</li>
-                <li>...............................................................</li>
-                <li>...............................................................</li>
-            </ol>
+            <p>Nama Lengkap: {{ $surat_pengantar->warga->nama_lengkap }}</p>
+            <p>Tempat Tgl. Lahir: {{ $surat_pengantar->warga->tempat_lahir }}, {{ $surat_pengantar->warga->tanggal_lahir }}</p>
+            <p>Pekerjaan: {{ $surat_pengantar->warga->pekerjaan }}</p>
+            <p>Jenis Kelamin: {{ $surat_pengantar->warga->jenis_kelamin }}</p>
+            <p>Status Perkawinan: {{ $surat_pengantar->warga->status_perkawinan }}</p>
+            <p>Agama: {{ $surat_pengantar->warga->agama }}</p>
+            <p>Keterangan: {{ $surat_pengantar->jenisSurat->nama_jenis }}</p>
+            @if ($surat_pengantar->jenisSurat->nama_jenis == 'Lain-lain')
+                <p>{{ $surat_pengantar->keterangan }}</p>
+            @endif
         </div>
-        <div >
+        <div>
             <p>Demikian untuk menjadikan maklum.</p>
-            <p style="text-align: right;">Malang, ....................................</p>
+            <p style="text-align: right;">Malang, {{ now()->format('d M Y') }}</p>
         </div>
         <p style="display:flex; justify-content: center; margin-top: 30px;">Mengetahui</p>
         <div class="footer">
@@ -85,7 +77,6 @@
                 <p>Ketua RT</p>
                 <p class="signature-space">(....................................)</p>
             </div>
-        </div>
         </div>
     </div>
 </body>

@@ -49,12 +49,12 @@ class PenerimaBansosController extends Controller
     {
         // Get kriteria for the specified bansos
         $kriteria = KriteriaBansosModel::where('id_bansos', $idBansos)->get();
-        
+
         // Get alternatif where penerima status is $status and id_bansos is $idBansos
         $alternatifs = NilaiAlternatifModel::whereHas('penerima', function($query) use ($status, $idBansos) {
             $query->where('status', $status)->where('id_bansos', $idBansos);
         })->with('nilai')->get()->groupBy('id_penerima');
-    
+
         // Step 1: Matrix Normalization
         $normalization = [];
         foreach ($kriteria as $k) {
@@ -75,7 +75,7 @@ class PenerimaBansosController extends Controller
                 }
             }
         }
-    
+
         // Step 2: Weighted Normalized Decision Matrix
         $weighted = [];
         foreach ($normalization as $id_penerima => $norm) {
@@ -84,7 +84,7 @@ class PenerimaBansosController extends Controller
                 $weighted[$id_penerima][$id_kriteria] = $value * $kriteriaItem->bobot;
             }
         }
-    
+
         // Step 3: Calculate MOORA
         $moora = [];
         foreach ($weighted as $id_penerima => $weight) {
@@ -100,15 +100,15 @@ class PenerimaBansosController extends Controller
             }
             $moora[$id_penerima] = $benefit - $cost;
         }
-    
+
         // Step 4: Ranking
         arsort($moora);
         $ranking = array_keys($moora);
-    
+
         return compact('ranking', 'moora');
     }
-    
-    
+
+
 
     public function list($idBansos)
     {
@@ -168,11 +168,11 @@ class PenerimaBansosController extends Controller
             'penerima' => 'required|array',
             'penerima.*' => 'exists:penerima_bansos,id_penerima'
         ]);
-    
+
         $selectedPenerimaIds = $request->input('penerima');
-        
+
         PenerimaBansosModel::whereIn('id_penerima', $selectedPenerimaIds)->update(['status' => 'diterima']);
-    
+
         return redirect('/penerima')->with('success', 'Data penerima berhasil disimpan');
     }
 
@@ -209,8 +209,8 @@ class PenerimaBansosController extends Controller
                 });
         })
         ->get();
-        
-        
+
+
 
         return view('Penerima.create', [
             'breadcrumb' => $breadcrumb,
@@ -268,7 +268,7 @@ class PenerimaBansosController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data.')->withInput();
         }
     }
-    
+
 
 
     // Menampilkan detail user
@@ -300,10 +300,10 @@ class PenerimaBansosController extends Controller
             $penerima->status = 'diterima';
             $penerima->save();
         }
-    
+
         return redirect(url('penerima/' . $penerima->id_bansos . '/pengajuan'))->with('success', 'Penerima berhasil diterima');
     }
-    
+
     public function reject($id)
     {
         $penerima = PenerimaBansosModel::find($id);
@@ -311,7 +311,7 @@ class PenerimaBansosController extends Controller
             $penerima->status = 'ditolak';
             $penerima->save();
         }
-    
+
         return redirect(url('penerima/' . $penerima->id_bansos . '/pengajuan'))->with('success', 'Penerima berhasil ditolak');
     }
 

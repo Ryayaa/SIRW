@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\UMKMModel;
@@ -30,7 +29,7 @@ class UMKMController extends Controller
 
     public function list(Request $request)
     {
-        $umkm = UMKMModel::select('id_umkm', 'nama_umkm', 'alamat', 'no_telepon', 'gambar', 'id_warga');
+        $umkm = UMKMModel::select('id_umkm', 'nama_umkm', 'alamat', 'no_telepon', 'gambar', 'id_warga', 'status_pengajuan');
 
         return DataTables::of($umkm)
             ->addIndexColumn()
@@ -46,29 +45,6 @@ class UMKMController extends Controller
             ->make(true);
     }
 
-    public function create()
-    {
-        $breadcrumb = (object)[
-            'title' => 'Tambah UMKM',
-            'list'  => ['Home', 'UMKM', 'Tambah']
-        ];
-
-        $page = (object) [
-            'title' => 'Tambah UMKM'
-        ];
-
-        $activeMenu = 'umkm';
-
-        $wargas = WargaModel::all(); // Ambil semua data WargaModel
-
-        return view('UMKM.create', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'activeMenu' => $activeMenu,
-            'wargas' => $wargas // Kirim data WargaModel ke view
-        ]);
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -76,18 +52,23 @@ class UMKMController extends Controller
             'alamat' => 'required|string|max:200',
             'no_telepon' => 'required|string|max:15',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'id_warga' => 'required|exists:warga,id_warga'
+            'id_warga' => 'required|exists:warga,id_warga',
+            'status_pengajuan' => 'required|boolean'
         ]);
-
+    
         $data = $request->all();
         if ($request->hasFile('gambar')) {
             $imageName = time().'.'.$request->gambar->extension();
-            $request->gambar->move(public_path('images'), $imageName);
-            $data['gambar'] = $imageName;
+            // Create the directory if it doesn't exist
+            if (!file_exists(public_path('images/umkm'))) {
+                mkdir(public_path('images/umkm'), 0777, true);
+            }
+            $request->gambar->move(public_path('images/umkm'), $imageName);
+            $data['gambar'] = 'umkm/'.$imageName;
         }
-
+    
         UMKMModel::create($data);
-
+    
         return redirect('/umkm')->with('success', 'UMKM berhasil disimpan');
     }
 
@@ -142,7 +123,8 @@ class UMKMController extends Controller
             'alamat' => 'required|string|max:200',
             'no_telepon' => 'required|string|max:15',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'id_warga' => 'required|exists:warga,id_warga'
+            'id_warga' => 'required|exists:warga,id_warga',
+            'status_pengajuan' => 'required|boolean'
         ]);
 
         $umkm = UMKMModel::findOrFail($id);
