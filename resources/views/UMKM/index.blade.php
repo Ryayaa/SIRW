@@ -202,7 +202,7 @@
                 { data: 'id_umkm', name: 'aksi', orderable: false, searchable: false, render: function(data, type, full, meta) {
                     return `
                         <div class="table-actions">
-                            <a href="{{ url('umkm/${data}/edit') }}" class="btn btn-sm btn-warning">
+                            <a href="{{ url('/umkm/${data}/edit') }}" class="btn btn-sm btn-warning">
                                 <i class="fas fa-edit"></i> Detail
                             </a>
                         </div>

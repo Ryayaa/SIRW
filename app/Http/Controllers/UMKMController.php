@@ -50,51 +50,51 @@ class UMKMController extends Controller
     
     
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nama_umkm' => 'required|string|max:100',
-            'alamat' => 'required|string|max:200',
-            'no_telepon' => 'required|string|max:15',
-            'deskripsi' => 'required',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'id_warga' => 'required|exists:warga,id_warga',
-            'status_pengajuan' => 'required|boolean'
-        ]);
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'nama_umkm' => 'required|string|max:100',
+    //         'alamat' => 'required|string|max:200',
+    //         'no_telepon' => 'required|string|max:15',
+    //         'deskripsi' => 'required',
+    //         'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    //         'id_warga' => 'required|exists:warga,id_warga',
+    //         'status_pengajuan' => 'required|boolean'
+    //     ]);
     
-        $data = $request->all();
-        if ($request->hasFile('gambar')) {
-            $imageName = time().'.'.$request->gambar->extension();
-            // Create the directory if it doesn't exist
-            if (!file_exists(public_path('images/umkm'))) {
-                mkdir(public_path('images/umkm'), 0777, true);
-            }
-            $request->gambar->move(public_path('images/umkm'), $imageName);
-            $data['gambar'] = 'umkm/'.$imageName;
-        }
+    //     $data = $request->all();
+    //     if ($request->hasFile('gambar')) {
+    //         $imageName = time().'.'.$request->gambar->extension();
+    //         // Create the directory if it doesn't exist
+    //         if (!file_exists(public_path('images/umkm'))) {
+    //             mkdir(public_path('images/umkm'), 0777, true);
+    //         }
+    //         $request->gambar->move(public_path('images/umkm'), $imageName);
+    //         $data['gambar'] = 'umkm/'.$imageName;
+    //     }
     
-        UMKMModel::create($data);
+    //     UMKMModel::create($data);
     
-        return redirect('/umkm')->with('success', 'UMKM berhasil disimpan');
-    }
+    //     return redirect('/umkm')->with('success', 'UMKM berhasil disimpan');
+    // }
 
-    public function show($id)
-    {
-        $umkm = UMKMModel::findOrFail($id);
+    // public function show($id)
+    // {
+    //     $umkm = UMKMModel::findOrFail($id);
 
-        $breadcrumb = (object)[
-            'title' => 'Detail UMKM',
-            'list'  => ['Home', 'UMKM', 'Detail']
-        ];
+    //     $breadcrumb = (object)[
+    //         'title' => 'Detail UMKM',
+    //         'list'  => ['Home', 'UMKM', 'Detail']
+    //     ];
 
-        $page = (object) [
-            'title' => 'Detail UMKM'
-        ];
+    //     $page = (object) [
+    //         'title' => 'Detail UMKM'
+    //     ];
 
-        $activeMenu = 'umkm';
+    //     $activeMenu = 'umkm';
 
-        return view('UMKM.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'umkm' => $umkm, 'activeMenu' => $activeMenu]);
-    }
+    //     return view('UMKM.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'umkm' => $umkm, 'activeMenu' => $activeMenu]);
+    // }
 
     public function edit($id)
     {
