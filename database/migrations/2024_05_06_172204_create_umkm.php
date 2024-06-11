@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('umkm', function (Blueprint $table) {
-            $table->id('id_umkm');
-            $table->string('nama_umkm',100);
-            $table->string('alamat',200);
-            $table->string('no_telepon',15);
+            $table->id();
+            $table->string('nama_umkm');
+            $table->string('alamat');
+            $table->string('no_telepon', 15);
             $table->string('gambar')->nullable();
             $table->unsignedBigInteger('id_warga');
-            $table->timestamps();
-
             $table->foreign('id_warga')->references('id_warga')->on('warga');
+            $table->boolean('status_pengajuan')->nullable();
+            $table->timestamps();
 
         });
     }

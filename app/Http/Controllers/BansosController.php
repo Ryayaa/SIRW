@@ -48,23 +48,33 @@ class BansosController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'nama_bansos' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
-            'gambar' => 'image|max:2048',
-            'jumlah_kriteria' => 'required|integer|min:1',
+{
+    $request->validate([
+        'nama_bansos' => 'required|string|max:255',
+        'deskripsi' => 'required|string',
+        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'jumlah_kriteria' => 'required|integer|min:1',
+    ]);
 
-        ]);
+    $data = $request->all();
+    
+    if ($request->hasFile('gambar')) {
+        $imageName = time() . '.' . $request->gambar->extension();
 
-        $bansos = Bansos::create([
-            'nama_bansos' => $request->nama_bansos,
-            'deskripsi' => $request->deskripsi,
-            'gambar' => $request->file('gambar')->store('images', 'public')
-        ]);
+        // Create the directory if it doesn't exist
+        if (!file_exists(public_path('images/bansos'))) {
+            mkdir(public_path('images/bansos'), 0777, true);
+        }
 
-        return redirect()->route('bansos.createKriteria', ['id_bansos' => $bansos->id_bansos, 'jumlah_kriteria' => $request->jumlah_kriteria]);
+        $request->gambar->move(public_path('images/bansos'), $imageName);
+        $data['gambar'] = 'bansos/' . $imageName;
     }
+
+    $bansos = Bansos::create($data);
+
+    return redirect()->route('bansos.createKriteria', ['id_bansos' => $bansos->id_bansos, 'jumlah_kriteria' => $request->jumlah_kriteria])
+                     ->with('success', 'Bansos berhasil disimpan');
+}
 
     public function createKriteria(Request $request)
     {
