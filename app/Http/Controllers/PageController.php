@@ -418,7 +418,7 @@ class PageController extends Controller
     public function detailWargaSementara($id)
     {
         $warga = WargaSementaraModel::findOrFail($id);
-        return view('warga-sementara.detail', compact('warga'));
+        return view('page.WargaSementara.detail', compact('warga'));
     }
 
 
