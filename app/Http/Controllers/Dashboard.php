@@ -20,7 +20,7 @@ class Dashboard extends Controller
         $currentDateTime = Carbon::now();
 
         $pengumumans = PengumumanModel::orderBy('tanggal', 'desc')->take(1)->get();
-        $umkms = UMKMModel::with('warga')->where('status_pengajuan','=','approved')->inRandomOrder()->take(4)->get();
+        $umkms = UMKMModel::with('warga')->where('status_pengajuan','approved')->inRandomOrder()->take(3)->get();
         $kegiatans = KegiatanModel::where('tanggal', '>', $currentDateTime->toDateString())
         ->orWhere(function ($query) use ($currentDateTime) {
             $query->where('tanggal', '=', $currentDateTime->toDateString())
@@ -33,7 +33,23 @@ class Dashboard extends Controller
         return view('user-login.main',compact('pengumumans','umkms','kegiatans'));
     }
 
+
     public function DashboardGuest(){
-        return view('Guest.main');
+        $currentDateTime = Carbon::now();
+
+        $pengumumans = PengumumanModel::orderBy('tanggal', 'desc')->take(1)->get();
+        $umkms = UMKMModel::with('warga')->where('status_pengajuan','=','approved')->inRandomOrder()->take(3)->get();
+        $kegiatans = KegiatanModel::where('tanggal', '>', $currentDateTime->toDateString())
+        ->orWhere(function ($query) use ($currentDateTime) {
+            $query->where('tanggal', '=', $currentDateTime->toDateString())
+                ->where('waktu', '>=', $currentDateTime->toTimeString());
+        })
+        ->orderBy('tanggal', 'asc')
+        ->orderBy('waktu', 'asc')
+        ->take(3)
+        ->get();
+        return view('Guest.main',compact('pengumumans','umkms','kegiatans'));
     }
 }
+
+

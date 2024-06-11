@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             KriteriaSeeder::class,
             NilaiKriteriaSeeder::class,
             AlternatifSeeder::class,
+            JenisSuratSeeder::class,
         ]);
     }
 }

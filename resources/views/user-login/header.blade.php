@@ -3,8 +3,8 @@
 
         <a href="{{route('user-dashboard')}}" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
             <!-- Uncomment the line below if you also wish to use an image logo -->
-            {{-- <h1>SIRW<span>.</span></h1> --}}
-            <img src="assets/img/faq.jpg" alt="">
+            <h1>SIRW<span>.</span></h1>
+            {{-- <img src="assets/img/faq.jpg" alt=""> --}}
         </a>
 
         <nav id="navbar" class="navbar">
