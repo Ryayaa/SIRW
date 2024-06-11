@@ -37,6 +37,10 @@
             @enderror
         </div>
         <div class="mb-3">
+            <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
+            <input type="text" name="tempat_lahir" class="form-control" required>
+        </div>
+        <div class="mb-3">
             <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
             <input type="text" name="nama_lengkap" class="form-control" id="nama_lengkap" value="{{ old('nama_lengkap') }}" required>
             @error('nama_lengkap')
@@ -50,13 +54,6 @@
                 <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
             </select>
             @error('jenis_kelamin')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <label for="alamat_asal" class="form-label">Alamat Asal</label>
-            <textarea name="alamat_asal" class="form-control" id="alamat_asal" rows="3" required>{{ old('alamat_asal') }}</textarea>
-            @error('alamat_asal')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
@@ -87,18 +84,19 @@
             @enderror
         </div>
         <div class="mb-3">
-            <label for="tanggal_masuk" class="form-label">Tanggal Masuk</label>
-            <input type="date" name="tanggal_masuk" class="form-control" id="tanggal_masuk" value="{{ old('tanggal_masuk') }}" required>
-            @error('tanggal_masuk')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
+            <label for="no_telepon" class="form-label">No Telepon</label>
+            <input type="text" name="no_telepon" class="form-control" required>
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" id="password" required>
-            @error('password')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
+            <label for="agama" class="form-label">Agama</label>
+            <select name="agama" class="form-control" required>
+                <option value="islam">Islam</option>
+                <option value="protestan">Protestan</option>
+                <option value="katolik">Katolik</option>
+                <option value="budha">Budha</option>
+                <option value="hindu">Hindu</option>
+                <option value="khonghucu">Khonghucu</option>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

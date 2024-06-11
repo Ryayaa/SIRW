@@ -15,24 +15,15 @@ class WargaSementaraModel extends Model
         'bukti_ktp',
         'nik',
         'tanggal_lahir',
+        'tempat_lahir',
         'nama_lengkap',
         'jenis_kelamin',
-        'alamat_asal',
         'alamat_domisili',
         'pekerjaan',
         'status_perkawinan',
-        'tanggal_masuk',
-        'password',
-        'status_pengajuan',
-        'id_warga',
-        'username',
-    ];
-    protected $hidden = [
-        'password',
-    ];
-    protected $casts = [
-        'tanggal_lahir' => 'date',
-        'tanggal_masuk' => 'date',
+        'agama',
+        'no_telepon',
+        'pengaju',
     ];
 
     public function warga()

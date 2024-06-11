@@ -39,6 +39,10 @@
                     <input type="time" name="waktu" id="waktu" class="form-control" value="{{ old('waktu') }}" required>
                 </div>
                 <div class="form-group">
+                    <label for="gambar">Gambar</label>
+                    <input type="file" class="form-control-file" id="gambar" name="gambar">
+                </div>
+                <div class="form-group">
                     <label for="id_rt">ID RT</label>
                     <select name="id_rt" id="id_rt" class="form-control" required>
                         <option value="">Pilih RT</option>

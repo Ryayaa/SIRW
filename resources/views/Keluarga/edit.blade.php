@@ -1,72 +1,62 @@
+{{-- resources/views/keluarga/edit.blade.php --}}
+
 @extends('layouts.template')
 
 @section('content')
     <div class="card card-outline card-primary">
         <div class="card-header">
-            <h3 class="card-title">{{ $page->title }}</h3>
-            <div class="card-tools"></div>
+            <h3 class="card-title">Edit Keluarga</h3>
         </div>
         <div class="card-body">
             @if (session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
-            @if (session('error'))
-                <div class="alert alert-danger">{{ session('error') }}</div>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
             @endif
-            <form method="POST" action="{{ url('/warga/' . $warga->id_warga) }}" class="form-horizontal">
+
+            <form action="{{ route('keluarga.update', $keluarga->id_keluarga) }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                {!! method_field('PUT') !!}
-                <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Nomor Kartu Keluarga (NKK)</label>
-                    <div class="col-11">
-                        <input type="text" class="form-control" id="NKK" name="NKK"
-                            value="{{ old('NKK', $warga->NKK) }}" required>
-                        @error('NKK')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
+                @method('PUT')
+
+                <div class="form-group">
+                    <label for="nomor_kk">Nomor KK</label>
+                    <input type="text" name="nomor_kk" class="form-control" value="{{ $keluarga->nomor_kk }}" required>
                 </div>
-                <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Nomor Induk Kependudukan (NIK)</label>
-                    <div class="col-11">
-                        <input type="text" class="form-control" id="NIK" name="NIK"
-                            value="{{ old('NIK', $warga->NIK) }}" required>
-                        @error('NIK')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
+                
+                <div class="form-group">
+                    <label for="alamat">Alamat</label>
+                    <input type="text" name="alamat" class="form-control" value="{{ $keluarga->alamat }}" required>
                 </div>
-                <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Nama Lengkap</label>
-                    <div class="col-11">
-                        <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap"
-                            value="{{ old('nama_lengkap', $warga->nama_lengkap) }}" required>
-                        @error('nama_lengkap')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
+                
+                <div class="form-group">
+                    <label for="id_rt">RT</label>
+                    <input type="number" name="id_rt" class="form-control" value="{{ $keluarga->id_rt }}" required>
                 </div>
-                <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Jenis Kelamin</label>
-                    <div class="col-11">
-                        <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
-                            <option value="L" {{ $warga->jenis_kelamin == 'L' ? 'selected' : '' }}>Laki-laki</option>
-                            <option value="P" {{ $warga->jenis_kelamin == 'P' ? 'selected' : '' }}>Perempuan</option>
-                        </select>
-                        @error('jenis_kelamin')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
+
+                <div class="form-group">
+                    <label for="bukti_kk">Gambar Bukti KK</label>
+                    <input type="file" name="bukti_kk" class="form-control">
+                    @if ($keluarga->bukti_kk)
+                        <img src="{{ asset('images/warga/kk/' . $keluarga->bukti_kk) }}" alt="Bukti KK" width="200" class="mt-2">
+                    @endif
                 </div>
-                <!-- Add other fields as per your warga table structure -->
-                <div class="form-group row">
-                    <label class="col-1 control-label col-form-label"></label>
-                    <div class="col-11">
-                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
-                        <a class="btn btn-sm btn-default ml-1" href="{{ url('warga') }}">Kembali</a>
-                    </div>
-                </div>
+
+                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                <a href="{{ route('keluarga.index') }}" class="btn btn-default">Batal</a>
             </form>
         </div>
     </div>
 @endsection
+
+@push('css')
+@endpush
+
+@push('js')
+@endpush

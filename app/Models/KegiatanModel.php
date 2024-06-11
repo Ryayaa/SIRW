@@ -18,6 +18,7 @@ class KegiatanModel extends Model
         'lokasi',
         'tanggal',
         'waktu',
+        'gambar',
         'id_rt',
     ];
 

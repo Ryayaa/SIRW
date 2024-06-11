@@ -3,64 +3,11 @@
 @section('content')
     <div class="card card-outline card-primary">
         <div class="card-header">
-            <h3 class="card-title">Tambah Data Warga</h3>
+            <h3 class="card-title">Tambah Warga</h3>
         </div>
         <div class="card-body">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <form action="{{ route('warga.store') }}" method="POST">
+            <form action="{{ route('warga.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="form-group">
-                    <label for="NIK">Nomor Induk Kependudukan (NIK)</label>
-                    <input type="text" name="NIK" id="NIK" class="form-control" value="{{ old('NIK') }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="nama_lengkap">Nama Lengkap</label>
-                    <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control" value="{{ old('nama_lengkap') }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="tanggal_lahir">Tanggal Lahir</label>
-                    <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" required>
-                </div>                
-                <div class="form-group">
-                    <label for="jenis_kelamin">Jenis Kelamin</label>
-                    <select name="jenis_kelamin" id="jenis_kelamin" class="form-control" required>
-                        <option value="Laki-Laki">Laki-laki</option>
-                        <option value="Perempuan">Perempuan</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="alamat">Alamat Domisili</label>
-                    <input type="text" name="alamat_domisili" id="alamat_domisili" class="form-control" value="{{ old('alamat_domisili') }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="pekerjaan">Pekerjaan</label>
-                    <input type="text" name="pekerjaan" id="pekerjaan" class="form-control" value="{{ old('pekerjaan') }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="status_perkawinan">Status Perkawinan</label>
-                    <select name="status_perkawinan" id="status_perkawinan" class="form-control" required>
-                        <option value="Kawin">Kawin</option>
-                        <option value="Belum Kawin">Belum Kawin</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="roles">roles</label>
-                    <select name="roles" id="roles" class="form-control" required>
-                        <option value="RT">RT</option>
-                        <option value="RW">RW</option>
-                        <option value="Warga">Warga</option>
-                        <option value="Warga Sementara">Warga Sementara</option>
-                    </select>
-                </div>
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Keluarga</label>
                     <div class="col-11">
@@ -75,9 +22,87 @@
                         @enderror
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="nik">NIK</label>
+                    <input type="text" name="nik" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="nama_lengkap">Nama Lengkap</label>
+                    <input type="text" name="nama_lengkap" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="tanggal_lahir">Tanggal Lahir</label>
+                    <input type="date" name="tanggal_lahir" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="jenis_kelamin">Jenis Kelamin</label>
+                    <select name="jenis_kelamin" class="form-control" required>
+                        <option value="L">Laki-laki</option>
+                        <option value="P">Perempuan</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="alamat_domisili">Alamat Domisili</label>
+                    <textarea name="alamat_domisili" class="form-control" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="pekerjaan">Pekerjaan</label>
+                    <input type="text" name="pekerjaan" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="status_perkawinan">Status Perkawinan</label>
+                    <select name="status_perkawinan" class="form-control" required>
+                        <option value="Belum Kawin">Belum Kawin</option>
+                        <option value="Kawin">Kawin</option>
+                        <option value="Cerai Hidup">Cerai Hidup</option>
+                        <option value="Cerai Mati">Cerai Mati</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="no_telepon">No Telepon</label>
+                    <input type="text" name="no_telepon" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="tempat_lahir">Tempat Lahir</label>
+                    <input type="text" name="tempat_lahir" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="status_hubungan">Status Hubungan</label>
+                    <select name="status_hubungan" class="form-control" required>
+                        <option value="Kepala Keluarga">Kepala Keluarga</option>
+                        <option value="Suami">Suami</option>
+                        <option value="Istri">Istri</option>
+                        <option value="Anak">Anak</option>
+                        <option value="Menantu">Menantu</option>
+                        <option value="Cucu">Cucu</option>
+                        <option value="Orang Tua">Orang Tua</option>
+                        <option value="Mertua">Mertua</option>
+                        <option value="Famili Lain">Famili Lain</option>
+                        <option value="Lainnya">Lainnya</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="bukti_ktp">Bukti KTP</label>
+                    <input type="file" name="bukti_ktp" class="form-control" required>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <a href="{{ url('warga') }}" class="btn btn-default">Kembali</a>
             </form>
         </div>
     </div>
 @endsection
+
+@push('css')
+@endpush
+
+@push('js')
+@endpush

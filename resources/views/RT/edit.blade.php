@@ -27,45 +27,13 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Nama Lengkap</label>
+                    <label class="col-1 control-label col-form-label" for="id_warga">Pilih Ketua</label>
                     <div class="col-11">
-                        <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap"
-                            value="{{ old('nama_lengkap', $rt->nama_lengkap) }}" required>
-                        @error('nama_lengkap')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Jenis Kelamin</label>
-                    <div class="col-11">
-                        <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
-                            <option value="L" {{ $rt->jenis_kelamin == 'L' ? 'selected' : '' }}>Laki-laki</option>
-                            <option value="P" {{ $rt->jenis_kelamin == 'P' ? 'selected' : '' }}>Perempuan</option>
+                        <select name="id_warga" id="id_warga" class="form-control" required>
+                            @foreach ($wargas as $warga)
+                                <option value="{{ $warga->id_warga }}">{{ $warga->nama_lengkap }} {{$warga->keluarga->rt->no_rt}}</option>
+                            @endforeach
                         </select>
-                        @error('jenis_kelamin')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Alamat</label>
-                    <div class="col-11">
-                        <input type="text" class="form-control" id="alamat" name="alamat"
-                            value="{{ old('alamat', $rt->alamat) }}" required>
-                        @error('alamat')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">No Telepon</label>
-                    <div class="col-11">
-                        <input type="text" class="form-control" id="no_telepon" name="no_telepon"
-                            value="{{ old('no_telepon', $rt->no_telepon) }}" required>
-                        @error('no_telepon')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
                     </div>
                 </div>
                 <div class="form-group row">
