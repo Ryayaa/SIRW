@@ -98,12 +98,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
-                <a href="{{ url('/warga_sementara') }}" class="nav-link {{ $activeMenu == 'warga_sementara' ? 'active' : '' }} ">
-                    <i class="nav-icon far fa-address-card"></i>
-                    <p>Warga Sementara</p>
-                </a>
-            </li>         
+            <!-- Pengumuman -->
             <li class="nav-item">
                 <a href="{{ url('/pengumuman') }}" class="nav-link {{ $activeMenu == 'pengumuman' ? 'active' : '' }}">
                     <i class="nav-icon fas fa-bullhorn"></i>
