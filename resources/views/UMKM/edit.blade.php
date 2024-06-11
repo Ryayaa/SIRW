@@ -64,6 +64,11 @@
                     <label class="col-1 control-label col-form-label">Gambar</label>
                     <div class="col-11">
                         <input type="file" class="form-control-file" id="gambar" name="gambar">
+                        @if ($umkm->gambar)
+                            <img src="{{ asset('images/' . $umkm->gambar) }}" alt="{{ $umkm->nama_umkm }}" class="img-thumbnail mt-2" style="max-height: 200px;">
+                        @else
+                            <span>Tidak ada gambar</span>
+                        @endif
                         @error('gambar')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
@@ -88,7 +93,6 @@
                             <option value="2" {{ old('status_pengajuan', $umkm->status_pengajuan) == 2 ? 'selected' : '' }}>Pending</option>
                         </select>
                     </div>
-                </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label"></label>
