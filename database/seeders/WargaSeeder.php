@@ -557,7 +557,7 @@ class WargaSeeder extends Seeder
                 'bukti_ktp' => '0987654321.png',
             ],
             [
-                'nik' => '3573052111050019',
+                'nik' => '3573052111050037',
                 'nama_lengkap' => 'Dwi Rahmawati',
                 'tanggal_lahir' => '2005-11-21',
                 'jenis_kelamin' => 'Perempuan',
