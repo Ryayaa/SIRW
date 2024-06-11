@@ -22,9 +22,9 @@ class RwModel extends Model
         'akhir_jabatan'
     ];
 
-    public function warga(): BelongsTo
+    public function warga()
     {
-        return $this-hasMany(WargaModel::class, 'id_warga', 'id_warga');
+        return $this->belongsTo(WargaModel::class, 'id_warga', 'id_warga');
     }
 
 }
