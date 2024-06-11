@@ -180,6 +180,7 @@ Route::group(['prefix' => 'umkm'], function () {
     Route::get('/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit'); // Display form to edit UMKM
     Route::put('/{id}', [UMKMController::class, 'update'])->name('umkm.update'); // Update UMKM data
     Route::delete('/{id}', [UMKMController::class, 'destroy'])->name('umkm.destroy'); // Delete UMKM data
+    Route::get('umkm/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit');
 });
 
 Route::group(['prefix' => 'kegiatan'], function () {

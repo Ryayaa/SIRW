@@ -16,6 +16,7 @@ class UMKMModel extends Model
         'nama_umkm',
         'alamat',
         'no_telepon',
+        'deskripsi',
         'gambar',
         'id_warga',
         'status_pengajuan',

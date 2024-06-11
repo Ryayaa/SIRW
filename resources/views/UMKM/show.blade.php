@@ -27,6 +27,10 @@
                             <td>{{ $umkm->alamat }}</td>
                         </tr>
                         <tr>
+                            <th>Deskripsi</th>
+                            <td>{{ $umkm->deskripsi }}</td>
+                        </tr>
+                        <tr>
                             <th>No Telepon</th>
                             <td>{{ $umkm->no_telepon }}</td>
                         </tr>
