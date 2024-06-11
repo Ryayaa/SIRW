@@ -11,24 +11,23 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     {{-- data tables --}}
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <!-- Ekko Lightbox -->
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/ekko-lightbox/ekko-lightbox.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
-
     @stack('css')
 </head>
 
 <body class="hold-transition sidebar-mini">
     <!-- Site wrapper -->
     <div class="wrapper">
-        {{-- JS7 praktikum 1 bagian 10 --}}
         {{-- Navbar --}}
         @include('layouts.header')
         {{-- .Navbar --}}
@@ -41,8 +40,6 @@
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">SIRW</span>
             </a>
-
-            {{-- JS7 praktikum 1 bagian 12 --}}
             {{-- Sidebar --}}
             @include('layouts.sidebar')
             {{-- .Sidebar --}}
@@ -51,14 +48,12 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            {{-- JS7 praktikum 1 bagian 13 --}}
             {{-- Breadcrumb --}}
             @include('layouts.breadcrumb')
             {{-- .Breadcrumb --}}
 
             <!-- Main content -->
             <section class="content">
-                {{-- JS7 praktikum 1 bagian 18 --}}
                 {{-- Content --}}
                 @yield('content')
                 {{-- .Content --}}
@@ -67,7 +62,6 @@
         </div>
         <!-- /.content-wrapper -->
 
-        {{-- JS7 praktikum 1 bagian 13 --}}
         {{-- Footer --}}
         @include('layouts.footer')
         {{-- .Footer --}}
@@ -91,17 +85,25 @@
     <script src="{{asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
     <script src="{{asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
     <script src="{{asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+    <!-- Ekko Lightbox -->
+    <script src="{{ asset('adminlte/plugins/ekko-lightbox/ekko-lightbox.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
+    <!-- AdminLTE for demo purposes -->
+    {{-- <script src="{{asset('dist/js/demo.js')}}"></script> --}}
+
     <script>
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        })
+        });
     </script>
-    <!-- AdminLTE for demo purposes -->
-    {{-- <script src="{{asset('dist/js/demo.js')}}"></script> --}}
     @stack('js')
 </body>
 

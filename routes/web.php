@@ -233,8 +233,9 @@ Route::group(['prefix' => 'kegiatan'], function () {
     Route::get('/tamu-form', [PageController::class, 'showTamuForm'])->name('tamu_form.show');
     Route::post('/tamu-form/create', [PageController::class, 'createTamuForm'])->name('tamu_form.create');
 
-    Route::post('/warga-sementara-form/list', [PageController::class, 'listWargaSementara'])->name('warga-sementara_form.show');
+    Route::get('/warga-sementara-form', [PageController::class, 'listWargaSementara'])->name('warga-sementara_form.show');
     Route::get('/warga-sementara-form/form', [PageController::class, 'showWargaSementaraForm'])->name('warga-sementara_form.form');
+    Route::get('/warga-sementara-form/detail/{id}', [PageController::class, 'detailWargaSementara'])->name('warga-sementara_form.detail');
     Route::post('/warga-sementara-form/create', [PageController::class, 'createWargaSementaraForm'])->name('warga-sementara_form.create');
     });
 });

@@ -290,45 +290,49 @@ public function showUMKM(Request $request)
         return redirect()->route('tamu_form.show')->with('success', 'Tamu berhasil ditambahkan.');
     }
 
+    public function listWargaSementara(){
+        $wargaSementaraList = WargaSementaraModel::where('pengaju', Auth::user()->nik)->get();
+        return view('page.WargaSementara.index', compact('wargaSementaraList'));
+    }
+
+    public function detailWargaSementara($id)
+    {
+        $warga = WargaSementaraModel::findOrFail($id);
+        return view('warga-sementara.detail', compact('warga'));
+    }
+
+
     public function showWargaSementaraForm(){
         return view('page.WargaSementara.form');
     }
 
     public function createWargaSementaraForm(Request $request){
         $request->validate([
-            'bukti_ktp' => 'required|image',
-            'nik' => 'required|string|max:20',
+            'bukti_ktp' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048',
+            'nik' => 'required|string|max:16|unique:warga_sementara,nik',
             'tanggal_lahir' => 'required|date',
+            'tempat_lahir' => 'required|string|max:100',
             'nama_lengkap' => 'required|string|max:100',
             'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
-            'alamat_asal' => 'required|string|max:255',
             'alamat_domisili' => 'required|string|max:255',
             'pekerjaan' => 'required|string|max:50',
             'status_perkawinan' => 'required|in:Kawin,Belum Kawin,Cerai Mati,Cerai Hidup',
-            'tanggal_masuk' => 'required|date',
-            'password' => 'required|string',
+            'no_telepon' => 'required|string|max:15',
         ]);
 
-        $warga_sementara = new WargaSementaraModel();
-        $warga_sementara->nik = $request->nik;
-        $warga_sementara->tanggal_lahir = $request->tanggal_lahir;
-        $warga_sementara->nama_lengkap = $request->nama_lengkap;
-        $warga_sementara->jenis_kelamin = $request->jenis_kelamin;
-        $warga_sementara->alamat_asal = $request->alamat_asal;
-        $warga_sementara->alamat_domisili = $request->alamat_domisili;
-        $warga_sementara->pekerjaan = $request->pekerjaan;
-        $warga_sementara->status_perkawinan = $request->status_perkawinan;
-        $warga_sementara->tanggal_masuk = $request->tanggal_masuk;
-        $warga_sementara->password = $request->password;
-        $warga_sementara->username = $request->nik;
-        $warga_sementara->id_warga = Auth::user()->id_warga;;
-
+        $validatedData = $request->all();
         if ($request->hasFile('bukti_ktp')) {
-            $warga_sementara->bukti_ktp = $request->file('bukti_ktp')->store('bukti_ktp');
+            $file = $request->file('bukti_ktp');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/bukti_ktp'), $filename);
+            $validatedData['bukti_ktp'] = $filename;
         }
-        $warga_sementara->save();
 
-        return redirect()->route('warga-sementara_form.show')->with('success', 'Warga Sementara berhasil ditambahkan.');
+        $validatedData['pengaju'] = Auth::user()->nik;
+
+        WargaSementaraModel::create($validatedData);
+
+        return redirect()->route('warga-sementara_form.show')->with('success', 'Pengajuan data warga sementara berhasil disimpan.');
     }
 
 }
