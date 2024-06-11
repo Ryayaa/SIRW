@@ -14,7 +14,7 @@
             </tr>
             <tr>
                 <th>Jenis Kelamin</th>
-                <td>{{ $rw->warga ? ($rw->warga->jenis_kelamin == 'L' ? 'Laki-Laki' : 'Perempuan') : 'Data tidak tersedia' }}</td>
+                <td>{{ $rw->warga ? ($rw->warga->jenis_kelamin == 'Laki-Laki' ? 'Laki-Laki' : 'Perempuan') : 'Data tidak tersedia' }}</td>
             </tr>
             <tr>
                 <th>Alamat</th>
