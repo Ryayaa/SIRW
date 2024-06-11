@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\WargaModel;
 use App\Http\Requests\StorePostRequest;
 use App\Models\KeluargaModel;
+use App\Models\WargaSementaraModel;
 use Illuminate\Http\RedirectResponse;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Hash;
@@ -22,19 +23,17 @@ class WargaController extends Controller
             'title' => 'Daftar Warga yang terdaftar pada sistem',
         ];
         $activeMenu = 'warga';
-        $keluarga = KeluargaModel::all();
 
         return view('Warga.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
-            'keluarga' => $keluarga
         ]);
     }
 
     public function show($id){
         // Mengambil data warga berdasarkan ID
-        $warga = WargaModel::findOrFail($id);
+        $warga = WargaSementaraModel::findOrFail($id);
 
         // Membuat objek breadcrumb
         $breadcrumb = (object) [
@@ -62,17 +61,13 @@ class WargaController extends Controller
 
     public function list(Request $request)
     {
-        $warga = WargaModel::select('id_warga', 'NIK', 'nama_lengkap', 'tanggal_lahir', 'jenis_kelamin', 'alamat_domisili', 'pekerjaan', 'status_perkawinan','roles', 'id_keluarga')
-            ->with('keluarga');
+        $warga = WargaSementaraModel::all();
 
         return DataTables::of($warga)
             ->addIndexColumn()
             ->addColumn('aksi', function ($warga) {
-                $btn = '<a href="' . url('/warga/' . $warga->id_warga) . '" class="btn btn-info btn-sm">Detail</a> ';
-                $btn .= '<a href="' . url('/warga/' . $warga->id_warga . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/warga/' . $warga->id_warga) . '">'
-                    . csrf_field() . method_field('DELETE') .
-                    '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                $btn = '<a href="' . url('/warga/' . $warga->id_warga_sementara) . '" class="btn btn-info btn-sm">Detail</a> ';
+                $btn .= '<a href="' . url('/warga/' . $warga->id_warga_sementara . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 return $btn;
             })
             ->rawColumns(['aksi'])

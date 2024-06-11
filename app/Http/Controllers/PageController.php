@@ -423,7 +423,7 @@ class PageController extends Controller
         $validatedData = $request->all();
         if ($request->hasFile('bukti_ktp')) {
             $file = $request->file('bukti_ktp');
-            $filename = $request->nik . '.' . $file->getClientOriginalExtension();
+            $fileName = $request->nik . '.' . $file->getClientOriginalExtension();
             if (!file_exists(public_path('images/warga_sementara'))) {
                 mkdir(public_path('images/warga_sementara'), 0777, true);
             }

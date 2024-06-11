@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RtModel;
 use App\Models\RwModel;
 use App\Models\WargaModel;
 use Carbon\Carbon;
@@ -22,12 +23,14 @@ class RwController extends Controller
         $activeMenu = 'rw';
 
         $rw = RwModel::with('warga')->where('status', 'Aktif')->first();
+        $rts = RtModel::with('ketuaRt.warga')->get();
 
         return view('RW.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
-            'rw' => $rw
+            'rw' => $rw,
+            'rts' => $rts
         ]);
     }
 

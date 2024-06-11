@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class RwModel extends Model
@@ -15,18 +16,15 @@ class RwModel extends Model
     protected $table = 'rw';
     protected $primaryKey = 'id_rw';
     protected $fillable = [
-        'nama_lengkap',
-        'jenis_kelamin',
-        'alamat',
-        'no_telepon',
+        'id_warga',
         'status',
         'mulai_jabatan',
         'akhir_jabatan'
     ];
 
-    public function rws(): HasMany
+    public function warga(): BelongsTo
     {
-        return $this->hasMany(RtModel::class, 'id_rw', 'id_rw');
+        return $this->belongsTo(WargaModel::class, 'id_warga', 'id_warga');
     }
 
 }
