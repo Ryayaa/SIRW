@@ -50,7 +50,7 @@
             <div class="col-md-6 col-lg-4 col-sm-8 d-flex align-items-stretch">
                 <div class="card card-custom mb-4 w-100">
                     <div class="card-header text-center bg-success text-white">
-                        <h4>RT {{ $rt->no_rt }}</h4>
+                        <h4>RT {{ $rt->rt->no_rt }}</h4>
                     </div>
                     <div class="card-body d-flex flex-column">
                         <div class="">

@@ -7,7 +7,7 @@
             <div class="card mx-auto shadow-lg border-0">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <small class="text-muted"><i class="bi bi-person me-1"></i> Pembuat: {{ $kegiatan->rt->nama_lengkap }}</small>
+                        <small class="text-muted"><i class="bi bi-person me-1"></i> Pembuat: {{ $kegiatan->rt->ketuaRt->warga->nama_lengkap }}</small>
                         <small class="text-muted"><i class="bi bi-calendar me-1"></i> {{ \Carbon\Carbon::parse($kegiatan->tanggal)->translatedFormat('d F Y') }}</small>
                     </div>
                     <h3 class="card-title text-center my-4">{{ $kegiatan->nama_kegiatan }}</h3>

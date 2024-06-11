@@ -36,7 +36,7 @@ class KegiatanSeeder extends Seeder
             [
                 'nama_kegiatan' => 'Pemilihan RW',
                 'deskripsi' => 'Pemilihan Ketua RW yang baru.',
-                'lokasi' => 'Balai Warga RW 01',
+                'lokasi' => 'Balai Warga RW',
                 'tanggal' => '2024-06-10',
                 'waktu' => '09:00:00',
                 'id_rt' => 1,
@@ -48,7 +48,7 @@ class KegiatanSeeder extends Seeder
                 'lokasi' => 'Balai Warga RT 02',
                 'tanggal' => '2024-06-09',
                 'waktu' => '09:00:00',
-                'id_rt' => 1,
+                'id_rt' => 2,
                 'gambar' => 'kegiatan/nikah.jpg',
             ],
             [
@@ -57,7 +57,7 @@ class KegiatanSeeder extends Seeder
                 'lokasi' => 'Lapangan Utama',
                 'tanggal' => '2024-08-17',
                 'waktu' => '08:00:00',
-                'id_rt' => 1,
+                'id_rt' => 5,
                 'gambar' => 'kegiatan/hutri.jpg',
             ],
             [
@@ -66,7 +66,7 @@ class KegiatanSeeder extends Seeder
                 'lokasi' => 'Lapangan Utama',
                 'tanggal' => '2024-08-17',
                 'waktu' => '08:00:00',
-                'id_rt' => 1,
+                'id_rt' => 4,
                 'gambar' => 'kegiatan/madang.jpg',
             ],
         ];
