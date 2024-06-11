@@ -6,6 +6,7 @@ use App\Models\WargaModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -87,6 +88,11 @@ class AuthController extends Controller
         $request->validate([
             'current_password' => 'required',
             'new_password' => 'required|min:8|confirmed',
+        ], [
+            'current_password.required' => 'Password saat ini wajib diisi.',
+            'new_password.required' => 'Password baru wajib diisi.',
+            'new_password.min' => 'Password baru harus terdiri dari minimal :min karakter.',
+            'new_password.confirmed' => 'Konfirmasi password baru tidak cocok.',
         ]);
 
         $user = Auth::user();
@@ -103,4 +109,30 @@ class AuthController extends Controller
         return back()->with('status', 'Password berhasil diubah');
     }
 
+    public function changeUsername(Request $request)
+{
+    $request->validate([
+        'username' => 'required|string|max:12|unique:warga,username',
+        'password' => 'required',
+    ], [
+        'username.required' => 'Username wajib diisi.',
+        'username.string' => 'Username harus berupa teks.',
+        'username.max' => 'Username tidak boleh lebih dari :max karakter.',
+        'username.unique' => 'Username sudah digunakan.',
+        'password.required' => 'Password wajib diisi.',]);
+
+    $user = Auth::user();
+
+    if (!Hash::check($request->password, $user->password)) {
+        throw ValidationException::withMessages([
+            'password' => 'Password tidak sesuai.',
+        ]);
+    }
+    
+
+    $user->username = $request->username;
+    $user->save();
+
+    return redirect()->route('profile')->with('status', 'Username berhasil diperbarui.');
+}
 }

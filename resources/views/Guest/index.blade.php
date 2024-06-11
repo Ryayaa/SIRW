@@ -54,26 +54,25 @@
 <body>
 
     <!-- ======= Header ======= -->
-    @include('guest.header')
+    @include('Guest.header')
     <!-- End Header -->
     {{-- @extends('hero') --}}
 
 
 
     <!-- ======= Hero Section ======= -->
-    <main id="main">
-        @include('guest.main')
-    </main><!-- End #main -->
+    {{-- @include('.main') --}}
+    @yield('content')
 
     <!-- ======= Footer ======= -->
-    @include('guest.footer')
+    @include('Guest.footer')
     <!-- ======= End Footer ======= -->
 
 
     <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 
-    <div id="preloader"></div>
+    {{-- <div id="preloader"></div> --}}
 
     <!-- Vendor JS Files -->
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -85,7 +84,7 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
-@stack('js')
+    @stack('js')
 </body>
 
 </html>

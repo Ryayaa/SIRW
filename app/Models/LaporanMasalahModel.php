@@ -26,4 +26,8 @@ class LaporanMasalahModel extends Model
     {
         return $this->belongsTo(WargaModel::class, 'id_warga', 'id_warga');
     }
+
+    public function feedback(){
+        return $this->hasMany(FeedbackLaporanModel::class,'id_laporan_masalah','id_laporan_masalah');
+    }
 }

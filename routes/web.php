@@ -17,8 +17,10 @@ use App\Http\Controllers\WargaSementaraController;
 use App\Http\Controllers\UMKMController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\KasController;
+use App\Http\Controllers\LaporanController;
 
-    Route::get('/', [AuthController::class, 'index'])->name('login');
+Route::get('/',[Dashboard::class,'DashboardGuest'])->name('LandingPage');
+Route::get('/login', [AuthController::class, 'index'])->name('login');
     Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -36,28 +38,47 @@ Route::get('/dashboard', [WelcomeController::class, 'index']);
 // Route::get('/login', function () {
 //     return view('login');
 // });
-Route::group(['prefix' => 'rw'], function () {
-    Route::get('/', [RwController::class, 'index'])->name('rw.index'); // Menampilkan data warga
-    Route::post('/list', [RwController::class, 'list'])->name('rw.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
-    Route::get('/create', [RwController::class, 'create'])->name('rw.create'); // Menampilkan form tambah warga
-    Route::post('/', [RwController::class, 'store'])->name('rw.store'); // Menyimpan data warga
-    Route::get('/{id}', [RwController::class, 'show'])->name('rw.show'); // Menampilkan detail warga
-    Route::get('/{id}/edit', [RwController::class, 'edit'])->name('rw.edit'); // Menampilkan form edit warga
-    Route::put('/{id}', [RwController::class, 'update'])->name('rw.update'); // Mengupdate data warga
-    Route::delete('/{id}', [RwController::class, 'destroy'])->name('rw.destroy'); // Menghapus data warga
+Route::group(['prefix' => 'laporan'], function () {
+    Route::get('/', [LaporanController::class, 'index'])->name('laporan.index'); // Menampilkan Feedback
+    Route::get('/list-acc', [LaporanController::class, 'indexacc'])->name('laporan-acc.index'); // Menampilkan Feedback
+    Route::get('/list-reject', [LaporanController::class, 'indexreject'])->name('laporan-reject.index'); // Menampilkan Feedback
+    Route::get('/list-done', [LaporanController::class, 'indexselesai'])->name('laporan-selesai.index'); // Menampilkan Feedback
+    Route::post('/list', [LaporanController::class, 'list'])->name('laporan.list'); // Menampilkan Feedback dalam bentuk JSON untuk DataTables
+    Route::post('/list-acc', [LaporanController::class, 'listacc'])->name('laporan-acc.list'); // Menampilkan Feedback dalam bentuk JSON untuk DataTables
+    Route::post('/list-reject', [LaporanController::class, 'listreject'])->name('laporan-reject.list'); // Menampilkan Feedback dalam bentuk JSON untuk DataTables
+    Route::post('/list-done', [LaporanController::class, 'listselesai'])->name('laporan-selesai.list'); // Menampilkan Feedback dalam bentuk JSON untuk DataTables
+    Route::post('/{id}', [LaporanController::class, 'storeFeedback'])->name('laporan.feedback.store'); // Menyimpan Feedback
+    Route::get('/{id}', [LaporanController::class, 'show'])->name('laporan.show'); // Menampilkan detail Feedback
+    Route::get('/feedback/{id}', [LaporanController::class, 'showFeedback'])->name('laporan-feedback.show'); // Menampilkan detail Feedback
+    Route::get('/list-done/{id}', [LaporanController::class, 'showSelesai'])->name('laporan-selesai.show'); // Menampilkan detail Feedback
+    Route::post('/laporan/confirm/{id}', [LaporanController::class, 'confirm'])->name('laporan.confirm');
+    Route::post('/laporan/approve/{id}', [LaporanController::class, 'approve'])->name('laporan.approve');
+    Route::post('/laporan/reject/{id}', [LaporanController::class, 'reject'])->name('laporan.reject');
+    Route::delete('/{id}', [LaporanController::class, 'destroy'])->name('laporan.destroy'); // Menghapus Feedback
 });
 
-Route::group(['prefix' => 'rt'], function () {
-    Route::get('/', [RtController::class, 'index'])->name('rt.index'); // Menampilkan data warga
-    Route::post('/list', [RtController::class, 'list'])->name('rt.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
-    Route::get('/create', [RtController::class, 'create'])->name('rt.create'); // Menampilkan form tambah warga
-    Route::post('/', [RtController::class, 'store'])->name('rt.store'); // Menyimpan data warga
-    Route::get('/{id}', [RtController::class, 'show'])->name('rt.show'); // Menampilkan detail warga
-    Route::get('/{id}/edit', [RtController::class, 'edit'])->name('rt.edit'); // Menampilkan form edit warga
-    Route::put('/{id}', [RtController::class, 'update'])->name('rt.update'); // Mengupdate data warga
-    Route::delete('/{id}', [RtController::class, 'destroy'])->name('rt.destroy'); // Menghapus data warga
-});
 
+// Route::group(['prefix' => 'rw'], function () {
+//     Route::get('/', [RwController::class, 'index'])->name('rw.index'); // Menampilkan data warga
+//     Route::post('/list', [RwController::class, 'list'])->name('rw.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
+//     Route::get('/create', [RwController::class, 'create'])->name('rw.create'); // Menampilkan form tambah warga
+//     Route::post('/', [RwController::class, 'store'])->name('rw.store'); // Menyimpan data warga
+//     Route::get('/{id}', [RwController::class, 'show'])->name('rw.show'); // Menampilkan detail warga
+//     Route::get('/{id}/edit', [RwController::class, 'edit'])->name('rw.edit'); // Menampilkan form edit warga
+//     Route::put('/{id}', [RwController::class, 'update'])->name('rw.update'); // Mengupdate data warga
+//     Route::delete('/{id}', [RwController::class, 'destroy'])->name('rw.destroy'); // Menghapus data warga
+// });
+
+// Route::group(['prefix' => 'rt'], function () {
+//     Route::get('/', [RtController::class, 'index'])->name('rt.index'); // Menampilkan data warga
+//     Route::post('/list', [RtController::class, 'list'])->name('rt.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
+//     Route::get('/create', [RtController::class, 'create'])->name('rt.create'); // Menampilkan form tambah warga
+//     Route::post('/', [RtController::class, 'store'])->name('rt.store'); // Menyimpan data warga
+//     Route::get('/{id}', [RtController::class, 'show'])->name('rt.show'); // Menampilkan detail warga
+//     Route::get('/{id}/edit', [RtController::class, 'edit'])->name('rt.edit'); // Menampilkan form edit warga
+//     Route::put('/{id}', [RtController::class, 'update'])->name('rt.update'); // Mengupdate data warga
+//     Route::delete('/{id}', [RtController::class, 'destroy'])->name('rt.destroy'); // Menghapus data warga
+// });
 Route::group(['prefix' => 'warga'], function () {
     Route::get('/', [WargaController::class, 'index'])->name('warga.index'); // Menampilkan data warga
     Route::post('/list', [WargaController::class, 'list'])->name('warga.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
@@ -198,7 +219,7 @@ Route::group(['prefix' => 'umkm'], function () {
     Route::get('/create', [UMKMController::class, 'create'])->name('umkm.create'); // Display form to add UMKM
     Route::post('/', [UMKMController::class, 'store'])->name('umkm.store'); // Store UMKM data
     Route::get('/{id}', [UMKMController::class, 'show'])->name('umkm.show'); // Display UMKM details
-    Route::get('/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit'); // Display form to edit UMKM
+    // Route::get('/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit'); // Display form to edit UMKM
     Route::put('/{id}', [UMKMController::class, 'update'])->name('umkm.update'); // Update UMKM data
     Route::delete('/{id}', [UMKMController::class, 'destroy'])->name('umkm.destroy'); // Delete UMKM data
     Route::get('umkm/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit');
@@ -242,8 +263,8 @@ Route::group(['prefix' => 'kas'], function () {
         Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile');
         Route::get('/warga-dashboard', [Dashboard::class, 'DashboardWarga'])->name('user-dashboard');
         Route::post('/profile/change-password', [AuthController::class, 'changePassword'])->name('profile.change-password');
+        Route::post('/profile/change-username', [AuthController::class, 'changeUsername'])->name('profile.change-username');
         Route::get('/struktur-rw', [PageController::class, 'showPengurusRW'])->name('struktur');
-
 
         //surat
         Route::get('/surat_pengantar-form', [PageController::class, 'showSuratForm'])->name('surat_pengantar-form.show');
