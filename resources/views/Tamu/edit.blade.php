@@ -27,6 +27,16 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Tempat Lahir</label>
+                    <div class="col-11">
+                        <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir"
+                            value="{{ old('tempat_lahir', $tamu->tempat_lahir) }}" required>
+                        @error('tempat_lahir')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Tanggal Lahir</label>
                     <div class="col-11">
                         <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir"
@@ -94,6 +104,18 @@
                         <input type="date" class="form-control" id="tanggal_keluar" name="tanggal_keluar"
                             value="{{ old('tanggal_keluar', $tamu->tanggal_keluar) }}" required>
                         @error('tanggal_keluar')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Bukti KTP</label>
+                    <div class="col-11">
+                        <input type="file" class="form-control-file" id="bukti_ktp" name="bukti_ktp">
+                        @if($tamu->bukti_ktp)
+                            <img src="{{ url('images/' . $tamu->bukti_ktp) }}" alt="Current Image" width="100" class="mt-2">
+                        @endif
+                        @error('bukti_ktp')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
                     </div>

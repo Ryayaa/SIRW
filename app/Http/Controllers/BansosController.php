@@ -262,4 +262,5 @@ class BansosController extends Controller
             return redirect()->route('bansos.index')->with('error', 'Failed to delete Bansos.');
         }
     }
+
 }
