@@ -13,11 +13,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\WargaSementaraController;
 use App\Http\Controllers\UMKMController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\KasController;
+use App\Http\Controllers\LaporanController;
 
-    Route::get('/', [AuthController::class, 'index'])->name('login');
+Route::get('/',[Dashboard::class,'DashboardGuest'])->name('LandingPage');
+Route::get('/login', [AuthController::class, 'index'])->name('login');
     Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -35,28 +38,47 @@ Route::get('/dashboard', [WelcomeController::class, 'index']);
 // Route::get('/login', function () {
 //     return view('login');
 // });
-Route::group(['prefix' => 'rw'], function () {
-    Route::get('/', [RwController::class, 'index'])->name('rw.index'); // Menampilkan data warga
-    Route::post('/list', [RwController::class, 'list'])->name('rw.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
-    Route::get('/create', [RwController::class, 'create'])->name('rw.create'); // Menampilkan form tambah warga
-    Route::post('/', [RwController::class, 'store'])->name('rw.store'); // Menyimpan data warga
-    Route::get('/{id}', [RwController::class, 'show'])->name('rw.show'); // Menampilkan detail warga
-    Route::get('/{id}/edit', [RwController::class, 'edit'])->name('rw.edit'); // Menampilkan form edit warga
-    Route::put('/{id}', [RwController::class, 'update'])->name('rw.update'); // Mengupdate data warga
-    Route::delete('/{id}', [RwController::class, 'destroy'])->name('rw.destroy'); // Menghapus data warga
+Route::group(['prefix' => 'laporan'], function () {
+    Route::get('/', [LaporanController::class, 'index'])->name('laporan.index'); // Menampilkan Feedback
+    Route::get('/list-acc', [LaporanController::class, 'indexacc'])->name('laporan-acc.index'); // Menampilkan Feedback
+    Route::get('/list-reject', [LaporanController::class, 'indexreject'])->name('laporan-reject.index'); // Menampilkan Feedback
+    Route::get('/list-done', [LaporanController::class, 'indexselesai'])->name('laporan-selesai.index'); // Menampilkan Feedback
+    Route::post('/list', [LaporanController::class, 'list'])->name('laporan.list'); // Menampilkan Feedback dalam bentuk JSON untuk DataTables
+    Route::post('/list-acc', [LaporanController::class, 'listacc'])->name('laporan-acc.list'); // Menampilkan Feedback dalam bentuk JSON untuk DataTables
+    Route::post('/list-reject', [LaporanController::class, 'listreject'])->name('laporan-reject.list'); // Menampilkan Feedback dalam bentuk JSON untuk DataTables
+    Route::post('/list-done', [LaporanController::class, 'listselesai'])->name('laporan-selesai.list'); // Menampilkan Feedback dalam bentuk JSON untuk DataTables
+    Route::post('/{id}', [LaporanController::class, 'storeFeedback'])->name('laporan.feedback.store'); // Menyimpan Feedback
+    Route::get('/{id}', [LaporanController::class, 'show'])->name('laporan.show'); // Menampilkan detail Feedback
+    Route::get('/feedback/{id}', [LaporanController::class, 'showFeedback'])->name('laporan-feedback.show'); // Menampilkan detail Feedback
+    Route::get('/list-done/{id}', [LaporanController::class, 'showSelesai'])->name('laporan-selesai.show'); // Menampilkan detail Feedback
+    Route::post('/laporan/confirm/{id}', [LaporanController::class, 'confirm'])->name('laporan.confirm');
+    Route::post('/laporan/approve/{id}', [LaporanController::class, 'approve'])->name('laporan.approve');
+    Route::post('/laporan/reject/{id}', [LaporanController::class, 'reject'])->name('laporan.reject');
+    Route::delete('/{id}', [LaporanController::class, 'destroy'])->name('laporan.destroy'); // Menghapus Feedback
 });
 
-Route::group(['prefix' => 'rt'], function () {
-    Route::get('/', [RtController::class, 'index'])->name('rt.index'); // Menampilkan data warga
-    Route::post('/list', [RtController::class, 'list'])->name('rt.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
-    Route::get('/create', [RtController::class, 'create'])->name('rt.create'); // Menampilkan form tambah warga
-    Route::post('/', [RtController::class, 'store'])->name('rt.store'); // Menyimpan data warga
-    Route::get('/{id}', [RtController::class, 'show'])->name('rt.show'); // Menampilkan detail warga
-    Route::get('/{id}/edit', [RtController::class, 'edit'])->name('rt.edit'); // Menampilkan form edit warga
-    Route::put('/{id}', [RtController::class, 'update'])->name('rt.update'); // Mengupdate data warga
-    Route::delete('/{id}', [RtController::class, 'destroy'])->name('rt.destroy'); // Menghapus data warga
-});
 
+// Route::group(['prefix' => 'rw'], function () {
+//     Route::get('/', [RwController::class, 'index'])->name('rw.index'); // Menampilkan data warga
+//     Route::post('/list', [RwController::class, 'list'])->name('rw.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
+//     Route::get('/create', [RwController::class, 'create'])->name('rw.create'); // Menampilkan form tambah warga
+//     Route::post('/', [RwController::class, 'store'])->name('rw.store'); // Menyimpan data warga
+//     Route::get('/{id}', [RwController::class, 'show'])->name('rw.show'); // Menampilkan detail warga
+//     Route::get('/{id}/edit', [RwController::class, 'edit'])->name('rw.edit'); // Menampilkan form edit warga
+//     Route::put('/{id}', [RwController::class, 'update'])->name('rw.update'); // Mengupdate data warga
+//     Route::delete('/{id}', [RwController::class, 'destroy'])->name('rw.destroy'); // Menghapus data warga
+// });
+
+// Route::group(['prefix' => 'rt'], function () {
+//     Route::get('/', [RtController::class, 'index'])->name('rt.index'); // Menampilkan data warga
+//     Route::post('/list', [RtController::class, 'list'])->name('rt.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
+//     Route::get('/create', [RtController::class, 'create'])->name('rt.create'); // Menampilkan form tambah warga
+//     Route::post('/', [RtController::class, 'store'])->name('rt.store'); // Menyimpan data warga
+//     Route::get('/{id}', [RtController::class, 'show'])->name('rt.show'); // Menampilkan detail warga
+//     Route::get('/{id}/edit', [RtController::class, 'edit'])->name('rt.edit'); // Menampilkan form edit warga
+//     Route::put('/{id}', [RtController::class, 'update'])->name('rt.update'); // Mengupdate data warga
+//     Route::delete('/{id}', [RtController::class, 'destroy'])->name('rt.destroy'); // Menghapus data warga
+// });
 Route::group(['prefix' => 'warga'], function () {
     Route::get('/', [WargaController::class, 'index'])->name('warga.index'); // Menampilkan data warga
     Route::post('/list', [WargaController::class, 'list'])->name('warga.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
@@ -65,7 +87,9 @@ Route::group(['prefix' => 'warga'], function () {
     Route::get('/{id}', [WargaController::class, 'show'])->name('warga.show'); // Menampilkan detail warga
     Route::get('/{id}/edit', [WargaController::class, 'edit'])->name('warga.edit'); // Menampilkan form edit warga
     Route::put('/{id}', [WargaController::class, 'update'])->name('warga.update'); // Mengupdate data warga
-    Route::delete('/{id}', [WargaController::class, 'destroy'])->name('warga.destroy'); // Menghapus data warga
+    Route::delete('/{id}', [WargaController::class, 'destroy'])->name('warga.destroy');
+    Route::post('/{id}/accept', [WargaController::class, 'accept'])->name('warga.accept');
+    Route::post('/{id}/reject', [WargaController::class, 'reject'])->name('warga.reject');
 });
 
 // Bansos Routes
@@ -104,31 +128,36 @@ Route::group(['prefix' => 'rw'], function () {
     Route::get('/create', [RwController::class, 'create'])->name('rw.create'); // Menampilkan form tambah warga
     Route::post('/', [RwController::class, 'store'])->name('rw.store'); // Menyimpan data warga
     Route::get('/{id}', [RwController::class, 'show'])->name('rw.show'); // Menampilkan detail warga
-    Route::get('/{id}/edit', [RwController::class, 'edit'])->name('rw.edit'); // Menampilkan form edit warga
+    Route::get('/{id}/edit', [RwController::class, 'edit'])->name('rw.edit'); // Menampilkan form edit
     Route::put('/{id}', [RwController::class, 'update'])->name('rw.update'); // Mengupdate data warga
     Route::delete('/{id}', [RwController::class, 'destroy'])->name('rw.destroy'); // Menghapus data warga
 });
 
 Route::group(['prefix' => 'rt'], function () {
-    Route::get('/', [RtController::class, 'index'])->name('rt.index'); // Menampilkan data warga
-    Route::post('/list', [RtController::class, 'list'])->name('rt.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
-    Route::get('/create', [RtController::class, 'create'])->name('rt.create'); // Menampilkan form tambah warga
-    Route::post('/', [RtController::class, 'store'])->name('rt.store'); // Menyimpan data warga
-    Route::get('/{id}', [RtController::class, 'show'])->name('rt.show'); // Menampilkan detail warga
-    Route::get('/{id}/edit', [RtController::class, 'edit'])->name('rt.edit'); // Menampilkan form edit warga
-    Route::put('/{id}', [RtController::class, 'update'])->name('rt.update'); // Mengupdate data warga
-    Route::delete('/{id}', [RtController::class, 'destroy'])->name('rt.destroy'); // Menghapus data warga
+    Route::get('/', [RtController::class, 'index'])->name('rt.index');
+    Route::post('/list', [RtController::class, 'list'])->name('rt.list');
+    Route::get('/create', [RtController::class, 'create'])->name('rt.create');
+    Route::post('/store', [RtController::class, 'store'])->name('rt.store');
+    Route::get('/{id}', [RtController::class, 'show'])->name('rt.show');
+    Route::get('/edit/{id}', [RtController::class, 'edit'])->name('rt.edit');
+    Route::put('/{id}', [RtController::class, 'update'])->name('rt.update');
+    Route::delete('/{id}', [RtController::class, 'destroy'])->name('rt.destroy');
 });
 
 Route::group(['prefix' => 'keluarga'], function () {
-    Route::get('/', [KeluargaController::class, 'index'])->name('keluarga.index'); // Menampilkan data warga
-    Route::post('/list', [KeluargaController::class, 'list'])->name('keluarga.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
-    Route::get('/create', [KeluargaController::class, 'create'])->name('keluarga.create'); // Menampilkan form tambah warga
-    Route::post('/', [KeluargaController::class, 'store'])->name('keluarga.store'); // Menyimpan data warga
-    Route::get('/{id}', [KeluargaController::class, 'show'])->name('keluarga.show'); // Menampilkan detail warga
-    Route::get('/{id}/edit', [KeluargaController::class, 'edit'])->name('keluarga.edit'); // Menampilkan form edit warga
-    Route::put('/{id}', [KeluargaController::class, 'update'])->name('keluarga.update'); // Mengupdate data warga
-    Route::delete('/{id}', [KeluargaController::class, 'destroy'])->name('keluarga.destroy'); // Menghapus data warga
+    Route::get('/', [KeluargaController::class, 'index'])->name('keluarga.index');
+    Route::post('/list', [KeluargaController::class, 'list'])->name('keluarga.list');
+    Route::get('/create', [KeluargaController::class, 'create'])->name('keluarga.create');
+    Route::post('/', [KeluargaController::class, 'store'])->name('keluarga.store');
+    Route::get('/createWarga', [KeluargaController::class, 'createWarga'])->name('keluarga.createWarga');
+    Route::post('/storeWarga', [KeluargaController::class, 'storeWarga'])->name('keluarga.storeWarga');
+    Route::get('/{id}', [KeluargaController::class, 'show'])->name('keluarga.show');
+    Route::get('/showWarga/{id}', [KeluargaController::class, 'showWarga'])->name('keluarga.showWarga');
+    Route::get('/{id}/edit', [KeluargaController::class, 'edit'])->name('keluarga.edit');
+    Route::put('/{id}', [KeluargaController::class, 'update'])->name('keluarga.update');
+    Route::get('/{id}/editWarga', [KeluargaController::class, 'editWarga'])->name('keluarga.editWarga');
+    Route::put('/{id}/updateWarga', [KeluargaController::class, 'updateWarga'])->name('keluarga.updateWarga');
+    Route::delete('/{id}', [KeluargaController::class, 'destroy'])->name('keluarga.destroy');
 });
 
 Route::group(['prefix' => 'tamu'], function () {
@@ -141,7 +170,8 @@ Route::group(['prefix' => 'tamu'], function () {
     Route::put('/{id}', [TamuController::class, 'update'])->name('tamu.update');
     Route::delete('/{id}', [TamuController::class, 'destroy'])->name('tamu.destroy');
 });
-Route::group(['middleware' => ['auth']], function () {
+
+Route::group(['middleware' => ['auth']],function(){
     // Route Untuk RW
     Route::group(['middleware' => ['roles:rw']], function () {
         Route::get('/rw-dashboard', [Dashboard::class, 'DashboardRW'])->name('rw-dashboard');
@@ -161,10 +191,10 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::group(['prefix' => 'keluarga'], function () {
-        Route::get('/', [KeluargaController::class, 'index'])->name('keluarga.index'); // Menampilkan data warga
-        Route::post('/list', [KeluargaController::class, 'list'])->name('keluarga.list'); // Menampilkan data warga dalam bentuk JSON untuk DataTables
-        Route::get('/create', [KeluargaController::class, 'create'])->name('keluarga.create'); // Menampilkan form tambah warga
-        Route::post('/', [KeluargaController::class, 'store'])->name('keluarga.store'); // Menyimpan data warga
+        Route::get('/', [KeluargaController::class, 'index'])->name('keluarga.index');
+        Route::post('/list', [KeluargaController::class, 'list'])->name('keluarga.list');
+        Route::get('/create', [KeluargaController::class, 'create'])->name('keluarga.create');
+        Route::post('/', [KeluargaController::class, 'store'])->name('keluarga.store');
         Route::get('/{id}', [KeluargaController::class, 'show'])->name('keluarga.show'); // Menampilkan detail warga
         Route::get('/{id}/edit', [KeluargaController::class, 'edit'])->name('keluarga.edit'); // Menampilkan form edit warga
         Route::put('/{id}', [KeluargaController::class, 'update'])->name('keluarga.update'); // Mengupdate data warga
@@ -180,6 +210,7 @@ Route::group(['prefix' => 'umkm'], function () {
     Route::put('/{id}', [UMKMController::class, 'update'])->name('umkm.update'); // Update UMKM data
     Route::delete('/{id}', [UMKMController::class, 'destroy'])->name('umkm.destroy'); // Delete UMKM data
     Route::get('/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit');
+
 });
 
 Route::group(['prefix' => 'kegiatan'], function () {
@@ -220,8 +251,8 @@ Route::group(['prefix' => 'kas'], function () {
         Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile');
         Route::get('/warga-dashboard', [Dashboard::class, 'DashboardWarga'])->name('user-dashboard');
         Route::post('/profile/change-password', [AuthController::class, 'changePassword'])->name('profile.change-password');
+        Route::post('/profile/change-username', [AuthController::class, 'changeUsername'])->name('profile.change-username');
         Route::get('/struktur-rw', [PageController::class, 'showPengurusRW'])->name('struktur');
-
 
         //surat
         Route::get('/surat_pengantar-form', [PageController::class, 'showSuratForm'])->name('surat_pengantar-form.show');
@@ -254,7 +285,9 @@ Route::group(['prefix' => 'kas'], function () {
     Route::get('/tamu-form', [PageController::class, 'showTamuForm'])->name('tamu_form.show');
     Route::post('/tamu-form/create', [PageController::class, 'createTamuForm'])->name('tamu_form.create');
 
-    Route::get('/warga-sementara-form', [PageController::class, 'showWargaSementaraForm'])->name('warga-sementara_form.show');
+    Route::get('/warga-sementara-form', [PageController::class, 'listWargaSementara'])->name('warga-sementara_form.show');
+    Route::get('/warga-sementara-form/form', [PageController::class, 'showWargaSementaraForm'])->name('warga-sementara_form.form');
+    Route::get('/warga-sementara-form/detail/{id}', [PageController::class, 'detailWargaSementara'])->name('warga-sementara_form.detail');
     Route::post('/warga-sementara-form/create', [PageController::class, 'createWargaSementaraForm'])->name('warga-sementara_form.create');
     });
 

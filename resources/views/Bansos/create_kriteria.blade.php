@@ -15,7 +15,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('bansos.storeKriteria') }}" method="POST">
+            <form id="kriteriaForm" action="{{ route('bansos.storeKriteria') }}" method="POST">
                 @csrf
                 <input type="hidden" name="id_bansos" value="{{ $id_bansos }}">
                 @for ($i = 0; $i < $jumlah_kriteria; $i++)
@@ -23,7 +23,7 @@
                         <label for="kriteria_{{ $i }}">Nama Kriteria</label>
                         <input type="text" name="kriteria[{{ $i }}][nama]" class="form-control" required>
                         <label for="bobot_{{ $i }}">Bobot</label>
-                        <input type="number" name="kriteria[{{ $i }}][bobot]" class="form-control" step="0.01" required>
+                        <input type="number" name="kriteria[{{ $i }}][bobot]" class="form-control bobot-input" step="0.01" required>
                         <label for="jenis_{{ $i }}">Jenis</label>
                         <select name="kriteria[{{ $i }}][jenis]" class="form-control" required>
                             <option value="Benefit">Benefit</option>
@@ -47,6 +47,17 @@
     </div>
 
     <script>
+        document.getElementById('kriteriaForm').addEventListener('submit', function(event) {
+            var totalBobot = 0;
+            document.querySelectorAll('.bobot-input').forEach(function(input) {
+                totalBobot += parseFloat(input.value);
+            });
+            if (totalBobot !== 100) {
+                alert('Total bobot harus 100.');
+                event.preventDefault();
+            }
+        });
+
         function addSubkriteria(index) {
             var group = document.getElementById('subkriteria-group-' + index);
             var newItem = document.createElement('div');
