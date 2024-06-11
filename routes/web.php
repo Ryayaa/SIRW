@@ -167,7 +167,6 @@ Route::group(['prefix' => 'tamu'], function () {
     Route::get('/{id}/edit', [TamuController::class, 'edit'])->name('tamu.edit');
     Route::put('/{id}', [TamuController::class, 'update'])->name('tamu.update');
     Route::delete('/{id}', [TamuController::class, 'destroy'])->name('tamu.destroy');
-    Route::get('/tamu', [TamuController::class, 'index'])->name('tamu.index');
 });
 
 Route::group(['prefix' => 'warga_sementara'], function () {
@@ -219,10 +218,10 @@ Route::group(['prefix' => 'umkm'], function () {
     Route::get('/create', [UMKMController::class, 'create'])->name('umkm.create'); // Display form to add UMKM
     Route::post('/', [UMKMController::class, 'store'])->name('umkm.store'); // Store UMKM data
     Route::get('/{id}', [UMKMController::class, 'show'])->name('umkm.show'); // Display UMKM details
-    // Route::get('/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit'); // Display form to edit UMKM
+    Route::get('/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit'); // Display form to edit UMKM
     Route::put('/{id}', [UMKMController::class, 'update'])->name('umkm.update'); // Update UMKM data
     Route::delete('/{id}', [UMKMController::class, 'destroy'])->name('umkm.destroy'); // Delete UMKM data
-    Route::get('umkm/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit');
+    // Route::get('umkm/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit');
 });
 
 Route::group(['prefix' => 'kegiatan'], function () {
