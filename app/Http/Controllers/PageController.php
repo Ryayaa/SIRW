@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bansos;
 use App\Models\JenisSuratModel;
 use App\Models\KegiatanModel;
+use App\Models\KetuaRtModel;
 use App\Models\KriteriaBansosModel;
 use App\Models\LaporanMasalahModel;
 use App\Models\NilaiAlternatifModel;
@@ -28,10 +29,10 @@ class PageController extends Controller
     public function showPengurusRW()
     {
         // Retrieve RW data
-        $rw = RwModel::first();
+        $rw = RwModel::with('warga')->first();
 
         // Retrieve RT data associated with the RW
-        $rts = RtModel::where('id_rw', $rw->id_rw)->get();
+        $rts = KetuaRtModel::with('warga')->where('status', 'aktif')->get();
 
         // Pass the data to the view
         return view('page.struktur-rw.index', compact('rw', 'rts'));
@@ -436,6 +437,8 @@ class PageController extends Controller
 
         return redirect()->route('warga-sementara_form.show')->with('success', 'Pengajuan data warga sementara berhasil disimpan.');
     }
+
+    
 
     public function showSuratForm()
     {

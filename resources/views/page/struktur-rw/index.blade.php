@@ -21,9 +21,9 @@
                     <p>Telepon: 081234567890</p>
                 </div> --}}
                 <div class="card-body">
-                    <p>Nama: {{ $rw->nama_lengkap }}</p>
-                    <p>Alamat: {{ $rw->alamat }}</p>
-                    <p>Telepon: {{ $rw->no_telepon }}</p>
+                    <p>Nama: {{ $rw->warga->nama_lengkap }}</p>
+                    <p>Alamat: {{ $rw->warga->alamat_domisili }}</p>
+                    <p>Telepon: {{ $rw->warga->no_telepon }}</p>
                 </div>
             </div>
         </div>
@@ -40,12 +40,12 @@
         <div class="col-md-6 col-lg-4 col-sm-8">
             <div class="card mb-4">
                 <div class="card-header text-center bg-success text-white">
-                    <h4>RT {{ $rt->no_rt }}</h4>
+                    <h4>RT {{ $rt->id_rt }}</h4>
                 </div>
                 <div class="card-body">
-                    <p>Nama: {{ $rt->nama_lengkap }}</p>
-                    <p>Alamat: {{ $rt->alamat }}</p>
-                    <p>Telepon: {{ $rt->no_telepon }}</p>
+                    <p>Nama: {{ $rt->warga->nama_lengkap }}</p>
+                    <p>Alamat: {{ $rt->warga->alamat_domisili }}</p>
+                    <p>Telepon: {{ $rt->warga->no_telepon }}</p>
                 </div>
             </div>
         </div>

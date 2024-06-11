@@ -65,7 +65,9 @@ Route::group(['prefix' => 'warga'], function () {
     Route::get('/{id}', [WargaController::class, 'show'])->name('warga.show'); // Menampilkan detail warga
     Route::get('/{id}/edit', [WargaController::class, 'edit'])->name('warga.edit'); // Menampilkan form edit warga
     Route::put('/{id}', [WargaController::class, 'update'])->name('warga.update'); // Mengupdate data warga
-    Route::delete('/{id}', [WargaController::class, 'destroy'])->name('warga.destroy'); // Menghapus data warga
+    Route::delete('/{id}', [WargaController::class, 'destroy'])->name('warga.destroy');
+    Route::post('/{id}/accept', [WargaController::class, 'accept'])->name('warga.accept');
+    Route::post('/{id}/reject', [WargaController::class, 'reject'])->name('warga.reject');
 });
 
 // Bansos Routes
