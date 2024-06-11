@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             AlternatifSeeder::class,
             UMKMSeeder::class,
             JenisSuratSeeder::class,
-
+            KetuaRtSeeder::class,
         ]);
     }
 }
