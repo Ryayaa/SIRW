@@ -308,7 +308,7 @@ class PenerimaBansosController extends Controller
     {
         $penerima = PenerimaBansosModel::find($id);
         if ($penerima) {
-            $penerima->status = 'ditolak';
+            $penerima->status = 'tolak';
             $penerima->save();
         }
 

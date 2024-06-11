@@ -16,11 +16,15 @@
                 </div>
             @endif
 
-            <form action="{{ route('tamu.store') }}" method="POST">
+            <form action="{{ route('tamu.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="nama_lengkap">Nama Lengkap</label>
                     <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control" value="{{ old('nama_lengkap') }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="tempat_lahir">Tempat Lahir</label>
+                    <input type="text" name="tempat_lahir" id="tempat_lahir" class="form-control" value="{{ old('tempat_lahir') }}" required>
                 </div>
                 <div class="form-group">
                     <label for="tanggal_lahir">Tanggal Lahir</label>
@@ -52,6 +56,10 @@
                 <div class="form-group">
                     <label for="tanggal_keluar">Tanggal Keluar</label>
                     <input type="date" name="tanggal_keluar" id="tanggal_keluar" class="form-control" value="{{ old('tanggal_keluar') }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="bukti_ktp">Bukti KTP</label>
+                    <input type="file" name="bukti_ktp" id="bukti_ktp" class="form-control-file">
                 </div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <a href="{{ route('tamu.index') }}" class="btn btn-default">Kembali</a>

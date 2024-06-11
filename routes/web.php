@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\WargaSementaraController;
 use App\Http\Controllers\UMKMController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\KasController;
@@ -169,7 +170,8 @@ Route::group(['prefix' => 'tamu'], function () {
     Route::put('/{id}', [TamuController::class, 'update'])->name('tamu.update');
     Route::delete('/{id}', [TamuController::class, 'destroy'])->name('tamu.destroy');
 });
-Route::group(['middleware' => ['auth']], function () {
+
+Route::group(['middleware' => ['auth']],function(){
     // Route Untuk RW
     Route::group(['middleware' => ['roles:rw']], function () {
         Route::get('/rw-dashboard', [Dashboard::class, 'DashboardRW'])->name('rw-dashboard');

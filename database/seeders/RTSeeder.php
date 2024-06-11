@@ -19,7 +19,16 @@ class RTSeeder extends Seeder
             ],
             [
                 'no_rt' => 'RT-2',
-            ]
+            ],
+            [
+                'no_rt' => 'RT-3',
+            ],
+            [
+                'no_rt' => 'RT-4',
+            ],
+            [
+                'no_rt' => 'RT-5',
+            ],
         ];
 
         foreach ($data as $rt) {
