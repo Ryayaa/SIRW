@@ -255,7 +255,7 @@ Route::group(['prefix' => 'kas'], function () {
     });
 
     //Route Untuk Warga
-    Route::group(['middleware' => ['roles:warga, warga_sementara']], function () {
+    Route::group(['middleware' => ['roles:warga, warga sementara']], function () {
         Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile');
         Route::get('/warga-dashboard', [Dashboard::class, 'DashboardWarga'])->name('user-dashboard');
         Route::post('/profile/change-password', [AuthController::class, 'changePassword'])->name('profile.change-password');

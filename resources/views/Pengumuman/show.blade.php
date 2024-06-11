@@ -29,7 +29,7 @@
                             <th>Gambar</th>
                             <td>
                                 @if($pengumuman->gambar)
-                                    <img src="{{ asset('images/pengumuman/'.$pengumuman->gambar) }}" alt="{{ $pengumuman->judul_pengumuman }}" class="img-fluid" width="100">
+                                    <img src="{{ asset('images/'.$pengumuman->gambar) }}" alt="{{ $pengumuman->judul_pengumuman }}" class="img-fluid" width="100">
                                 @else
                                     <span>Tidak ada gambar</span>
                                 @endif

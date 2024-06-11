@@ -158,8 +158,8 @@ class PengumumanController extends Controller
                 Storage::delete('public/images/' . $pengumuman->gambar);
             }
             $imageName = time().'.'.$request->gambar->extension();
-            $request->gambar->move(public_path('images'), $imageName);
-            $data['gambar'] = $imageName;
+            $request->gambar->move(public_path('images/pengumuman'), $imageName);
+            $data['gambar'] = 'pengumuman/'.$imageName;
         }
 
         $pengumuman->update($data);
