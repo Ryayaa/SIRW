@@ -45,7 +45,7 @@
             <div class="form-group">
                 <label for="bukti_ktp">Bukti KTP:</label>
                 <p> @if ($tamu->bukti_ktp)
-                    <img src="{{ asset('images/' . $tamu->bukti_ktp) }}" alt="Bukti KTP" class="img-fluid" style="max-width: 300px;">
+                    <img src="{{ asset('images/tamu' . $tamu->bukti_ktp) }}" alt="Bukti KTP" class="img-fluid" style="max-width: 300px;">
                 @else
                     <p>Gambar tidak tersedia</p>
                 @endif

@@ -22,7 +22,6 @@
             <ul>
               <li><i class="bi bi-chevron-right"></i> <a href="{{route('struktur')}}">Struktur Pengurus</a></li>
               <li><i class="bi bi-chevron-right"></i> <a href="{{route('umkm.user-login')}}">UMKM</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="{{--route('kas.user-login')--}}">Kas</a></li>
             </ul>
         </div>
 

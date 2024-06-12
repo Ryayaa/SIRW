@@ -98,11 +98,54 @@
                     </li>
                 </ul>
             </li>
+            <!-- Laporan Masalah -->
+            <li class="nav-item has-treeview {{ in_array($activeMenu, ['laporan','laporan-acc','laporan-reject','laporan-done']) ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-solid fa-clipboard"></i>
+                    <p>
+                        Laporan Masalah
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ url('/laporan') }}" class="nav-link {{ $activeMenu == 'laporan' ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-solid fa-clipboard-list"></i>
+                            <p>Daftar Laporan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('/laporan/list-acc') }}" class="nav-link {{ $activeMenu == 'laporan-acc' ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-clipboard-check"></i>
+                            <p>Laporan Diterima</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('/penerima/list-reject') }}" class="nav-link {{ $activeMenu == 'laporan-reject' ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-solid fa-clipboard"></i>
+                            <p>Laporan Ditolak</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('/penerima/list-done') }}" class="nav-link {{ $activeMenu == 'laporan-done' ? 'active' : '' }}">
+                            <i class="nav-icon far fa-solid fa-clipboard"></i>
+                            <p>Laporan Selesai</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <!-- Pengumuman -->
             <li class="nav-item">
                 <a href="{{ url('/pengumuman') }}" class="nav-link {{ $activeMenu == 'pengumuman' ? 'active' : '' }}">
                     <i class="nav-icon fas fa-bullhorn"></i>
                     <p>Pengumuman</p>
+                </a>
+            </li>
+            <!-- Surat Pengantar -->
+            <li class="nav-item">
+                <a href="{{ url('/surat') }}" class="nav-link {{ $activeMenu == 'surat_pengantar' ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-solid fa-envelope-open-text"></i>
+                    <p>Surat Pengantar</p>
                 </a>
             </li>
             <!-- Kegiatan Warga -->
@@ -115,7 +158,7 @@
             <!-- Pengelolaan Kas -->
             <li class="nav-item">
                 <a href="{{ url('/kas') }}" class="nav-link {{ $activeMenu == 'kas' ? 'active' : '' }}">
-                    <i class="nav-icon far fa-file-medical"></i>
+                    <i class="nav-icon fas fa-solid fa-wallet"></i>
                     <p>Pengelolaan Kas</p>
                 </a>
             </li>

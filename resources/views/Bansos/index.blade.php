@@ -20,7 +20,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Nama Bansos</th>
-                        <th>Gambar</th>
+                        {{-- <th>Gambar</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -28,7 +28,7 @@
                         <tr>
                             <td>{{ $bansos->id_bansos }}</td>
                             <td><a href="{{ url('/bansos/' . $bansos->id_bansos) }}">{{ $bansos->nama_bansos }}</a></td>
-                            <td>{{ $bansos->gambar }}</td>
+                            {{-- <td>{{ $bansos->gambar }}</td> --}}
                         </tr>
                     @endforeach
                 </tbody>

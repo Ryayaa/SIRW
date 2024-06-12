@@ -38,7 +38,6 @@
                                     <th>Nama UMKM</th>
                                     <th>Alamat</th>
                                     <th>No Telepon</th>
-                                    <th>Gambar</th>
                                     <th>Status Pengajuan</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -55,7 +54,6 @@
                                     <th>Nama UMKM</th>
                                     <th>Alamat</th>
                                     <th>No Telepon</th>
-                                    <th>Gambar</th>
                                     <th>Status Pengajuan</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -72,7 +70,6 @@
                                     <th>Nama UMKM</th>
                                     <th>Alamat</th>
                                     <th>No Telepon</th>
-                                    <th>Gambar</th>
                                     <th>Status Pengajuan</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -144,9 +141,6 @@
                 { data: 'nama_umkm', name: 'nama_umkm' },
                 { data: 'alamat', name: 'alamat' },
                 { data: 'no_telepon', name: 'no_telepon' },
-                { data: 'gambar', name: 'gambar', render: function(data, type, full, meta) {
-                    return data ? `<img src="` + baseUrl + data + `" width="50" height="50" alt="UMKM Image">` : 'No Image';
-                }},
                 { data: 'status_pengajuan', name: 'status_pengajuan', render: function(data, type, full, meta) {
                     var statusClass = '';
                     var statusText = '';
@@ -190,9 +184,6 @@
                 { data: 'nama_umkm', name: 'nama_umkm' },
                 { data: 'alamat', name: 'alamat' },
                 { data: 'no_telepon', name: 'no_telepon' },
-                { data: 'gambar', name: 'gambar', render: function(data, type, full, meta) {
-                    return data ? `<img src="` + baseUrl + data + `" width="50" height="50" alt="UMKM Image">` : 'No Image';
-                }},
                 { data: 'status_pengajuan', name: 'status_pengajuan', render: function(data, type, full, meta) {
                     var statusClass = 'status-disetujui';
                     var statusText = 'Disetujui';
@@ -202,7 +193,7 @@
                 { data: 'id_umkm', name: 'aksi', orderable: false, searchable: false, render: function(data, type, full, meta) {
                     return `
                         <div class="table-actions">
-                            <a href="{{ url('umkm/${data}/edit') }}" class="btn btn-sm btn-warning">
+                            <a href="{{ url('/umkm/${data}/edit') }}" class="btn btn-sm btn-warning">
                                 <i class="fas fa-edit"></i> Detail
                             </a>
                         </div>
@@ -226,9 +217,6 @@
                 { data: 'nama_umkm', name: 'nama_umkm' },
                 { data: 'alamat', name: 'alamat' },
                 { data: 'no_telepon', name: 'no_telepon' },
-                { data: 'gambar', name: 'gambar', render: function(data, type, full, meta) {
-                    return data ? `<img src="` + baseUrl + data + `" width="50" height="50" alt="UMKM Image">` : 'No Image';
-                }},
                 { data: 'status_pengajuan', name: 'status_pengajuan', render: function(data, type, full, meta) {
                     var statusClass = 'status-ditolak';
                     var statusText = 'Ditolak';

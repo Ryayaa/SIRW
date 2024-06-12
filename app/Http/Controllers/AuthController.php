@@ -20,6 +20,8 @@ class AuthController extends Controller
                 return redirect()->route('rt-dashboard');
             } elseif ($user->roles == 'warga') {
                 return redirect()->route('user-dashboard');
+            } elseif ($user->roles == 'warga sementara') {
+                return redirect()->route('user-dashboard');
             }
             // Jika rolenya tidak cocok dengan yang diharapkan, maka tetapkan pengguna untuk logout
             Auth::logout();
@@ -46,7 +48,7 @@ class AuthController extends Controller
                 return redirect()->route('rw-dashboard');
             } elseif ($user->roles == 'rt') {
                 return redirect()->route('rt-dashboard');
-            } elseif ($user->roles == 'warga'||'warga_sementara') {
+            } elseif ($user->roles == 'warga'||'warga sementara') {
                 return redirect()->route('user-dashboard');
             }
         }
@@ -59,7 +61,7 @@ class AuthController extends Controller
                 return redirect()->route('rw-dashboard');
             } elseif ($user->roles == 'rt') {
                 return redirect()->route('rt-dashboard');
-            } elseif ($user->roles == 'warga'||'warga_sementara') {
+            } elseif ($user->roles == 'warga'||'warga sementara') {
                 return redirect()->route('user-dashboard');
             }
         }

@@ -18,6 +18,7 @@ use App\Http\Controllers\UMKMController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\KasController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\SuratController;
 
 Route::get('/',[Dashboard::class,'DashboardGuest'])->name('LandingPage');
 Route::get('/login', [AuthController::class, 'index'])->name('login');
@@ -57,6 +58,13 @@ Route::group(['prefix' => 'laporan'], function () {
     Route::delete('/{id}', [LaporanController::class, 'destroy'])->name('laporan.destroy'); // Menghapus Feedback
 });
 
+Route::group(['prefix' => 'surat'], function () {
+    Route::get('/', [SuratController::class, 'index'])->name('surat.index'); // Menampilkan daftar surat
+    Route::post('/list', [SuratController::class, 'list'])->name('surat.list'); // Menampilkan data surat dalam format JSON untuk DataTables
+    Route::get('/create', [SuratController::class, 'create'])->name('surat.create'); // Menampilkan formulir untuk menambah surat
+    Route::post('/', [SuratController::class, 'store'])->name('surat.store'); // Menyimpan data surat
+    Route::delete('/{id}', [SuratController::class, 'destroy'])->name('surat.destroy'); // Menghapus data surat
+});
 
 // Route::group(['prefix' => 'rw'], function () {
 //     Route::get('/', [RwController::class, 'index'])->name('rw.index'); // Menampilkan data warga
@@ -207,10 +215,10 @@ Route::group(['prefix' => 'umkm'], function () {
     Route::get('/create', [UMKMController::class, 'create'])->name('umkm.create'); // Display form to add UMKM
     Route::post('/', [UMKMController::class, 'store'])->name('umkm.store'); // Store UMKM data
     Route::get('/{id}', [UMKMController::class, 'show'])->name('umkm.show'); // Display UMKM details
-    Route::get('/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit'); // Display form to edit UMKM
     Route::put('/{id}', [UMKMController::class, 'update'])->name('umkm.update'); // Update UMKM data
     Route::delete('/{id}', [UMKMController::class, 'destroy'])->name('umkm.destroy'); // Delete UMKM data
-    // Route::get('umkm/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit');
+    Route::get('/{id}/edit', [UMKMController::class, 'edit'])->name('umkm.edit');
+
 });
 
 Route::group(['prefix' => 'kegiatan'], function () {
@@ -247,7 +255,7 @@ Route::group(['prefix' => 'kas'], function () {
     });
 
     //Route Untuk Warga
-    Route::group(['middleware' => ['roles:warga, warga_sementara']], function () {
+    Route::group(['middleware' => ['roles:warga, warga sementara']], function () {
         Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile');
         Route::get('/warga-dashboard', [Dashboard::class, 'DashboardWarga'])->name('user-dashboard');
         Route::post('/profile/change-password', [AuthController::class, 'changePassword'])->name('profile.change-password');
