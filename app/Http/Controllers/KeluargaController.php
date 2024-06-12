@@ -176,7 +176,7 @@ class KeluargaController extends Controller
         }
         KeluargaModel::create($data);
 
-        return redirect('/keluarga')->with('success', 'Data Keluarga baru telah ditambahkan');
+        return redirect('/Keluarga')->with('success', 'Data Keluarga baru telah ditambahkan');
     }
 
     public function edit($id){
@@ -224,23 +224,23 @@ class KeluargaController extends Controller
 
         $keluarga->update($data);
 
-            return redirect('/keluarga')->with('success', 'Data keluarga berhasil diubah');
+            return redirect('/Keluarga')->with('success', 'Data keluarga berhasil diubah');
         }
 
     public function destroy(string $id){
         $check = KeluargaModel::find($id);
         if (!$check){
-            return redirect('/keluarga')->with('error', 'Data keluarga tidak ditemukan');
+            return redirect('/Keluarga')->with('error', 'Data keluarga tidak ditemukan');
         }
 
         try{
             KeluargaModel::destroy($id);
 
-            return redirect('/keluarga')->with('success', 'Data Keluarga berhasil dihapus');
+            return redirect('/Keluarga')->with('success', 'Data Keluarga berhasil dihapus');
         }catch(\Illuminate\Database\QueryException $e){
 
             // jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
-            return redirect('/keluarga')->with('error', 'Data Keluarga gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            return redirect('/Keluarga')->with('error', 'Data Keluarga gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
 
     }
@@ -260,7 +260,7 @@ class KeluargaController extends Controller
 
         $keluargaId = $request->query('keluarga_id');
         $keluarga = KeluargaModel::find($keluargaId);
-        return view('keluarga.createWarga', compact('keluargaId', 'keluarga', 'breadcrumb', 'page', 'activeMenu'));
+        return view('Keluarga.createWarga', compact('keluargaId', 'keluarga', 'breadcrumb', 'page', 'activeMenu'));
     }
 
     public function storeWarga(Request $request)
@@ -298,7 +298,7 @@ class KeluargaController extends Controller
 
         WargaModel::create($data);
 
-        return redirect('/warga')->with('success', 'Warga berhasil ditambahkan');
+        return redirect('/Keluarga')->with('success', 'Warga berhasil ditambahkan');
     }
 
     public function showWarga($id)
@@ -316,7 +316,7 @@ class KeluargaController extends Controller
 
         $activeMenu = 'keluarga';
 
-        return view('keluarga.showWarga', compact('warga', 'breadcrumb', 'page', 'activeMenu'));
+        return view('Keluarga.showWarga', compact('warga', 'breadcrumb', 'page', 'activeMenu'));
     }
 
 
@@ -336,7 +336,7 @@ class KeluargaController extends Controller
 
         $activeMenu = 'keluarga';
 
-        return view('keluarga.editWarga', compact('warga', 'breadcrumb', 'page','activeMenu', 'keluarga'));
+        return view('Keluarga.editWarga', compact('warga', 'breadcrumb', 'page','activeMenu', 'keluarga'));
     }
 
     public function updateWarga(Request $request, $id)
@@ -372,6 +372,6 @@ class KeluargaController extends Controller
 
         WargaModel::where('id_warga', $id)->update($data);
 
-        return redirect()->route('keluarga.showWarga', $id)->with('success', 'Data Warga telah diperbarui');
+        return redirect()->route('Keluarga.showWarga', $id)->with('success', 'Data Warga telah diperbarui');
     }
 }

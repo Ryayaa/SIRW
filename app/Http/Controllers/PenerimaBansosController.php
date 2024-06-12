@@ -125,7 +125,7 @@ class PenerimaBansosController extends Controller
         $ranking = $result['ranking'];
         $moora = $result['moora'];
 
-        return view('penerima.list', [
+        return view('Penerima.list', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -173,7 +173,7 @@ class PenerimaBansosController extends Controller
 
         PenerimaBansosModel::whereIn('id_penerima', $selectedPenerimaIds)->update(['status' => 'diterima']);
 
-        return redirect('/penerima')->with('success', 'Data penerima berhasil disimpan');
+        return redirect('/Penerima')->with('success', 'Data penerima berhasil disimpan');
     }
 
     public function create($idBansos){
@@ -301,7 +301,7 @@ class PenerimaBansosController extends Controller
             $penerima->save();
         }
 
-        return redirect(url('penerima/' . $penerima->id_bansos . '/pengajuan'))->with('success', 'Penerima berhasil diterima');
+        return redirect(url('Penerima/' . $penerima->id_bansos . '/pengajuan'))->with('success', 'Penerima berhasil diterima');
     }
 
     public function reject($id)
@@ -312,7 +312,7 @@ class PenerimaBansosController extends Controller
             $penerima->save();
         }
 
-        return redirect(url('penerima/' . $penerima->id_bansos . '/pengajuan'))->with('success', 'Penerima berhasil ditolak');
+        return redirect(url('Penerima/' . $penerima->id_bansos . '/pengajuan'))->with('success', 'Penerima berhasil ditolak');
     }
 
 
