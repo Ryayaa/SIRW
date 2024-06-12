@@ -61,7 +61,7 @@ class KegiatanSeeder extends Seeder
                 'gambar' => 'kegiatan/hutri.jpg',
             ],
             [
-                'nama_kegiatan' => 'Makan Bersama Bobon Santosa',
+                'nama_kegiatan' => 'Makan Bersama Bobon',
                 'deskripsi' => 'Perayaan Makan Besar-Besaran Bersama Bobon Santoso.',
                 'lokasi' => 'Lapangan Utama',
                 'tanggal' => '2024-08-17',
