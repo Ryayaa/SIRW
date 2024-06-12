@@ -153,7 +153,7 @@ class TamuController extends Controller
         if ($request->hasFile('bukti_ktp')) {
             $imageName = time() . '.' . $request->bukti_ktp->extension();
             if (!file_exists(public_path('images/tamu/'))) {
-                mkdir(public_path('images/tamu/ktp'), 0777, true);
+                mkdir(public_path('images/tamu/'), 0777, true);
             }
             $request->bukti_ktp->move(public_path('images/tamu/'), $imageName);
             $data['bukti_ktp'] = $imageName;
