@@ -16,7 +16,7 @@
                 <thead>
                     <tr>
                         <th>Laporan</th>
-                        <th>Tanggal Laporan</th>
+                        <th>Deskripsi Laporan</th>
                         <th>Tanggal</th>
                         <th>Pelapor</th>
                         {{-- <th>Konfirmasi</th> --}}
