@@ -72,7 +72,7 @@ class BansosController extends Controller
 
         Bansos::create($data);
 
-        return redirect()->route('bansos.index')->with('success', 'Data Bantuan Sosial baru telah ditambahkan');
+        return redirect()->route('Bansos.index')->with('success', 'Data Bantuan Sosial baru telah ditambahkan');
     }
 
 
@@ -91,7 +91,7 @@ class BansosController extends Controller
         $id_bansos = $request->query('id_bansos');
         $jumlah_kriteria = $request->query('jumlah_kriteria');
 
-        return view('bansos.create_kriteria', [
+        return view('Bansos.create_kriteria', [
             'breadcrumb' => $breadcrumb, 
             'page' => $page, 
             'activeMenu' => $activeMenu,
@@ -136,7 +136,7 @@ class BansosController extends Controller
             }
         }
 
-        return redirect()->route('bansos.index')->with('success', 'Kriteria Bantuan Sosial berhasil ditambahkan.');
+        return redirect()->route('Bansos.index')->with('success', 'Kriteria Bantuan Sosial berhasil ditambahkan.');
     }
 
     public function show($id)
@@ -155,7 +155,7 @@ class BansosController extends Controller
         $activeMenu = 'bansos';
 
 
-        return view('bansos.show', [
+        return view('Bansos.show', [
             'breadcrumb' => $breadcrumb, 
             'page' => $page, 
             'bansos' => $bansos, 
@@ -179,9 +179,9 @@ class BansosController extends Controller
 
         $bansos = Bansos::with('kriteria.subkriteria')->find($id_bansos);
         if (!$bansos) {
-            return redirect()->route('bansos.index')->with('error', 'Bantuan sosial tidak ditemukan');
+            return redirect()->route('Bansos.index')->with('error', 'Bantuan sosial tidak ditemukan');
         }
-        return view('bansos.edit', [
+        return view('Bansos.edit', [
             'breadcrumb' => $breadcrumb, 
             'page' => $page, 
             'bansos' => $bansos, 
@@ -208,7 +208,7 @@ class BansosController extends Controller
     
         $bansos = Bansos::find($id_bansos);
         if (!$bansos) {
-            return redirect()->route('bansos.index')->with('error', 'Bantuan sosial tidak ditemukan');
+            return redirect()->route('Bansos.index')->with('error', 'Bantuan sosial tidak ditemukan');
         }
     
         $bansos->update([
@@ -242,7 +242,7 @@ class BansosController extends Controller
             }
         }
     
-        return redirect()->route('bansos.index')->with('success', 'Bantuan sosial berhasil diperbarui');
+        return redirect()->route('Bansos.index')->with('success', 'Bantuan sosial berhasil diperbarui');
     }
     
 
@@ -257,9 +257,9 @@ class BansosController extends Controller
 
         // Delete the bansos entry from the database
         if ($bansos->delete()) {
-            return redirect()->route('bansos.index')->with('success', 'Bansos successfully deleted.');
+            return redirect()->route('Bansos.index')->with('success', 'Bansos successfully deleted.');
         } else {
-            return redirect()->route('bansos.index')->with('error', 'Failed to delete Bansos.');
+            return redirect()->route('Bansos.index')->with('error', 'Failed to delete Bansos.');
         }
     }
 
