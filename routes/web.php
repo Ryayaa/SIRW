@@ -252,24 +252,14 @@ Route::group(['prefix' => 'kas'], function () {
         Route::get('/warga-dashboard', [Dashboard::class, 'DashboardWarga'])->name('user-dashboard');
         Route::post('/profile/change-password', [AuthController::class, 'changePassword'])->name('profile.change-password');
         Route::post('/profile/change-username', [AuthController::class, 'changeUsername'])->name('profile.change-username');
-        Route::get('/struktur-rw', [PageController::class, 'showPengurusRW'])->name('struktur');
 
         //surat
         Route::get('/surat_pengantar-form', [PageController::class, 'showSuratForm'])->name('surat_pengantar-form.show');
         Route::post('/surat_pengantar-form/create', [PageController::class, 'createSurat'])->name('surat_pengantar-form.create');
         Route::get('/surat_pengantar-form/{id}', [PageController::class, 'printSurat'])->name('template-surat_pengantar.print');
         //pengumuman
-        Route::get('/pengumuman-list', [PageController::class, 'showPengumuman'])->name('pengumuman');
-        Route::get('/pengumuman-list/detail/{id_pengumuman}', [PageController::class, 'showDetailPengumuman'])->name('pengumuman.detail');
-        Route::get('/kegiatan-list', [PageController::class, 'showKegiatan'])->name('kegiatanWarga');
-        Route::get('/kegiatan-list/detail/{id}', [PageController::class, 'showDetailKegiatan'])->name('kegiatan.detail');
-        Route::get('/laporan-list', [PageController::class, 'showLaporan'])->name('laporanMasalah');
-        Route::get('/laporan-list/detail/{id}', [PageController::class, 'showDetailLaporan'])->name('laporanMasalah.detail');
-        Route::get('/umkm.-list', [PageController::class, 'showUMKM'])->name('umkm.user-login');
-        Route::get('/umkm-list/detail/{id}', [PageController::class, 'showDetailUMKM'])->name('umkm.detail');
-        Route::get('/bansos-list', [PageController::class, 'showBansos'])->name('bansos.user-login');
-        Route::get('/bansos-list/detail/{id}', [PageController::class, 'detailBansos'])->name('bansos.detail');
         Route::get('/pengajuan-list', [PageController::class, 'showPengajuan'])->name('pengajuan.user-login');
+
         Route::get('/pengajuan-list/form/{idBansos}', [PageController::class, 'formPengajuan'])->name('pengajuan.form');
         Route::post('/pengajuan-list/store', [PageController::class, 'storePengajuan'])->name('pengajuan.store');
         Route::get('/pengajuan-list/check/{id}', [PageController::class, 'checkPengajuan'])->name('pengajuan.check');
@@ -293,4 +283,16 @@ Route::group(['prefix' => 'kas'], function () {
 
 
 
-});
+    });
+
+Route::get('/struktur-rw', [PageController::class, 'showPengurusRW'])->name('struktur');
+Route::get('/pengumuman-list', [PageController::class, 'showPengumuman'])->name('pengumuman');
+Route::get('/pengumuman-list/detail/{id_pengumuman}', [PageController::class, 'showDetailPengumuman'])->name('pengumuman.detail');
+Route::get('/kegiatan-list', [PageController::class, 'showKegiatan'])->name('kegiatanWarga');
+Route::get('/kegiatan-list/detail/{id}', [PageController::class, 'showDetailKegiatan'])->name('kegiatan.detail');
+Route::get('/laporan-list', [PageController::class, 'showLaporan'])->name('laporanMasalah');
+Route::get('/laporan-list/detail/{id}', [PageController::class, 'showDetailLaporan'])->name('laporanMasalah.detail');
+Route::get('/umkm.-list', [PageController::class, 'showUMKM'])->name('umkm.user-login');
+Route::get('/umkm-list/detail/{id}', [PageController::class, 'showDetailUMKM'])->name('umkm.detail');
+Route::get('/bansos-list', [PageController::class, 'showBansos'])->name('bansos.user-login');
+Route::get('/bansos-list/detail/{id}', [PageController::class, 'detailBansos'])->name('bansos.detail');
