@@ -47,7 +47,7 @@
                     <select name="id_rt" id="id_rt" class="form-control" required>
                         <option value="">Pilih RT</option>
                         @foreach ($rt as $rtItem)
-                            <option value="{{ $rtItem->id_rt }}">{{ $rtItem->nama_rt }}</option>
+                            <option value="{{ $rtItem->id_rt }}">{{ $rtItem->no_rt }}</option>
                         @endforeach
                     </select>
                 </div>
