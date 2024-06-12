@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <small class="text-muted"><i class="bi bi-person me-1"></i> Pembuat:
-                            {{ $pengumuman->rt->nama_lengkap }}</small>
+                            {{ $pengumuman->rt->ketuaRt->warga->nama_lengkap }}</small>
                         <small class="text-muted"><i class="bi bi-calendar me-1"></i> {{ $pengumuman->tanggal }}</small>
                     </div>
                     <h3 class="card-title text-center my-4">{{ $pengumuman->judul_pengumuman }}</h3>

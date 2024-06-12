@@ -37,10 +37,10 @@
                             </td>
                         </tr>
                     @endforeach
-                    <tr>
+                    {{-- <tr>
                         <th>Gambar</th>
                         <td><img src="{{ asset('images/'.$bansos->gambar) }}" alt="{{ $bansos->nama_bansos }}" width="100"></td>
-                    </tr>
+                    </tr> --}}
                 </table>
             @endempty
             <a href="{{ route('bansos.index') }}" class="btn btn btn-default mt-2">Kembali</a>

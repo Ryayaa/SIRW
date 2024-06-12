@@ -98,7 +98,7 @@ class RtController extends Controller
 
         $rt = RtModel::find($id);
         $activeMenu = 'rw';
-        $wargas = WargaModel::whereNotIn('roles', ['rt','rw'])
+        $wargas = WargaModel::whereNotIn('roles', ['rt','rw', 'warga sementara'])
             ->with('keluarga.rt')
             ->get();
 

@@ -38,7 +38,13 @@
                     </tr>
                     <tr>
                         <th>Gambar</th>
-                        <td>{{ $kegiatan->gambar }}</td>
+                        <td>
+                            @if($kegiatan->gambar)
+                                <img src="{{ asset('images/'.$kegiatan->gambar) }}" alt="Gambar Kegiatan" class="img-fluid" style="max-width: 300px;">
+                            @else
+                                No image available
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <th>ID RT</th>

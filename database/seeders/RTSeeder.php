@@ -15,19 +15,19 @@ class RTSeeder extends Seeder
     {
         $data = [
             [
-                'no_rt' => 'RT-1',
+                'no_rt' => '01',
             ],
             [
-                'no_rt' => 'RT-2',
+                'no_rt' => '02',
             ],
             [
-                'no_rt' => 'RT-3',
+                'no_rt' => '03',
             ],
             [
-                'no_rt' => 'RT-4',
+                'no_rt' => '04',
             ],
             [
-                'no_rt' => 'RT-5',
+                'no_rt' => '05',
             ],
         ];
 

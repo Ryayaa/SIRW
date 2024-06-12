@@ -30,7 +30,7 @@
                                         <p class="card-text"><strong>Lokasi:</strong> {{ $kegiatan->lokasi }}</p>
                                         <p class="card-text"><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($kegiatan->tanggal)->translatedFormat('d F Y') }}</p>
                                         <p class="card-text"><strong>Waktu:</strong> {{ \Carbon\Carbon::parse($kegiatan->waktu)->format('H:i') }} - Selesai</p>
-                                        <p class="card-text"><small class="text-muted">Pembuat: {{ $kegiatan->rt->nama_lengkap }}</small></p>
+                                        <p class="card-text"><small class="text-muted">Pembuat: {{ $kegiatan->rt->ketuaRt->warga->nama_lengkap }}</small></p>
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
                                 <p class="card-text"><strong> Lokasi:</strong> {{ $kegiatan->lokasi }}</p>
                                 <p class="card-text"><strong> Tanggal:</strong> {{ \Carbon\Carbon::parse($kegiatan->tanggal)->translatedFormat('d F Y') }}</p>
                                 <p class="card-text"><strong> Waktu:</strong> {{ \Carbon\Carbon::parse($kegiatan->waktu)->format('H:i') }} - Selesai</p>
-                                <p class="card-text"><small class="text-muted"> Pembuat: {{ $kegiatan->rt->nama_lengkap }}</small></p>
+                                <p class="card-text"><small class="text-muted"> Pembuat: {{ $kegiatan->rt->ketuaRt->warga->nama_lengkap }}</small></p>
                             </div>
                         </div>
                     </div>

@@ -16,29 +16,32 @@
         @else
             <table class="table table-bordered">
                 <tr>
-                    <th>ID Laporan</th>
-                    <td>{{ $laporan->id_laporan_masalah }}</td>
-                </tr>
-                <tr>
                     <th>Nama Laporan</th>
                     <td>{{ $laporan->judul_laporan }}</td>
                 </tr>
                 <tr>
                     <th>Deskripsi</th>
                     <td>{{ $laporan->deskripsi }}</td>
-                </tr>
-                <tr>
-                    <th>Lokasi</th>
-                    <td>{{ $laporan->lokasi }}</td>
-                </tr>
-                <tr>
+                    </tr>
+
                     <th>Tanggal</th>
-                    <td>{{ $laporan->tanggal }}</td>
-                </tr>
+                    <td>{{ $laporan->tanggal_laporan }}</td>
+                    </tr>
                 <tr>
-                    <th>Waktu</th>
-                    <td>{{ $laporan->waktu }}</td>
-                </tr>
+                    <th>Gambar</th>
+                    <td>
+
+                        @if ($laporan->gambar)
+                            <a href="{{ asset('images/' . $laporan->gambar) }}" data-toggle="lightbox" data-title="Laporan"
+                                data-gallery="gallery">
+                                <img src="{{ asset('images/' . $laporan->gambar) }}" alt="Laporan" class=""
+                                    width="500">
+                            </a>
+                        @else
+                            <span class="text-danger">Gambar tidak tersedia</span>
+                        @endif
+                    </td>
+                    </tr>
             </table>
 
             <h4 class="mt-5">Feedback</h4>

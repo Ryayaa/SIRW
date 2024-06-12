@@ -37,7 +37,7 @@ class LaporanController extends Controller
         $page = (object) [
             'title' => 'Daftar Laporan yang Terdaftar pada Sistem',
         ];
-        $activeMenu = 'laporan';
+        $activeMenu = 'laporan-acc';
 
         return view('laporan.listacc', [
             'breadcrumb' => $breadcrumb,
@@ -54,7 +54,7 @@ class LaporanController extends Controller
         $page = (object) [
             'title' => 'Daftar Laporan yang Terdaftar pada Sistem',
         ];
-        $activeMenu = 'laporan';
+        $activeMenu = 'laporan-reject';
 
         return view('laporan.listreject', [
             'breadcrumb' => $breadcrumb,
@@ -71,7 +71,7 @@ class LaporanController extends Controller
         $page = (object) [
             'title' => 'Daftar Laporan yang Terdaftar pada Sistem',
         ];
-        $activeMenu = 'laporan';
+        $activeMenu = 'laporan-done';
 
         return view('laporan.listselesai', [
             'breadcrumb' => $breadcrumb,
@@ -223,7 +223,7 @@ public function reject($id)
             'title' => 'Detail Masalah'
         ];
 
-        $activeMenu = 'laporan';
+        $activeMenu = 'laporan-acc';
 
         return view('laporan.feedback', [
             'breadcrumb' => $breadcrumb,
@@ -245,7 +245,7 @@ public function reject($id)
             'title' => 'Detail Masalah'
         ];
 
-        $activeMenu = 'laporan';
+        $activeMenu = 'laporan-done';
 
         return view('laporan.showSelesai', [
             'breadcrumb' => $breadcrumb,
