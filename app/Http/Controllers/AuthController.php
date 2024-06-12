@@ -76,7 +76,7 @@ class AuthController extends Controller
     {
         $request->session()->flush();
         Auth::logout();
-        return redirect()->route('login');
+        return redirect()->route('LandingPage');
     }
 
     public function showProfile()
@@ -130,7 +130,7 @@ class AuthController extends Controller
             'password' => 'Password tidak sesuai.',
         ]);
     }
-    
+
 
     $user->username = $request->username;
     $user->save();
