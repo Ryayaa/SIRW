@@ -40,7 +40,7 @@ class KeluargaSeeder extends Seeder
                 'bukti_kk' => '1234567891012131.jpg',
             ],
             [
-                'nomor_kk' => '35730505000005',
+                'nomor_kk' => '357305050005005',
                 'alamat' => 'Jl. Remujung No. 1 Kelurahan Jatimulyo Kecamatan Lowokwaru',
                 'id_rt' => 2,
                 'bukti_kk' => '1234567891012131.jpg',
