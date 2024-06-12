@@ -121,13 +121,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/penerima/list-reject') }}" class="nav-link {{ $activeMenu == 'laporan-reject' ? 'active' : '' }}">
+                        <a href="{{ url('/laporan/list-reject') }}" class="nav-link {{ $activeMenu == 'laporan-reject' ? 'active' : '' }}">
                             <i class="nav-icon fas fa-solid fa-clipboard"></i>
                             <p>Laporan Ditolak</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/penerima/list-done') }}" class="nav-link {{ $activeMenu == 'laporan-done' ? 'active' : '' }}">
+                        <a href="{{ url('/laporan/list-done') }}" class="nav-link {{ $activeMenu == 'laporan-done' ? 'active' : '' }}">
                             <i class="nav-icon far fa-solid fa-clipboard"></i>
                             <p>Laporan Selesai</p>
                         </a>
